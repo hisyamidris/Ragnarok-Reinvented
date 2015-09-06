@@ -1,0 +1,12 @@
+sql.db_username: root
+sql.db_password: nnakwilqoye!9
+sql.db_database: main
+char_server_id: root
+char_server_pw: nnakwilqoye!9
+char_server_db: main
+map_server_id: root
+map_server_pw: nnakwilqoye!9
+map_server_db: main
+log_db_id: root
+log_db_pw: nnakwilqoye!9
+log_db_db: logs

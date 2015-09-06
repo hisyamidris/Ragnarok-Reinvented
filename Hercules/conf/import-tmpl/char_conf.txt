@@ -1,0 +1,6 @@
+// Server Communication username and password.
+userid: NGY5NDYzOGM3ZjN
+passwd: NmY5YzY0MzJlMGM
+login_ip: 127.0.0.1
+char_ip: 104.156.231.10
+server_name: ReinventedRO

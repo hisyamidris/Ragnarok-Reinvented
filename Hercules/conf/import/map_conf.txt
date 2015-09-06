@@ -1,0 +1,5 @@
+// Server Communication username and password.
+userid: NGY5NDYzOGM3ZjN
+passwd: NmY5YzY0MzJlMGM
+char_ip: 127.0.0.1
+map_ip: 104.156.231.10
