@@ -27,10 +27,13 @@ uname -v = #1 SMP Thu Aug 13 22:55:16 UTC 2015
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /sbin
+PATH: /usr/local/sbin
 PATH: /usr/sbin
-PATH: /bin
+PATH: /sbin
+PATH: /usr/local/bin
 PATH: /usr/bin
+PATH: /bin
+PATH: /root/bin
 
 
 ## ----------- ##
@@ -848,7 +851,7 @@ configure:7237: checking for MinGW
 configure:7248: result: no
 configure:7261: checking for library containing inflateEnd
 configure:7292: gcc -o conftest -g -O2 -pipe -ffast-math -fvisibility=hidden -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wempty-body -Wformat-security -Wno-format-nonliteral -Wno-switch -Wno-missing-field-initializers -fno-strict-aliasing -ggdb  -DMAXCONN=16384 -I../common -DHAS_TLS -DHAVE_SETRLIMIT -DHAVE_STRNLEN -DDEBUG -I/usr/include  -rdynamic -L/usr/lib conftest.c  -ldl >&5
-/tmp/ccIJOoNx.o: In function `main':
+/tmp/cckNqRpv.o: In function `main':
 /root/Desktop/Hercules/conftest.c:39: undefined reference to `inflateEnd'
 collect2: ld returned 1 exit status
 configure:7292: $? = 1
@@ -911,7 +914,7 @@ configure:7319: result: yes
 configure:7332: checking for library containing sqrt
 configure:7363: gcc -o conftest -g -O2 -pipe -ffast-math -fvisibility=hidden -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wempty-body -Wformat-security -Wno-format-nonliteral -Wno-switch -Wno-missing-field-initializers -fno-strict-aliasing -ggdb  -DMAXCONN=16384 -I../common -DHAS_TLS -DHAVE_SETRLIMIT -DHAVE_STRNLEN -DDEBUG -I/usr/include  -rdynamic -L/usr/lib conftest.c -lz  -ldl >&5
 conftest.c:35: warning: conflicting types for built-in function 'sqrt'
-/tmp/ccSUuYzG.o: In function `main':
+/tmp/cciqRa8G.o: In function `main':
 /root/Desktop/Hercules/conftest.c:39: undefined reference to `sqrt'
 collect2: ld returned 1 exit status
 configure:7363: $? = 1
@@ -964,7 +967,7 @@ configure:7363: $? = 0
 configure:7380: result: -lm
 configure:7395: checking for library containing clock_gettime
 configure:7426: gcc -o conftest -g -O2 -pipe -ffast-math -fvisibility=hidden -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wempty-body -Wformat-security -Wno-format-nonliteral -Wno-switch -Wno-missing-field-initializers -fno-strict-aliasing -ggdb  -DMAXCONN=16384 -I../common -DHAS_TLS -DHAVE_SETRLIMIT -DHAVE_STRNLEN -DDEBUG -I/usr/include  -rdynamic -L/usr/lib conftest.c -lm -lz  -ldl >&5
-/tmp/ccLjhc6O.o: In function `main':
+/tmp/ccd8oVZJ.o: In function `main':
 /root/Desktop/Hercules/conftest.c:39: undefined reference to `clock_gettime'
 collect2: ld returned 1 exit status
 configure:7426: $? = 1
