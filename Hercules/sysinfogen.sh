@@ -2,7 +2,7 @@
 
 # Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 # See the LICENSE file
-# Base Author: Haru @ http://herc.ws
+# Base Author: Haru @ http://hercules.ws
 
 do_fail() {
 	echo 'Error writing output file'

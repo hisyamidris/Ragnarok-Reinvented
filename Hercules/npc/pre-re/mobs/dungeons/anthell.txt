@@ -107,6 +107,12 @@ anthell01,103,121,0,0	monster	Ant Egg	1097,1,60000,30000,0
 anthell01,102,121,0,0	monster	Ant Egg	1097,1,60000,30000,0
 anthell01,105,124,0,0	monster	Ant Egg	1097,1,60000,30000,0
 
+anthell01,0,0,0,0	monster	Paragon Familiar	3005,2,0,0,0,2
+anthell01,0,0,0,0	monster	Paragon Andre	3095,1,0,0,0,2
+anthell01,0,0,0,0	monster	Paragon Piere	3160,5,0,0,0,2
+anthell01,0,0,0,0	monster	Paragon Deniro	3105,4,0,0,0,2
+anthell01,0,0,0,0	monster	Paragon Vitata	3176,1,0,0,0,2
+
 //==================================================
 // anthell02 - Ant Hell F2
 //==================================================
@@ -118,3 +124,9 @@ anthell02,0,0,0,0	monster	Deniro	1105,15,0,0,0
 anthell02,0,0,0,0	monster	Vitata	1176,30,0,0,0
 anthell02,0,0,0,0	monster	Giearth	1121,3,0,0,0
 anthell02,0,0,0,0	boss_monster	Maya	1147,1,7200000,600000,1
+
+anthell02,0,0,0,0	monster	Paragon Familiar	3005,2,0,0,0,2
+anthell02,0,0,0,0	monster	Paragon Andre	3095,5,0,0,0,2
+anthell02,0,0,0,0	monster	Paragon Piere	3160,1,0,0,0,2
+anthell02,0,0,0,0	monster	Paragon Deniro	3105,1,0,0,0,2
+anthell02,0,0,0,0	monster	Paragon Vitata	3176,3,0,0,0,2

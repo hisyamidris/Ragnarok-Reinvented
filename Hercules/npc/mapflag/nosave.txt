@@ -27,6 +27,7 @@ job_cru	mapflag	nosave	SavePoint
 job_duncer	mapflag	nosave	SavePoint
 job_monk	mapflag	nosave	SavePoint
 monk_test	mapflag	nosave	SavePoint
+monk_in	mapflag	nosave	SavePoint
 in_rogue	mapflag	nosave	SavePoint
 job_sage	mapflag	nosave	SavePoint
 // Ext
@@ -327,3 +328,13 @@ que_lhz	mapflag	nosave	SavePoint
 // Poring War ====================
 poring_w01	mapflag	nosave	SavePoint
 poring_w02	mapflag	nosave	SavePoint
+
+//Ragnarok Immersion Arena
+arena	mapflag	nosave	SavePoint
+arena90	mapflag	nosave	SavePoint
+arena80	mapflag	nosave	SavePoint
+arena70	mapflag	nosave	SavePoint
+arena60	mapflag	nosave	SavePoint
+arena50	mapflag	nosave	SavePoint
+arena40	mapflag	nosave	SavePoint
+arena30	mapflag	nosave	SavePoint

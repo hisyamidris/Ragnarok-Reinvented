@@ -4,10 +4,12 @@
 #ifndef CHAR_INT_STORAGE_H
 #define CHAR_INT_STORAGE_H
 
-#include "common/hercules.h"
-
 struct storage_data;
 struct guild_storage;
+
+#ifdef HERCULES_CORE
+void inter_storage_defaults(void);
+#endif // HERCULES_CORE
 
 /**
  * inter_storage interface
@@ -24,10 +26,6 @@ struct inter_storage_interface {
 	int (*parse_frommap) (int fd);
 };
 
-#ifdef HERCULES_CORE
-void inter_storage_defaults(void);
-#endif // HERCULES_CORE
-
-HPShared struct inter_storage_interface *inter_storage;
+struct inter_storage_interface *inter_storage;
 
 #endif /* CHAR_INT_STORAGE_H */

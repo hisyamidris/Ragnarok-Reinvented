@@ -4,9 +4,7 @@
 #ifndef CHAR_INT_PARTY_H
 #define CHAR_INT_PARTY_H
 
-#include "common/hercules.h"
-#include "common/db.h"
-#include "common/mmo.h"
+#include "../common/mmo.h"
 
 //Party Flags on what to save/delete.
 enum {
@@ -24,6 +22,10 @@ struct party_data {
 	int family; //Is this party a family? if so, this holds the child id.
 	unsigned char size; //Total size of party.
 };
+
+#ifdef HERCULES_CORE
+void inter_party_defaults(void);
+#endif // HERCULES_CORE
 
 /**
  * inter_party interface
@@ -46,10 +48,6 @@ struct inter_party_interface {
 	int (*CharOffline) (int char_id, int party_id);
 };
 
-#ifdef HERCULES_CORE
-void inter_party_defaults(void);
-#endif // HERCULES_CORE
-
-HPShared struct inter_party_interface *inter_party;
+struct inter_party_interface *inter_party;
 
 #endif /* CHAR_INT_PARTY_H */

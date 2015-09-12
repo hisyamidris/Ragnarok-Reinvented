@@ -97,3 +97,13 @@ pvp_2vs2	mapflag	pvp
 turbo_e_4	mapflag	pvp
 turbo_e_8	mapflag	pvp
 turbo_e_16	mapflag	pvp
+
+//Ragnarok Immersion Arena
+arena	mapflag	pvp
+arena90	mapflag	pvp
+arena80	mapflag	pvp
+arena70	mapflag	pvp
+arena60	mapflag	pvp
+arena50	mapflag	pvp
+arena40	mapflag	pvp
+arena30	mapflag	pvp

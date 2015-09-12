@@ -146,17 +146,13 @@ clean buildclean: $(MF_TARGETS)
 distclean: clean
 	@-rm -f $(MF_TARGETS) config.status config.log
 
-sysinfo: config.status
-	@./sysinfogen.sh src/common/sysinfo_new.inc -g -O2 -pipe -ffast-math -fvisibility=hidden -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wempty-body -Wformat-security -Wno-format-nonliteral -Wno-switch -Wno-missing-field-initializers -fno-strict-aliasing -ggdb -DHAVE_EXECINFO  -DMAXCONN=16384 -I../common -DHAS_TLS -DHAVE_SETRLIMIT -DHAVE_STRNLEN -DDEBUG -I/usr/include -DHAVE_MONOTONIC_CLOCK
+sysinfo:
+	@./sysinfogen.sh src/common/sysinfo_new.inc -g -O2 -pipe -ffast-math -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wempty-body -Wformat-security -Wno-format-nonliteral -Wno-switch -Wno-missing-field-initializers -fPIC -fno-strict-aliasing -ggdb  -DMAXCONN=16384 -I../common -DHAS_TLS -DHAVE_SETRLIMIT -DHAVE_STRNLEN -DDEBUG -I/usr/include -DHAVE_MONOTONIC_CLOCK
 	@if cmp -s src/common/sysinfo.inc src/common/sysinfo_new.inc; then \
 		rm src/common/sysinfo_new.inc ; \
 	else \
 		mv src/common/sysinfo_new.inc src/common/sysinfo.inc ; \
 	fi
-
-config.status: configure
-	@echo "	RECONFIGURE"
-	@./config.status --recheck
 
 help: Makefile
 	@echo "most common targets are 'all' 'sql' 'clean' 'plugins' 'help'"

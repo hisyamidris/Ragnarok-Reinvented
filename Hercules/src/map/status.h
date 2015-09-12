@@ -5,9 +5,10 @@
 #ifndef MAP_STATUS_H
 #define MAP_STATUS_H
 
-#include "common/conf.h"
-#include "common/hercules.h"
-#include "common/mmo.h" // NEW_CARTS
+#include "../config/core.h" // defType, RENEWAL, RENEWAL_ASPD
+
+#include "../common/cbasetypes.h"
+#include "../common/mmo.h" // NEW_CARTS
 
 struct block_list;
 struct elemental_data;
@@ -526,7 +527,7 @@ typedef enum sc_type {
 	SC_BEYOND_OF_WARCRY,
 	SC_UNLIMITED_HUMMING_VOICE, // 410
 	SC_SITDOWN_FORCE,
-	SC_NETHERWORLD,
+	//SC_NETHERWORLD,
 	/**
 	 * Sura
 	 **/
@@ -743,6 +744,12 @@ typedef enum sc_type {
 	SC_MTF_PUMPKIN,
 	SC_MTF_HITFLEE,
 
+	SC_MOMENTUM,
+	SC_WEAKENED_SOUL,
+	SC_SPLASHER_POST,
+
+	SC_MOB_REFRESH = 900,
+
 	SC_MAX, //Automatically updated max, used in for's to check we are within bounds.
 } sc_type;
 
@@ -820,22 +827,22 @@ enum si_type {
 	//SI_SPECIALZONE                         = 66,
 	//SI_MASK                                = 67,
 	SI_SPEARQUICKEN                          = 68,
-	//SI_BDPLAYING                           = 69,
-	//SI_WHISTLE                             = 70,
-	//SI_ASSASSINCROSS                       = 71,
-	//SI_POEMBRAGI                           = 72,
-	//SI_APPLEIDUN                           = 73,
-	//SI_HUMMING                             = 74,
-	//SI_DONTFORGETME                        = 75,
-	//SI_FORTUNEKISS                         = 76,
-	//SI_SERVICEFORYOU                       = 77,
-	//SI_RICHMANKIM                          = 78,
-	//SI_ETERNALCHAOS                        = 79,
-	//SI_DRUMBATTLEFIELD                     = 80,
-	//SI_RINGNIBELUNGEN                      = 81,
-	//SI_ROKISWEIL                           = 82,
-	//SI_INTOABYSS                           = 83,
-	//SI_SIEGFRIED                           = 84,
+	SI_BDPLAYING                           = 69,
+	SI_WHISTLE                             = 70,
+	SI_ASSASSINCROSS                       = 71,
+	SI_POEMBRAGI                           = 72,
+	SI_APPLEIDUN                           = 73,
+	SI_HUMMING                             = 74,
+	SI_DONTFORGETME                        = 75,
+	SI_FORTUNEKISS                         = 76,
+	SI_SERVICEFORYOU                       = 77,
+	SI_RICHMANKIM                          = 78,
+	SI_ETERNALCHAOS                        = 79,
+	SI_DRUMBATTLEFIELD                     = 80,
+	SI_RINGNIBELUNGEN                      = 81,
+	SI_ROKISWEIL                           = 82,
+	SI_INTOABYSS                           = 83,
+	SI_SIEGFRIED                           = 84,
 	//SI_BLADESTOP                           = 85,
 	SI_EXPLOSIONSPIRITS                      = 86,
 	SI_STEELBODY                             = 87,
@@ -1565,7 +1572,19 @@ enum si_type {
 	//SI_MTF_RANGEATK2                         = 818,
 	//SI_MTF_ASPD2                             = 819,
 	//SI_MTF_MATK2                             = 820,
-
+	SI_STONE                   = 878,
+	SI_FREEZE                   = 879,
+	SI_STUN                   = 880,
+	SI_SLEEP                   = 881,
+	SI_POISON                   = 882,
+	SI_CURSE                   = 883,
+	SI_SILENCE                   = 884,
+	SI_CONFUSION                   = 885,
+	SI_BLIND                   = 886,
+	SI_CHANGEUNDEAD                   = 887,
+	SI_DPOISON                   = 888,
+	SI_MOMENTUM                   = 889,
+	SI_WEAKENED_SOUL                   = 890,
 	SI_MAX,
 };
 // JOINTBEAT stackable ailments
@@ -1652,6 +1671,49 @@ enum {
 	OPT3_SOULLINK         = 0x00008000,
 	OPT3_UNDEAD           = 0x00010000,
 	OPT3_CONTRACT         = 0x00020000,
+};
+
+enum {
+	OPTION_NOTHING      = 0x00000000,
+	OPTION_SIGHT        = 0x00000001,
+	OPTION_HIDE         = 0x00000002,
+	OPTION_CLOAK        = 0x00000004,
+	OPTION_FALCON       = 0x00000010,
+	OPTION_RIDING       = 0x00000020,
+	OPTION_INVISIBLE    = 0x00000040,
+	OPTION_ORCISH       = 0x00000800,
+	OPTION_WEDDING      = 0x00001000,
+	OPTION_RUWACH       = 0x00002000,
+	OPTION_CHASEWALK    = 0x00004000,
+	OPTION_FLYING       = 0x00008000, //Note that clientside Flying and Xmas are 0x8000 for clients prior to 2007.
+	OPTION_XMAS         = 0x00010000,
+	OPTION_TRANSFORM    = 0x00020000,
+	OPTION_SUMMER       = 0x00040000,
+	OPTION_DRAGON1      = 0x00080000,
+	OPTION_WUG          = 0x00100000,
+	OPTION_WUGRIDER     = 0x00200000,
+	OPTION_MADOGEAR     = 0x00400000,
+	OPTION_DRAGON2      = 0x00800000,
+	OPTION_DRAGON3      = 0x01000000,
+	OPTION_DRAGON4      = 0x02000000,
+	OPTION_DRAGON5      = 0x04000000,
+	OPTION_HANBOK       = 0x08000000,
+	OPTION_OKTOBERFEST  = 0x10000000,
+
+#ifndef NEW_CARTS
+	OPTION_CART1     = 0x00000008,
+	OPTION_CART2     = 0x00000080,
+	OPTION_CART3     = 0x00000100,
+	OPTION_CART4     = 0x00000200,
+	OPTION_CART5     = 0x00000400,
+
+	/*  compound constant for older carts */
+	OPTION_CART      = OPTION_CART1|OPTION_CART2|OPTION_CART3|OPTION_CART4|OPTION_CART5,
+#endif
+
+	// compound constants
+	OPTION_DRAGON    = OPTION_DRAGON1|OPTION_DRAGON2|OPTION_DRAGON3|OPTION_DRAGON4|OPTION_DRAGON5,
+	OPTION_COSTUME   = OPTION_WEDDING|OPTION_XMAS|OPTION_SUMMER|OPTION_HANBOK|OPTION_OKTOBERFEST,
 };
 
 //Defines for the manner system [Skotlex]
@@ -1824,7 +1886,6 @@ struct sc_display_entry {
 struct status_change_entry {
 	int timer;
 	int val1,val2,val3,val4;
-	bool infinite_duration;
 };
 
 struct status_change {
@@ -1926,11 +1987,22 @@ struct s_refine_info {
 	int randombonus_max[MAX_REFINE]; // cumulative maximum random bonus damage
 };
 
-struct s_status_dbs {
-BEGIN_ZEROED_BLOCK; /* Everything within this block will be memset to 0 when status_defaults() is executed */
+/*=====================================
+* Interface : status.h
+* Generated by HerculesInterfaceMaker
+* created by Susu
+*-------------------------------------*/
+struct status_interface {
+
+	/* vars */
+	int current_equip_item_index;
+	int current_equip_card_id;
+	/* */
 	int max_weight_base[CLASS_COUNT];
-	int HP_table[CLASS_COUNT][MAX_LEVEL + 1];
-	int SP_table[CLASS_COUNT][MAX_LEVEL + 1];
+	int hp_coefficient[CLASS_COUNT];
+	int hp_coefficient2[CLASS_COUNT];
+	int hp_sigma_val[CLASS_COUNT][MAX_LEVEL+1];
+	int sp_coefficient[CLASS_COUNT];
 	int aspd_base[CLASS_COUNT][MAX_WEAPON_TYPE+1]; // +1 for RENEWAL_ASPD
 	sc_type Skill2SCTable[MAX_SKILL];  // skill  -> status
 	int IconChangeTable[SC_MAX];          // status -> "icon" (icon is a bit of a misnomer, since there exist values with no icon associated)
@@ -1944,22 +2016,6 @@ BEGIN_ZEROED_BLOCK; /* Everything within this block will be memset to 0 when sta
 	int atkmods[3][MAX_WEAPON_TYPE];//ATK weapon modification for size (size_fix.txt)
 	char job_bonus[CLASS_COUNT][MAX_LEVEL];
 	sc_conf_type sc_conf[SC_MAX];
-END_ZEROED_BLOCK; /* End */
-};
-
-/*=====================================
-* Interface : status.h
-* Generated by HerculesInterfaceMaker
-* created by Susu
-*-------------------------------------*/
-struct status_interface {
-
-	/* vars */
-	int current_equip_item_index;
-	int current_equip_card_id;
-
-	struct s_status_dbs *dbs;
-
 	struct eri *data_ers; //For sc_data entries
 	struct status_data dummy;
 	int64 natural_heal_prev_tick;
@@ -2017,7 +2073,6 @@ struct status_interface {
 	int (*calc_mob_) (struct mob_data* md, enum e_status_calc_opt opt);
 	int (*calc_pet_) (struct pet_data* pd, enum e_status_calc_opt opt);
 	int (*calc_pc_) (struct map_session_data* sd, enum e_status_calc_opt opt);
-	void (*calc_pc_additional) (struct map_session_data* sd, enum e_status_calc_opt opt);
 	int (*calc_homunculus_) (struct homun_data *hd, enum e_status_calc_opt opt);
 	int (*calc_mercenary_) (struct mercenary_data *md, enum e_status_calc_opt opt);
 	int (*calc_elemental_) (struct elemental_data *ed, enum e_status_calc_opt opt);
@@ -2044,8 +2099,9 @@ struct status_interface {
 	void (*initDummyData) (void);
 	int (*base_amotion_pc) (struct map_session_data *sd, struct status_data *st);
 	unsigned short (*base_atk) (const struct block_list *bl, const struct status_data *st);
-	unsigned int (*get_base_maxhp) (struct map_session_data *sd, struct status_data *st);
-	unsigned int (*get_base_maxsp) (struct map_session_data *sd, struct status_data *st);
+	void (*calc_sigma) (void);
+	unsigned int (*base_pc_maxhp) (struct map_session_data *sd, struct status_data *st);
+	unsigned int (*base_pc_maxsp) (struct map_session_data *sd, struct status_data *st);
 	int (*calc_npc_) (struct npc_data *nd, enum e_status_calc_opt opt);
 	unsigned short (*calc_str) (struct block_list *bl, struct status_change *sc, int str);
 	unsigned short (*calc_agi) (struct block_list *bl, struct status_change *sc, int agi);
@@ -2075,18 +2131,17 @@ struct status_interface {
 	void (*display_remove) (struct map_session_data *sd, enum sc_type type);
 	int (*natural_heal) (struct block_list *bl, va_list args);
 	int (*natural_heal_timer) (int tid, int64 tick, int id, intptr_t data);
+	bool (*readdb_job1) (char *fields[], int columns, int current);
 	bool (*readdb_job2) (char *fields[], int columns, int current);
 	bool (*readdb_sizefix) (char *fields[], int columns, int current);
 	bool (*readdb_refine) (char *fields[], int columns, int current);
 	bool (*readdb_scconfig) (char *fields[], int columns, int current);
-	void (*read_job_db) (void);
-	void (*read_job_db_sub) (int idx, const char *name, config_setting_t *jdb);
 };
+
+struct status_interface *status;
 
 #ifdef HERCULES_CORE
 void status_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct status_interface *status;
 
 #endif /* MAP_STATUS_H */

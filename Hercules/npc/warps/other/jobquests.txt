@@ -32,7 +32,7 @@ new_2-1,148,112,0	warp	newwarp6001b	2,2,new_2-2,100,9
 new_3-1,148,112,0	warp	newwarp6001c	2,2,new_3-2,100,9
 new_4-1,148,112,0	warp	newwarp6001d	2,2,new_4-2,100,9
 new_5-1,148,112,0	warp	newwarp6001e	2,2,new_5-2,100,9
-new_1-2,100,6,0	warp	newwarp6002a	2,2,new_1-1,144,112
+//new_1-2,100,6,0	warp	newwarp6002a	2,2,new_1-1,144,112
 new_2-2,100,6,0	warp	newwarp6002b	2,2,new_2-1,144,112
 new_3-2,100,6,0	warp	newwarp6002c	2,2,new_3-1,144,112
 new_4-2,100,6,0	warp	newwarp6002d	2,2,new_4-1,144,112

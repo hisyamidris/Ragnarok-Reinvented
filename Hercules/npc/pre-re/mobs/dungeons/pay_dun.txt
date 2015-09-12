@@ -20,6 +20,11 @@ pay_dun00,0,0,0,0	monster	Poporing	1031,15,0,0,0
 pay_dun00,0,0,0,0	monster	Red Plant	1078,15,180000,90000,1
 pay_dun00,140,140,5,5	monster	Black Mushroom	1084,3,360000,180000,1
 
+pay_dun00,0,0,0,0	monster	Paragon Familiar	3005,1,0,0,0,2
+pay_dun00,0,0,0,0	monster	Paragon Zombie	3015,2,0,0,0,2
+pay_dun00,0,0,0,0	monster	Paragon Skeleton	3076,3,0,0,0,2
+pay_dun00,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+
 //==================================================
 // pay_dun01 - Payon Cave F2
 //==================================================
@@ -29,6 +34,10 @@ pay_dun01,0,0,0,0	monster	Soldier Skeleton	1028,50,300000,150000,1
 pay_dun01,0,0,0,0	monster	Archer Skeleton	1016,30,300000,150000,1
 pay_dun01,235,54,10,10	monster	Black Mushroom	1084,7,900000,450000,1
 pay_dun01,0,0,0,0	monster	Red Plant	1078,10,180000,90000,1
+
+pay_dun01,0,0,0,0	monster	Paragon Eggyra	3116,1,0,0,0,2
+pay_dun01,0,0,0,0	monster	Paragon Soldier Skeleton	3028,5,300000,150000,1,2
+pay_dun01,0,0,0,0	monster	Paragon Archer Skeleton	3016,3,300000,150000,1,2
 
 //==================================================
 // pay_dun02 - Payon Cave F3
@@ -80,6 +89,12 @@ pay_dun02,110,216,20,10	monster	White Plant	1082,3,180000,90000,1
 pay_dun02,132,84,10,10	monster	White Plant	1082,3,180000,90000,1
 pay_dun02,197,113,10,10	monster	Red Plant	1078,4,180000,90000,1
 pay_dun02,55,254,10,10	monster	Red Plant	1078,4,180000,90000,1
+
+pay_dun02,0,0,0,0	monster	Paragon Soldier Skeleton	3028,1,180000,90000,1,2
+pay_dun02,0,0,0,0	monster	Paragon Munak	3026,4,0,0,0,2
+pay_dun02,0,0,0,0	monster	Paragon Bongun	3188,3,0,0,0,2
+pay_dun02,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+pay_dun02,0,0,0,0	monster	Paragon Archer Skeleton	3016,2,180000,90000,1,2
 
 //==================================================
 // pay_dun03 - Payon Cave F4
@@ -140,6 +155,8 @@ pay_dun03,0,0,0,0	monster	Red Plant	1078,15,180000,90000,1
 pay_dun03,246,56,20,20	monster	White Plant	1082,3,180000,90000,1
 pay_dun03,52,262,10,4	monster	White Plant	1082,2,180000,90000,1
 
+pay_dun03,0,0,0,0	monster	Paragon Sohee	3170,5,0,0,0,2
+
 //==================================================
 // pay_dun04 - Payon Cave F5
 //==================================================
@@ -158,3 +175,9 @@ pay_dun04,0,0,0,0	monster	Red Plant	1078,10,180000,90000,1
 pay_dun04,107,206,5,5	monster	White Plant	1082,2,180000,90000,1
 pay_dun04,28,110,10,10	monster	White Plant	1082,2,180000,90000,1
 pay_dun04,190,207,5,5	monster	White Plant	1082,2,180000,90000,1
+
+pay_dun04,0,0,0,0	monster	Paragon Dokebi	3110,4,0,0,0,2
+pay_dun04,0,0,0,0	monster	Paragon Horong	3129,3,0,0,0,2
+pay_dun04,0,0,0,0	monster	Paragon Greatest General	3277,1,0,0,0,2
+pay_dun04,0,0,0,0	monster	Paragon Archer Skeleton	3016,1,0,0,0,2
+pay_dun04,0,0,0,0	monster	Paragon Nine Tail	3180,3,60000,30000,0,2

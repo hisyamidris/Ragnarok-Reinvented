@@ -42,9 +42,9 @@
 #ifndef COMMON_DB_H
 #define COMMON_DB_H
 
-#include "common/hercules.h"
-
 #include <stdarg.h>
+
+#include "../common/cbasetypes.h"
 
 /*****************************************************************************\
  *  (1) Section with public typedefs, enums, unions, structures and defines. *
@@ -71,10 +71,10 @@
  * @see #db_custom_release(DBRelease)
  */
 typedef enum DBRelease {
-	DB_RELEASE_NOTHING = 0x0,
-	DB_RELEASE_KEY     = 0x1,
-	DB_RELEASE_DATA    = 0x2,
-	DB_RELEASE_BOTH    = DB_RELEASE_KEY|DB_RELEASE_DATA,
+	DB_RELEASE_NOTHING = 0,
+	DB_RELEASE_KEY     = 1,
+	DB_RELEASE_DATA    = 2,
+	DB_RELEASE_BOTH    = 3
 } DBRelease;
 
 /**
@@ -127,13 +127,13 @@ typedef enum DBType {
  * @see #db_alloc(const char *,int,DBType,DBOptions,unsigned short)
  */
 typedef enum DBOptions {
-	DB_OPT_BASE            = 0x00,
-	DB_OPT_DUP_KEY         = 0x01,
-	DB_OPT_RELEASE_KEY     = 0x02,
-	DB_OPT_RELEASE_DATA    = 0x04,
-	DB_OPT_RELEASE_BOTH    = DB_OPT_RELEASE_KEY|DB_OPT_RELEASE_DATA,
-	DB_OPT_ALLOW_NULL_KEY  = 0x08,
-	DB_OPT_ALLOW_NULL_DATA = 0x10,
+	DB_OPT_BASE            = 0,
+	DB_OPT_DUP_KEY         = 1,
+	DB_OPT_RELEASE_KEY     = 2,
+	DB_OPT_RELEASE_DATA    = 4,
+	DB_OPT_RELEASE_BOTH    = 6,
+	DB_OPT_ALLOW_NULL_KEY  = 8,
+	DB_OPT_ALLOW_NULL_DATA = 16,
 } DBOptions;
 
 /**
@@ -916,6 +916,9 @@ void (*init) (void);
 void (*final) (void);
 };
 
+struct db_interface *DB;
+
+void db_defaults(void);
 // Link DB System - From jAthena
 struct linkdb_node {
 	struct linkdb_node *next;
@@ -934,11 +937,8 @@ void* linkdb_erase   (struct linkdb_node** head, void *key);
 void  linkdb_final   (struct linkdb_node** head);
 void  linkdb_vforeach(struct linkdb_node** head, LinkDBFunc func, va_list ap);
 void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
-
-void db_defaults(void);
 #endif // HERCULES_CORE
 
-HPShared struct db_interface *DB;
 
 
 /// Finds an entry in an array.

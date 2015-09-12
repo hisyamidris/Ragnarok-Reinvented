@@ -23,6 +23,11 @@ cmd_fild01,72,78,10,10	monster	Blue Plant	1079,2,1800000,900000,1
 cmd_fild01,194,176,20,20	monster	Blue Plant	1079,1,1800000,900000,1
 cmd_fild01,0,0,0,0	monster	Green Plant	1080,5,1800000,900000,1
 
+cmd_fild01,0,0,0,0	monster	Paragon Alligator	3271,6,0,0,0,2
+cmd_fild01,0,0,0,0	monster	Paragon Savage	3166,3,0,0,0,2
+cmd_fild01,0,0,0,0	monster	Paragon Poporing	3031,3,0,0,0,2
+cmd_fild01,0,0,0,0	monster	Paragon Poison Spore	3077,2,0,0,0,2
+
 //==================================================
 // cmd_fild02 - Kokomo Beach
 //==================================================
@@ -41,6 +46,15 @@ cmd_fild02,200,130,150,40	monster	Seal	1317,18,0,0,0
 cmd_fild02,93,82,40,80	monster	Seal	1317,2,180000,0,0
 cmd_fild02,0,0,0,0	monster	Galapago	1391,20,0,0,0
 
+cmd_fild02,0,0,0,0	monster	Paragon Aster	3266,1,0,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Crab	3073,2,0,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Alligator	3271,1,0,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Raggler	3254,30,1,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Cornutus	3067,1,60000,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Shellfish	3074,3,0,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Seal	3317,1,0,0,0,2
+cmd_fild02,0,0,0,0	monster	Paragon Galapago	3391,2,0,0,0,2
+
 //==================================================
 // cmd_fild03 - Zenhai Marsh
 //==================================================
@@ -53,6 +67,10 @@ cmd_fild03,356,232,3,3	monster	Shining Plant	1083,1,1800000,900000,1
 cmd_fild03,262,289,3,3	monster	Shining Plant	1083,1,1800000,900000,1
 cmd_fild03,145,191,3,3	monster	Shining Plant	1083,1,1800000,900000,1
 
+cmd_fild03,0,0,0,0	monster	Paragon Pest	3256,3,0,0,0,2
+cmd_fild03,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+cmd_fild03,0,0,0,0	monster	Paragon Anolian	3206,9,0,0,0,2
+
 //==================================================
 // cmd_fild04 - Kokomo Beach
 //==================================================
@@ -62,6 +80,13 @@ cmd_fild04,0,0,0,0	monster	Crab	1073,20,0,0,0
 cmd_fild04,0,0,0,0	monster	Raggler	1254,20,0,0,0
 cmd_fild04,0,0,0,0	monster	Shellfish	1074,20,0,0,0
 cmd_fild04,221,120,120,40	monster	Sea Otter	1323,20,0,0,0
+
+cmd_fild04,0,0,0,0	monster	Paragon Aster	3266,4,0,0,0,2
+cmd_fild04,0,0,0,0	monster	Paragon Alligator	3271,4,0,0,0,2
+cmd_fild04,0,0,0,0	monster	Paragon Crab	3073,2,0,0,0,2
+cmd_fild04,0,0,0,0	monster	Paragon Raggler	3254,2,0,0,0,2
+cmd_fild04,0,0,0,0	monster	Paragon Shellfish	3074,2,0,0,0,2
+cmd_fild04,0,0,0,0	monster	Paragon Sea Otter	3323,2,0,0,0,2
 
 //==================================================
 // cmd_fild05 - Border of Papuchica Forest
@@ -75,6 +100,10 @@ cmd_fild05,63,158,10,10	monster	Shining Plant	1083,1,1800000,900000,1
 cmd_fild05,318,277,10,10	monster	Yellow Plant	1081,3,1800000,900000,1
 cmd_fild05,282,49,20,20	monster	Yellow Plant	1081,3,1800000,900000,1
 cmd_fild05,0,0,0,0	monster	Green Plant	1080,5,1800000,900000,1
+
+cmd_fild05,0,0,0,0	monster	Paragon Frilldora	3119,4,0,0,0,2
+cmd_fild05,0,0,0,0	monster	Paragon Alligator	3271,2,0,0,0,2
+cmd_fild05,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
 
 //==================================================
 // cmd_fild06 - Fortress Saint Darmain (West)
@@ -112,6 +141,10 @@ cmd_fild06,0,0,0,0	monster	Harpy	1376,1,1500000,1000000,0
 cmd_fild06,293,235,5,5	monster	Yellow Plant	1081,2,1800000,900000,1
 cmd_fild06,84,375,10,10	monster	Yellow Plant	1081,3,1800000,900000,1
 
+cmd_fild06,0,0,0,0	monster	Paragon Kobold Archer	3282,2,0,0,0,2
+cmd_fild06,0,0,0,0	monster	Paragon Goblin Archer	3258,2,0,0,0,2
+cmd_fild06,0,0,0,0	monster	Paragon Drops	3113,2,0,0,0,2
+
 //==================================================
 // cmd_fild07 - Beacon Island, Pharos
 //==================================================
@@ -126,6 +159,12 @@ cmd_fild07,323,310,60,60	monster	Raggler	1254,1,60000,0,0
 cmd_fild07,0,0,0,0	monster	Drops	1113,20,0,0,0
 cmd_fild07,239,105,40,90	monster	Shellfish	1074,2,60000,0,0
 cmd_fild07,104,180,40,90	monster	Shellfish	1074,3,60000,0,0
+
+cmd_fild07,0,0,0,0	monster	Paragon Aster	3266,2,60000,0,0,2
+cmd_fild07,0,0,0,0	monster	Paragon Crab	3073,3,60000,0,0,2
+cmd_fild07,0,0,0,0	monster	Paragon Raggler	3254,1,180000,0,0,2
+cmd_fild07,0,0,0,0	monster	Paragon Drops	3113,20,0,0,0,2
+cmd_fild07,0,0,0,0	monster	Paragon Shellfish	3074,2,60000,0,0,2
 
 //==================================================
 // cmd_fild08 - Fortress Saint Darmain (East)
@@ -187,6 +226,13 @@ cmd_fild08,0,0,0,0	monster	Gryphon	1259,1,3600000,1800000,1
 cmd_fild08,60,143,10,10	monster	Yellow Plant	1081,4,1800000,900000,1
 cmd_fild08,130,201,10,10	monster	Yellow Plant	1081,4,1800000,900000,1
 
+cmd_fild08,0,0,0,0	monster	Paragon Kobold Archer	3282,2,60000,0,0,2
+cmd_fild08,0,0,0,0	monster	Paragon Goblin Archer	3258,2,0,0,0,2
+cmd_fild08,0,0,0,0	monster	Paragon Stem Worm	3215,2,0,0,0,2
+cmd_fild08,0,0,0,0	monster	Paragon Drops	3113,1,0,0,0,2
+cmd_fild08,0,0,0,0	monster	Paragon Sandman	3165,2,0,0,0,2
+cmd_fild08,0,0,0,0	monster	Paragon Side Winder	3037,2,0,0,0,2
+
 //==================================================
 // cmd_fild09 - Fortress Saint Darmain (South)
 //==================================================
@@ -196,3 +242,8 @@ cmd_fild09,0,0,0,0	monster	Anacondaq	1030,60,0,0,0
 cmd_fild09,0,0,0,0	monster	Condor	1009,20,0,0,0
 cmd_fild09,142,325,40,50	monster	Hode	1127,3,150000,0,0
 cmd_fild09,140,323,40,50	monster	Gargoyle	1253,2,150000,0,0
+
+cmd_fild09,0,0,0,0	monster	Paragon Steel Chonchon	3042,2,0,0,0,2
+cmd_fild09,0,0,0,0	monster	Paragon Drops	3113,2,0,0,0,2
+cmd_fild09,0,0,0,0	monster	Paragon Anacondaq	3030,6,0,0,0,2
+cmd_fild09,0,0,0,0	monster	Paragon Condor	3009,2,0,0,0,2

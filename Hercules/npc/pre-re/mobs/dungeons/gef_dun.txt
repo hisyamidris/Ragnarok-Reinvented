@@ -25,6 +25,10 @@ gef_dun00,0,0,0,0	monster	Red Plant	1078,10,180000,90000,1
 gef_dun00,89,111,3,3	monster	Black Mushroom	1084,3,180000,90000,1
 gef_dun00,121,109,3,3	monster	Black Mushroom	1084,3,180000,90000,1
 
+gef_dun00,0,0,0,0	monster	Paragon Hunter Fly	3035,3,60000,30000,0,2
+gef_dun00,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+gef_dun00,0,0,0,0	monster	Paragon Poison Spore	3077,2,0,0,0,2
+
 //==================================================
 // gef_dun01 - Geffen Dungeon F2
 //==================================================
@@ -42,6 +46,12 @@ gef_dun01,263,115,10,10	monster	White Plant	1082,3,180000,90000,1
 gef_dun01,48,67,10,10	monster	White Plant	1082,2,180000,90000,1
 gef_dun01,150,237,10,10	monster	White Plant	1082,2,180000,90000,1
 
+gef_dun01,0,0,0,0	monster	Paragon Drainliar	3111,2,0,0,0,2
+gef_dun01,0,0,0,0	monster	Paragon Nightmare	3061,3,0,0,0,2
+gef_dun01,0,0,0,0	monster	Paragon Zombie	3015,2,0,0,0,2
+gef_dun01,0,0,0,0	monster	Paragon Ghoul	3036,4,0,0,0,2
+gef_dun01,0,0,0,0	monster	Paragon Jakk	3130,4,300000,100000,0,2
+
 //==================================================
 // gef_dun02 - Geffenia
 //==================================================
@@ -58,6 +68,13 @@ gef_dun02,72,210,20,20	monster	White Plant	1082,3,180000,90000,1
 gef_dun02,106,151,20,7	monster	White Plant	1082,3,180000,90000,1
 gef_dun02,58,167,10,10	monster	Shining Plant	1083,1,1800000,900000,1
 gef_dun02,185,83,3,3	monster	Shining Plant	1083,1,1800000,900000,1
+
+gef_dun02,0,0,0,0	monster	Paragon Ghoul	3036,1,0,0,0,2
+gef_dun02,0,0,0,0	monster	Paragon Whisper	3179,2,0,0,0,2
+gef_dun02,0,0,0,0	monster	Paragon Hunter Fly	3035,1,0,0,0,2
+gef_dun02,0,0,0,0	monster	Paragon Marionette	3143,2,0,0,0,2
+gef_dun02,0,0,0,0	monster	Paragon Deviruchi	3109,3,0,0,0,2
+gef_dun02,0,0,0,0	monster	Paragon Nightmare	3061,4,60000,0,0,2
 
 //==================================================
 // gef_dun03 - Geffenia (Event Map)

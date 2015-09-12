@@ -4,11 +4,15 @@
 #ifndef CHAR_INT_MAIL_H
 #define CHAR_INT_MAIL_H
 
-#include "common/hercules.h"
+#include "../common/cbasetypes.h"
 
 struct item;
 struct mail_data;
 struct mail_message;
+
+#ifdef HERCULES_CORE
+void inter_mail_defaults(void);
+#endif // HERCULES_CORE
 
 /**
  * inter_mail interface
@@ -24,10 +28,6 @@ struct inter_mail_interface {
 	void (*sendmail) (int send_id, const char* send_name, int dest_id, const char* dest_name, const char* title, const char* body, int zeny, struct item *item);
 };
 
-#ifdef HERCULES_CORE
-void inter_mail_defaults(void);
-#endif // HERCULES_CORE
-
-HPShared struct inter_mail_interface *inter_mail;
+struct inter_mail_interface *inter_mail;
 
 #endif /* CHAR_INT_MAIL_H */

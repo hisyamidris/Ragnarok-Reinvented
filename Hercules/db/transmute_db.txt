@@ -1,0 +1,14 @@
+// Item Transmute Database
+//
+// Structure of Database:
+// SourceID,MakeID1,MakeAmount1,...,MakeID5,MakeAmount5
+//
+// 01. SourceID     ID of the item, that is consumed.
+// 02. MakeID       ID of the item received from transmuting.
+// 03. MakeAmount   Amount of MakeID item received.
+// ...
+//
+// NOTE: Up to MAX_TRANSMUTE_RESOURCE (typically 5) ID/Amount pairs can be specified.
+
+// Large Jellopy --> 20 Jellopy
+7126,909,20,

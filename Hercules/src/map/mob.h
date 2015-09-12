@@ -5,11 +5,11 @@
 #ifndef MAP_MOB_H
 #define MAP_MOB_H
 
-#include "map/map.h" // struct block_list
-#include "map/status.h" // struct status_data, struct status_change
-#include "map/unit.h" // struct unit_data, view_data
-#include "common/hercules.h"
-#include "common/mmo.h" // struct item
+#include "map.h" // struct status_data, struct view_data, struct mob_skill
+#include "status.h" // struct status_data, struct status_change
+#include "unit.h" // struct unit_data
+#include "../common/cbasetypes.h"
+#include "../common/mmo.h" // struct item
 
 #define MAX_RANDOMMONSTER 5
 
@@ -38,7 +38,7 @@
 #define MOB_CLONE_END MAX_MOB_DB
 
 //Used to determine default enemy type of mobs (for use in each in range calls)
-#define DEFAULT_ENEMY_TYPE(md) ((md)->special_state.ai != AI_NONE ?BL_CHAR:BL_MOB|BL_PC|BL_HOM|BL_MER)
+#define DEFAULT_ENEMY_TYPE(md) ((md)->special_state.ai?BL_CHAR:BL_MOB|BL_PC|BL_HOM|BL_MER)
 
 #define MAX_MOB_CHAT 250 //Max Skill's messages
 
@@ -79,23 +79,11 @@ enum size {
 };
 
 enum ai {
-	AI_NONE = 0, //0: Normal mob.
-	AI_ATTACK,   //1: Standard summon, attacks mobs.
-	AI_SPHERE,   //2: Alchemist Marine Sphere
-	AI_FLORA,    //3: Alchemist Summon Flora
-	AI_ZANZOU,   //4: Summon Zanzou
-
-	AI_MAX
-};
-
-/**
- * Acceptable values for map_session_data.state.noks
- */
-enum ksprotection_mode {
-	KSPROTECT_NONE  = 0,
-	KSPROTECT_SELF  = 1,
-	KSPROTECT_PARTY = 2,
-	KSPROTECT_GUILD = 3,
+	AI_NONE = 0,
+	AI_ATTACK,
+	AI_SPHERE,
+	AI_FLORA,
+	AI_ZANZOU,
 };
 
 struct mob_skill {
@@ -153,8 +141,13 @@ struct mob_data {
 	struct mob_db *db; //For quick data access (saves doing mob_db(md->class_) all the time) [Skotlex]
 	char name[NAME_LENGTH];
 	struct {
-		unsigned int size : 2; //Small/Big monsters. @see enum size
-		unsigned int ai : 4; //Special AI for summoned monsters. @see enum ai
+		unsigned int size : 2; //Small/Big monsters.
+		unsigned int ai : 4; //Special AI for summoned monsters.
+							//0: Normal mob.
+							//1: Standard summon, attacks mobs.
+							//2: Alchemist Marine Sphere
+							//3: Alchemist Summon Flora
+							//4: Summon Zanzou
 		unsigned int clone : 1;/* is clone? 1:0 */
 	} special_state; //Special mob information that does not needs to be zero'ed on mob respawn.
 	struct {
@@ -272,8 +265,8 @@ struct item_drop_list {
 #define mob_stop_walking(md, type) (unit->stop_walking(&(md)->bl, (type)))
 #define mob_stop_attack(md)        (unit->stop_attack(&(md)->bl))
 
-#define mob_is_battleground(md) (map->list[(md)->bl.m].flag.battleground && ((md)->class_ == MOBID_BARRICADE2 || ((md)->class_ >= MOBID_FOOD_STOR && (md)->class_ <= MOBID_PINK_CRYST)))
-#define mob_is_gvg(md) (map->list[(md)->bl.m].flag.gvg_castle && ( (md)->class_ == MOBID_EMPERIUM || (md)->class_ == MOBID_BARRICADE1 || (md)->class_ == MOBID_GUARIDAN_STONE1 || (md)->class_ == MOBID_GUARIDAN_STONE2))
+#define mob_is_battleground(md) ( map->list[(md)->bl.m].flag.battleground && ((md)->class_ == MOBID_BARRICADE2 || ((md)->class_ >= MOBID_FOOD_STOR && (md)->class_ <= MOBID_PINK_CRYST)) )
+#define mob_is_gvg(md) (map->list[(md)->bl.m].flag.gvg_castle && ( (md)->class_ == MOBID_EMPERIUM || (md)->class_ == MOBID_BARRICADE1 || (md)->class_ == MOBID_GUARIDAN_STONE1 || (md)->class_ == MOBID_GUARIDAN_STONE2) )
 #define mob_is_treasure(md) (((md)->class_ >= MOBID_TREAS01 && (md)->class_ <= MOBID_TREAS40) || ((md)->class_ >= MOBID_TREAS41 && (md)->class_ <= MOBID_TREAS49))
 
 struct mob_interface {
@@ -387,10 +380,10 @@ struct mob_interface {
 	void (*destroy_mob_db) (int index);
 };
 
+struct mob_interface *mob;
+
 #ifdef HERCULES_CORE
 void mob_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct mob_interface *mob;
 
 #endif /* MAP_MOB_H */

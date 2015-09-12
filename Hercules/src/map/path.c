@@ -4,21 +4,21 @@
 
 #define HERCULES_CORE
 
-#include "config/core.h" // CELL_NOSTACK, CIRCULAR_AREA
+#include "../config/core.h" // CELL_NOSTACK, CIRCULAR_AREA
 #include "path.h"
 
-#include "map/map.h"
-#include "common/cbasetypes.h"
-#include "common/db.h"
-#include "common/malloc.h"
-#include "common/nullpo.h"
-#include "common/random.h"
-#include "common/showmsg.h"
-
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+
+#include "map.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/malloc.h"
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
 
 #define SET_OPEN 0
 #define SET_CLOSED 1
@@ -29,7 +29,6 @@
 #define DIR_EAST 8
 
 struct path_interface path_s;
-struct path_interface *path;
 
 /// @name Structures and defines for A* pathfinding
 /// @{

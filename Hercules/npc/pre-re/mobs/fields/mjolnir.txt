@@ -22,6 +22,12 @@ mjolnir_01,75,85,25,25	monster	Green Plant	1080,5,180000,90000,1
 mjolnir_01,78,219,25,25	monster	Green Plant	1080,5,180000,90000,1
 mjolnir_01,311,271,25,25	monster	Blue Plant	1079,5,360000,180000,1
 
+mjolnir_01,0,0,0,0	monster	Paragon Horn	3128,2,0,0,0,2
+mjolnir_01,0,0,0,0	monster	Paragon Creamy	3018,2,0,0,0,2
+mjolnir_01,0,0,0,0	monster	Paragon Coco	3104,7,0,0,0,2
+mjolnir_01,0,0,0,0	monster	Paragon Stainer	3174,2,0,0,0,2
+mjolnir_01,0,0,0,0	monster	Paragon Caramel	3103,4,0,0,0,2
+
 //==================================================
 // mjolnir_02 - Mt.Mjolnir
 //==================================================
@@ -65,6 +71,12 @@ mjolnir_02,273,240,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_02,289,276,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_02,188,192,10,10	monster	Blue Plant	1079,2,360000,180000,1
 
+mjolnir_02,0,0,0,0	monster	Paragon Hornet	3004,3,0,0,0,2
+mjolnir_02,0,0,0,0	monster	Paragon Creamy	3018,2,0,0,0,2
+mjolnir_02,0,0,0,0	monster	Paragon Petite	3155,5,0,0,0,2
+mjolnir_02,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+mjolnir_02,0,0,0,0	monster	Paragon Flora	3118,3,0,0,0,2
+
 //==================================================
 // mjolnir_03 - Mt.Mjolnir
 //==================================================
@@ -89,6 +101,13 @@ mjolnir_03,128,319,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_03,77,271,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_03,66,219,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_03,91,161,0,0	monster	Green Plant	1080,1,180000,90000,1
+
+mjolnir_03,0,0,0,0	monster	Paragon Mantis	3139,3,0,0,0,2
+mjolnir_03,0,0,0,0	monster	Paragon Creamy	3018,1,0,0,0,2
+mjolnir_03,0,0,0,0	monster	Paragon Petite	3156,7,0,0,0,2
+mjolnir_03,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+mjolnir_03,0,0,0,0	monster	Paragon Flora	3118,1,0,0,0,2
+mjolnir_03,0,0,0,0	monster	Paragon Argos	3100,2,0,0,0,2
 
 //==================================================
 // mjolnir_04 - Mt.Mjolnir
@@ -118,6 +137,12 @@ mjolnir_04,332,122,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_04,269,39,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_04,205,33,0,0	monster	Green Plant	1080,1,180000,90000,1
 
+mjolnir_04,0,0,0,0	monster	Paragon Mantis	3139,2,0,0,0,2
+mjolnir_04,0,0,0,0	monster	Paragon Hornet	3004,7,0,0,0,2
+mjolnir_04,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+mjolnir_04,0,0,0,0	monster	Paragon Flora	3118,3,0,0,0,2
+mjolnir_04,0,0,0,0	monster	Paragon Argiope	3099,2,0,0,0,2
+
 //==================================================
 // mjolnir_05 - Mt.Mjolnir
 //==================================================
@@ -131,6 +156,12 @@ mjolnir_05,200,240,40,40	monster	Shining Plant	1083,1,1800000,900000,1
 mjolnir_05,134,103,20,20	monster	Blue Plant	1079,3,360000,180000,1
 mjolnir_05,261,100,20,10	monster	Blue Plant	1079,3,360000,180000,1
 mjolnir_05,0,0,0,0	monster	Red Plant	1078,10,180000,90000,1
+
+mjolnir_05,0,0,0,0	monster	Paragon Mantis	3139,4,0,0,0,2
+mjolnir_05,0,0,0,0	monster	ParagonPoporing	3031,1,0,0,0,2
+mjolnir_05,0,0,0,0	monster	ParagonFlora	3118,2,0,0,0,2
+mjolnir_05,0,0,0,0	monster	ParagonArgiope	3099,7,0,0,0,2
+mjolnir_05,0,0,0,0	monster	ParagonArgos	3100,2,0,0,0,2
 
 //==================================================
 // mjolnir_06 - Mt.Mjolnir
@@ -150,6 +181,12 @@ mjolnir_06,45,345,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 mjolnir_06,73,339,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 mjolnir_06,69,225,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 mjolnir_06,55,276,0,0	monster	Red Mushroom	1085,1,180000,90000,1
+
+mjolnir_06,0,0,0,0	monster	Paragon Stainer	3174,7,0,0,0,2
+mjolnir_06,0,0,0,0	monster	Paragon Horn	3128,2,0,0,0,2
+mjolnir_06,0,0,0,0	monster	Paragon Coco	3104,2,0,0,0,2
+mjolnir_06,0,0,0,0	monster	Paragon Poporing	3031,2,0,0,0,2
+mjolnir_06,0,0,0,0	monster	Paragon Caramel	3103,3,0,0,0,2
 
 //==================================================
 // mjolnir_07 - Mt.Mjolnir
@@ -171,6 +208,13 @@ mjolnir_07,140,179,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_07,97,210,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_07,249,214,0,0	monster	Blue Plant	1079,2,360000,180000,1
 
+mjolnir_07,0,0,0,0	monster	Paragon Poison Spore	3077,6,0,0,0,2
+mjolnir_07,0,0,0,0	monster	Paragon Ambernite	3094,3,0,0,0,2
+mjolnir_07,0,0,0,0	monster	Paragon Coco	3104,2,0,0,0,2
+mjolnir_07,0,0,0,0	monster	Paragon Horn	3128,2,0,0,0,2
+mjolnir_07,0,0,0,0	monster	Paragon Poporing	3031,2,0,0,0,2
+mjolnir_07,0,0,0,0	monster	Paragon Hornet	3004,2,0,0,0,2
+
 //==================================================
 // mjolnir_08 - Mt.Mjolnir
 //==================================================
@@ -186,6 +230,12 @@ mjolnir_08,169,204,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_08,207,232,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_08,180,282,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_08,149,328,0,0	monster	Green Plant	1080,1,180000,90000,1
+
+mjolnir_08,0,0,0,0	monster	Paragon Mantis	3139,6,0,0,0,2
+mjolnir_08,0,0,0,0	monster	Paragon Argiope	3099,3,0,0,0,2
+mjolnir_08,0,0,0,0	monster	Paragon Argos	3100,2,0,0,0,2
+mjolnir_08,0,0,0,0	monster	Paragon Poporing	3031,2,0,0,0,2
+mjolnir_08,0,0,0,0	monster	Paragon Poring	3002,1,0,0,0,2
 
 //==================================================
 // mjolnir_09 - Mt.Mjolnir
@@ -207,6 +257,12 @@ mjolnir_09,120,126,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 mjolnir_09,139,84,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 mjolnir_09,125,82,0,0	monster	Red Mushroom	1085,1,180000,90000,1
 
+mjolnir_09,0,0,0,0	monster	Paragon Coco	3104,10,0,0,0,2
+mjolnir_09,0,0,0,0	monster	Paragon Stainer	3174,20,0,0,0,2
+mjolnir_09,0,0,0,0	monster	Paragon Horn	3128,70,0,0,0,2
+mjolnir_09,0,0,0,0	monster	Paragon Poporing	3031,20,0,0,0,2
+mjolnir_09,0,0,0,0	monster	Paragon Wolf	3013,30,0,0,0,2
+
 //==================================================
 // mjolnir_10 - Mt.Mjolnir
 //==================================================
@@ -217,6 +273,12 @@ mjolnir_10,0,0,0,0	monster	Poporing	1031,20,0,0,0
 mjolnir_10,0,0,0,0	monster	Petite	1155,10,0,0,0
 mjolnir_10,123,331,10,10	monster	Shining Plant	1083,1,1800000,900000,1
 mjolnir_10,0,0,0,0	monster	Green Plant	1080,10,180000,90000,1
+
+mjolnir_10,0,0,0,0	monster	Paragon Mantis	3139,2,0,0,0,2
+mjolnir_10,0,0,0,0	monster	Paragon Flora	3118,3,0,0,0,2
+mjolnir_10,0,0,0,0	monster	Paragon Argos	3100,6,0,0,0,2
+mjolnir_10,0,0,0,0	monster	Paragon Poporing	3031,2,0,0,0,2
+mjolnir_10,0,0,0,0	monster	Paragon Petite	3155,1,0,0,0,2
 
 //==================================================
 // mjolnir_11 - Mt.Mjolnir
@@ -240,9 +302,19 @@ mjolnir_11,332,327,0,0	monster	Blue Plant	1079,1,360000,180000,1
 mjolnir_11,282,300,0,0	monster	Green Plant	1080,1,180000,90000,1
 mjolnir_11,295,271,0,0	monster	Green Plant	1080,1,180000,90000,1
 
+mjolnir_11,0,0,0,0	monster	Paragon Argiope	3099,1,0,0,0,2
+mjolnir_11,0,0,0,0	monster	Paragon Mandragora	3020,5,0,0,0,2
+mjolnir_11,0,0,0,0	monster	Paragon Flora	3118,6,0,0,0,2
+mjolnir_11,0,0,0,0	monster	Paragon Poporing	3031,1,0,0,0,2
+mjolnir_11,0,0,0,0	monster	Paragon Thief Bug Male	3054,3,0,0,0,2
+
 //==================================================
 // mjolnir_12 - Mt.Mjolnir
 //==================================================
 mjolnir_12,0,0,0,0	monster	Stem Worm	1215,20,0,0,0
 mjolnir_12,0,0,0,0	monster	Dustiness	1114,50,0,0,0
 mjolnir_12,0,0,0,0	monster	Thief Bug Female	1053,20,0,0,0
+
+mjolnir_12,0,0,0,0	monster	Paragon Stem Worm	3215,2,0,0,0,2
+mjolnir_12,0,0,0,0	monster	Paragon Dustiness	3114,5,0,0,0,2
+mjolnir_12,0,0,0,0	monster	Paragon Thief Bug Female	3053,2,0,0,0,2

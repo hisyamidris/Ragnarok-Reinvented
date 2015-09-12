@@ -4,11 +4,9 @@
 #ifndef MAP_MERCENARY_H
 #define MAP_MERCENARY_H
 
-#include "map/status.h" // struct status_data, struct status_change
-#include "map/unit.h" // struct unit_data
-#include "common/hercules.h"
-
-struct map_session_data;
+#include "status.h" // struct status_data, struct status_change
+#include "unit.h" // struct unit_data
+#include "../common/cbasetypes.h"
 
 // number of cells that a mercenary can walk to from it's master before being warped
 #define MAX_MER_DISTANCE 15
@@ -58,7 +56,7 @@ struct mercenary_interface {
 
 	/* vars */
 
-	struct s_mercenary_db *db;
+	struct s_mercenary_db db[MAX_MERCENARY_CLASS];
 
 	/* funcs */
 
@@ -97,10 +95,10 @@ struct mercenary_interface {
 	bool (*read_skill_db_sub) (char* str[], int columns, int current);
 };
 
+struct mercenary_interface *mercenary;
+
 #ifdef HERCULES_CORE
 void mercenary_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct mercenary_interface *mercenary;
 
 #endif /* MAP_MERCENARY_H */

@@ -3,17 +3,21 @@
 
 #define HERCULES_CORE
 
-#include "common/cbasetypes.h"
-#include "common/core.h"
-#include "common/grfio.h"
-#include "common/malloc.h"
-#include "common/mmo.h"
-#include "common/showmsg.h"
-#include "common/strlib.h"
-#include "common/utils.h"
+#include "../config/core.h" // RENEWAL
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "../common/cbasetypes.h"
+#include "../common/core.h"
+#include "../common/grfio.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h"
+#include "../common/showmsg.h"
+#include "../common/utils.h"
+#include "../common/strlib.h"
+
 #ifndef _WIN32
 #include <unistd.h>
 #endif
@@ -110,14 +114,8 @@ int read_map(char *name, struct map_data *m)
 	return 1;
 }
 
-/**
- * Adds a map to the cache.
- *
- * @param name The map name.
- * @param m    Map data to cache.
- * @retval true if the map was successfully added to the cache.
- */
-bool cache_map(char *name, struct map_data *m)
+// Adds a map to the cache
+void cache_map(char *name, struct map_data *m)
 {
 	struct map_info info;
 	unsigned long len;
@@ -132,18 +130,14 @@ bool cache_map(char *name, struct map_data *m)
 	// Fill the map header
 	safestrncpy(info.name, name, MAP_NAME_LENGTH);
 	if (strlen(name) > MAP_NAME_LENGTH) // It does not hurt to warn that there are maps with name longer than allowed.
-		ShowWarning("Map name '%s' (length %"PRIuS") is too long. Truncating to '%s' (length %d).\n",
+		ShowWarning("Map name '%s' (length %"PRIuS") is too long. Truncating to '%s' (lentgh %d).\n",
 		            name, strlen(name), info.name, MAP_NAME_LENGTH);
 	info.xs = MakeShortLE(m->xs);
 	info.ys = MakeShortLE(m->ys);
 	info.len = MakeLongLE((uint32)len);
 
 	// Append map header then compressed cells at the end of the file
-	if (fseek(map_cache_fp, header.file_size, SEEK_SET) != 0) {
-		aFree(write_buf);
-		aFree(m->cells);
-		return false;
-	}
+	fseek(map_cache_fp, header.file_size, SEEK_SET);
 	fwrite(&info, sizeof(struct map_info), 1, map_cache_fp);
 	fwrite(write_buf, 1, len, map_cache_fp);
 	header.file_size += sizeof(struct map_info) + len;
@@ -152,34 +146,26 @@ bool cache_map(char *name, struct map_data *m)
 	aFree(write_buf);
 	aFree(m->cells);
 
-	return true;
+	return;
 }
 
-/**
- * Checks whether a map is already is the cache.
- *
- * @param name The map name.
- * @retval true if the map is already cached.
- */
-bool find_map(char *name)
+// Checks whether a map is already is the cache
+int find_map(char *name)
 {
 	int i;
 	struct map_info info;
 
-	if (fseek(map_cache_fp, sizeof(struct main_header), SEEK_SET) != 0)
-		return false;
+	fseek(map_cache_fp, sizeof(struct main_header), SEEK_SET);
 
-	for (i = 0; i < header.map_count; i++) {
-		if (fread(&info, sizeof(info), 1, map_cache_fp) != 1)
-			printf("An error as occured in fread while reading map_cache\n");
-		if (strcmp(name, info.name) == 0) // Map found
-			return true;
-		// Map not found, jump to the beginning of the next map info header
-		if (fseek(map_cache_fp, GetLong((unsigned char *)&(info.len)), SEEK_CUR) != 0)
-			return false;
+	for(i = 0; i < header.map_count; i++) {
+		if(fread(&info, sizeof(info), 1, map_cache_fp) != 1) printf("An error as occured in fread while reading map_cache\n");
+		if(strcmp(name, info.name) == 0) // Map found
+			return 1;
+		else // Map not found, jump to the beginning of the next map info header
+			fseek(map_cache_fp, GetLong((unsigned char *)&(info.len)), SEEK_CUR);
 	}
 
-	return false;
+	return 0;
 }
 
 // Cuts the extension from a map name
@@ -328,15 +314,14 @@ int do_init(int argc, char** argv)
 
 		name[MAP_NAME_LENGTH_EXT-1] = '\0';
 		remove_extension(name);
-		if (find_map(name)) {
+		if(find_map(name))
 			ShowInfo("Map '"CL_WHITE"%s"CL_RESET"' already in cache.\n", name);
-		} else if(!read_map(name, &map)) {
-			ShowError("Map '"CL_WHITE"%s"CL_RESET"' not found!\n", name);
-		} else if (!cache_map(name, &map)) {
-			ShowError("Map '"CL_WHITE"%s"CL_RESET"' failed to cache (write error).\n", name);
-		} else {
+		else if(read_map(name, &map)) {
+			cache_map(name, &map);
 			ShowInfo("Map '"CL_WHITE"%s"CL_RESET"' successfully cached.\n", name);
-		}
+		} else
+			ShowError("Map '"CL_WHITE"%s"CL_RESET"' not found!\n", name);
+
 	}
 
 	ShowStatus("Closing map list: %s\n", map_list_file);

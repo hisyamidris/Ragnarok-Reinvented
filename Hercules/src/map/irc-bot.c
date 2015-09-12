@@ -1,30 +1,29 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
-// Base Author: shennetsind @ http://herc.ws
+// Base Author: shennetsind @ http://hercules.ws
 
 #define HERCULES_CORE
 
 #include "irc-bot.h"
 
-#include "map/channel.h"
-#include "map/map.h"
-#include "map/pc.h"
-#include "common/cbasetypes.h"
-#include "common/malloc.h"
-#include "common/random.h"
-#include "common/showmsg.h"
-#include "common/socket.h"
-#include "common/strlib.h"
-#include "common/timer.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "channel.h"
+#include "map.h"
+#include "pc.h"
+#include "../common/cbasetypes.h"
+#include "../common/malloc.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+
 //#define IRCBOT_DEBUG
 
 struct irc_bot_interface irc_bot_s;
-struct irc_bot_interface *ircbot;
 
 char send_string[IRC_MESSAGE_LENGTH];
 
@@ -42,9 +41,9 @@ int irc_connect_timer(int tid, int64 tick, int id, intptr_t data) {
 	
 	ircbot->last_try = timer->gettick();
 
-	if ((ircbot->fd = sockt->make_connection(ircbot->ip, channel->config->irc_server_port, &opt)) > 0) {
-		sockt->session[ircbot->fd]->func_parse = ircbot->parse;
-		sockt->session[ircbot->fd]->flag.server = 1;
+	if ((ircbot->fd = make_connection(ircbot->ip, channel->config->irc_server_port, &opt)) > 0) {
+		session[ircbot->fd]->func_parse = ircbot->parse;
+		session[ircbot->fd]->flag.server = 1;
 		timer->add(timer->gettick() + 3000, ircbot->identify_timer, 0, 0);
 		ircbot->isOn = true;
 	}
@@ -115,13 +114,13 @@ struct irc_func* irc_func_search(char* function_name) {
 int irc_parse(int fd) {
 	char *parse_string = NULL, *str_safe = NULL;
 
-	if (sockt->session[fd]->flag.eof) {
-		sockt->close(fd);
+	if (session[fd]->flag.eof) {
+		do_close(fd);
 		ircbot->fd = 0;
 		ircbot->isOn = false;
 		ircbot->isIn = false;
 		ircbot->fails = 0;
-		ircbot->ip = sockt->host2ip(channel->config->irc_server);
+		ircbot->ip = host2ip(channel->config->irc_server);
 		timer->add(timer->gettick() + 120000, ircbot->connect_timer, 0, 0);
 		return 0;
 	}
@@ -416,7 +415,7 @@ void irc_bot_init(bool minimal) {
 	if (!channel->config->irc)
 		return;
 
-	if (!(ircbot->ip = sockt->host2ip(channel->config->irc_server))) {
+	if (!(ircbot->ip = host2ip(channel->config->irc_server))) {
 		ShowError("Unable to resolve '%s' (irc server), disabling irc channel...\n", channel->config->irc_server);
 		channel->config->irc = false;
 		return;
@@ -455,7 +454,7 @@ void irc_bot_final(void) {
 		return;
 	if( ircbot->isOn ) {
 		ircbot->send("QUIT :Hercules is shutting down");
-		sockt->close(ircbot->fd);
+		do_close(ircbot->fd);
 	}
 	
 	for( i = 0; i < ircbot->funcs.size; i++ ) {

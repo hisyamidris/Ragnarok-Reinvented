@@ -5,11 +5,10 @@
 #ifndef MAP_INSTANCE_H
 #define MAP_INSTANCE_H
 
-#include "map/script.h" // struct reg_db
-#include "common/hercules.h"
-#include "common/mmo.h" // struct point
+#include "script.h" // struct reg_db
+#include "../common/cbasetypes.h"
+#include "../common/mmo.h" // struct point
 
-struct HPluginData;
 struct block_list;
 struct map_session_data;
 
@@ -85,10 +84,10 @@ struct instance_interface {
 	int (*destroy_timer) (int tid, int64 tick, int id, intptr_t data);
 };
 
+struct instance_interface *instance;
+
 #ifdef HERCULES_CORE
 void instance_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct instance_interface *instance;
 
 #endif /* MAP_INSTANCE_H */

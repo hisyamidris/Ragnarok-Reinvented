@@ -26,6 +26,13 @@ gefenia01,0,0,0,0	monster	Mysteltainn	1203,1,10800000,7200000,0
 gefenia01,0,0,0,0	monster	Executioner	1205,1,18000000,14400000,0
 gefenia01,0,0,0,0	monster	Ogretooth	1204,1,18000000,14400000,0
 
+gefenia01,0,0,0,0	monster	Paragon False Angel	3371,6,0,0,0,2
+gefenia01,0,0,0,0	monster	Paragon Succubus	3370,1,0,0,0,2
+gefenia01,0,0,0,0	monster	Paragon Incubus	3374,1,0,0,0,2
+gefenia01,0,0,0,0	monster	Paragon Violy	3390,3,0,0,0,2
+gefenia01,0,0,0,0	monster	Paragon Mini Demon	3292,2,0,0,0,2
+gefenia01,0,0,0,0	monster	Paragon Abysmal Knight	3219,1,0,0,0,2
+
 //==================================================
 // gefenia02 - Geffenia
 //==================================================
@@ -39,6 +46,13 @@ gefenia02,0,0,0,0	monster	Bloody Knight	1268,1,3600000,3000000,0
 gefenia02,0,0,0,0	monster	Mysteltainn	1203,1,18000000,14400000,0
 gefenia02,0,0,0,0	monster	Executioner	1205,1,18000000,14400000,0
 gefenia02,0,0,0,0	monster	Ogretooth	1204,1,10800000,7200000,0
+
+gefenia02,0,0,0,0	monster	Paragon False Angel	3371,3,0,0,0,2
+gefenia02,0,0,0,0	monster	Paragon Succubus	3370,2,0,0,0,2
+gefenia02,0,0,0,0	monster	Paragon Incubus	3374,1,0,0,0,2
+gefenia02,0,0,0,0	monster	Paragon Violy	3390,4,0,0,0,2
+gefenia02,0,0,0,0	monster	Paragon Mini Demon	3292,3,0,0,0,2
+gefenia02,0,0,0,0	monster	Paragon Abysmal Knight	3219,1,0,0,0,2
 
 //==================================================
 // gefenia03 - Geffenia
@@ -54,6 +68,13 @@ gefenia03,0,0,0,0	monster	Mysteltainn	1203,1,18000000,14400000,0
 gefenia03,0,0,0,0	monster	Executioner	1205,1,10800000,7200000,0
 gefenia03,0,0,0,0	monster	Ogretooth	1204,1,18000000,14400000,0
 
+gefenia03,0,0,0,0	monster	Paragon False Angel	3371,4,0,0,0,2
+gefenia03,0,0,0,0	monster	Paragon Succubus	3370,1,0,0,0,2
+gefenia03,0,0,0,0	monster	Paragon Incubus	3374,2,0,0,0,2
+gefenia03,0,0,0,0	monster	Paragon Violy	3390,4,0,0,0,2
+gefenia03,0,0,0,0	monster	Paragon Mini Demon	3292,3,0,0,0,2
+gefenia03,0,0,0,0	monster	Paragon Abysmal Knight	3219,1,0,0,0,2
+
 //==================================================
 // gefenia04 - Geffenia
 //==================================================
@@ -67,6 +88,13 @@ gefenia04,0,0,0,0	monster	Bloody Knight	1268,1,3600000,3000000,0
 gefenia04,0,0,0,0	monster	Mysteltainn	1203,1,18000000,14400000,0
 gefenia04,0,0,0,0	monster	Executioner	1205,1,18000000,14400000,0
 gefenia04,0,0,0,0	monster	Ogretooth	1204,1,18000000,14400000,0
+
+gefenia04,0,0,0,0	monster	Paragon False Angel	1371,30,0,0,0,2
+gefenia04,0,0,0,0	monster	Paragon Succubus	1370,10,600000,300000,0,2
+gefenia04,0,0,0,0	monster	Paragon Incubus	1374,10,600000,300000,0,2
+gefenia04,0,0,0,0	monster	Paragon Violy	1390,30,0,0,0,2
+gefenia04,0,0,0,0	monster	Paragon Mini Demon	1292,20,0,0,0,2
+gefenia04,0,0,0,0	monster	Paragon Abysmal Knight	1219,10,0,0,0,2
 
 
 //The spawns bellow, are old ones that were used in events.

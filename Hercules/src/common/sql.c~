@@ -6,17 +6,19 @@
 
 #include "sql.h"
 
-#include "common/cbasetypes.h"
-#include "common/malloc.h"
-#include "common/showmsg.h"
-#include "common/strlib.h"
-#include "common/timer.h"
+#include <stdlib.h> // strtoul
+#include <string.h> // strlen/strnlen/memcpy/memset
+
+#include "../common/cbasetypes.h"
+#include "../common/malloc.h"
+#include "../common/showmsg.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
 
 #ifdef WIN32
-#	include "common/winapi.h" // Needed before mysql.h
+#	include "../common/winapi.h" // Needed before mysql.h
 #endif
 #include <mysql.h>
-#include <stdlib.h> // strtoul
 
 void hercules_mysql_error_handler(unsigned int ecode);
 
@@ -24,7 +26,6 @@ int mysql_reconnect_type;
 unsigned int mysql_reconnect_count;
 
 struct sql_interface sql_s;
-struct sql_interface *SQL;
 
 /// Sql handle
 struct Sql {

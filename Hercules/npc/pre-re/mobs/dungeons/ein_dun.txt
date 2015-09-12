@@ -24,6 +24,11 @@ ein_dun01,0,0,0,0	monster	Venomous	1621,10,300000,0,0
 ein_dun01,0,0,0,0	monster	Old Stove	1617,1,1800000,600000,0
 ein_dun01,0,0,0,0	monster	Ungoliant	1618,1,3600000,3000000,0
 
+ein_dun01,0,0,0,0	monster	Paragon Pitman	3616,7,0,0,0,2
+ein_dun01,0,0,0,0	monster	Paragon Noxious	3620,3,300000,0,0,2
+ein_dun01,0,0,0,0	monster	Paragon Porcellio	3619,3,0,0,0,2
+ein_dun01,0,0,0,0	monster	Paragon Venomous	3621,1,0,0,0,2
+
 //==================================================
 // ein_dun02 - Mine Dungeon F2
 //==================================================
@@ -36,3 +41,8 @@ ein_dun02,155,230,140,55	monster	Teddy Bear	1622,20,480000,0,0
 ein_dun02,0,0,0,0	monster	Old Stove	1617,10,0,0,0
 ein_dun02,154,80,134,55	monster	Old Stove	1617,20,480000,0,0
 ein_dun02,0,0,0,0	boss_monster	RSX-0806	1623,1,7500000,600000,0
+
+ein_dun02,0,0,0,0	monster	Paragon Obsidian	3615,3,0,0,0
+ein_dun02,0,0,0,0	monster	Paragon Mineral	3614,4,0,0,0
+ein_dun02,0,0,0,0	monster	Paragon Teddy Bear	3622,5,0,0,0
+ein_dun02,0,0,0,0	monster	Paragon Old Stove	3617,2,0,0,0

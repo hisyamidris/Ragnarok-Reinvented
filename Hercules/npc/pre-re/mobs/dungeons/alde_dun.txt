@@ -16,6 +16,9 @@
 alde_dun01,0,0,0,0	monster	Arclouze	1194,50,0,0,0
 alde_dun01,0,0,0,0	monster	Drainliar	1111,40,0,0,0
 
+alde_dun01,0,0,0,0	monster	Paragon Arclouze	3194,5,0,0,0,2
+alde_dun01,0,0,0,0	monster	Paragon Drainliar	3111,4,0,0,0,2
+
 //==================================================
 // alde_dun02 - Clock Tower B2
 //==================================================
@@ -23,6 +26,11 @@ alde_dun02,0,0,0,0	monster	High Orc	1213,50,0,0,0
 alde_dun02,0,0,0,0	monster	Orc Archer	1189,20,0,0,0
 alde_dun02,0,0,0,0	monster	Brilight	1211,20,0,0,0
 alde_dun02,0,0,0,0	monster	Arclouze	1194,20,0,0,0
+
+alde_dun02,0,0,0,0	monster	Paragon High Orc	3213,5,0,0,0,2
+alde_dun02,0,0,0,0	monster	Paragon Orc Archer	3189,2,0,0,0,2
+alde_dun02,0,0,0,0	monster	Paragon Brilight	3211,2,0,0,0,2
+alde_dun02,0,0,0,0	monster	Paragon Arclouze	3194,2,0,0,0,2
 
 //==================================================
 // alde_dun03 - Clock Tower B3
@@ -51,6 +59,9 @@ alde_dun03,135,140,8,8	monster	Penomena	1216,3,600000,300000,0
 alde_dun03,120,157,8,8	monster	Penomena	1216,3,600000,300000,0
 alde_dun03,120,157,8,8	monster	Drainliar	1111,10,300000,150000,0
 
+alde_dun03,0,0,0,0	monster	Paragon Cramp	3209,5,0,0,0,2
+alde_dun03,0,0,0,0	monster	Paragon Drainliar	3111,2,0,0,0,2
+
 //==================================================
 // alde_dun04 - Clock Tower B4
 //==================================================
@@ -60,3 +71,7 @@ alde_dun04,0,0,0,0	monster	Executioner	1205,1,3600000,1800000,1
 alde_dun04,0,0,0,0	monster	Mysteltainn	1203,1,3600000,1800000,1
 alde_dun04,0,0,0,0	monster	Ogretooth	1204,1,3600000,1800000,1
 alde_dun04,0,0,0,0	monster	Whisper	1179,10,0,0,0
+
+alde_dun04,0,0,0,0	monster	Paragon Bathory	3102,5,0,0,0,2
+alde_dun04,0,0,0,0	monster	Paragon Joker	3131,1,0,0,0,2
+alde_dun04,0,0,0,0	monster	Paragon Whisper	3179,1,0,0,0,2

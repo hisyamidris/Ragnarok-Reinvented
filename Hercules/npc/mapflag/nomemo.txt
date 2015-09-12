@@ -780,3 +780,13 @@ bossnia_01	mapflag	nomemo
 bossnia_02	mapflag	nomemo
 bossnia_03	mapflag	nomemo
 bossnia_04	mapflag	nomemo
+
+//Ragnarok Immersion Arena
+arena	mapflag	nomemo
+arena90	mapflag	nomemo
+arena80	mapflag	nomemo
+arena70	mapflag	nomemo
+arena60	mapflag	nomemo
+arena50	mapflag	nomemo
+arena40	mapflag	nomemo
+arena30	mapflag	nomemo

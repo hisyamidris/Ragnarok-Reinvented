@@ -83,7 +83,7 @@ payon_in01,132,62,5	script	Inn Employee#Ahee	1_M_INNKEEPER,{
 
 //========================Morocc ====================================
 // North East --------------------------
-/*
+
 morocc_in,147,141,3	script	Inn Employee#Hasna	1_M_INNKEEPER,{
 
 	callfunc "F_InnMaid","[Employee Hasna]","Morroc Inn","morocc_in",142,140;
@@ -95,7 +95,7 @@ morocc_in,80,100,5	script	Inn Employee#Manar	1_M_INNKEEPER,{
 	callfunc "F_InnMaid","[Employee Manar]","Morroc Inn","morocc_in",78,95;
 	warp "morocc_in",79,123; end;
 }
-*/
+
 
 //======================Aldebaran ===================================
 aldeba_in,92,58,5	script	Inn Maid#Rilim	1_M_INNKEEPER,{
@@ -208,7 +208,7 @@ function	script	F_InnMaid	{
 	mes getarg(1) + ".";
 	mes "How may I help you?";
 	next;
-	switch(select("Save:Take a Rest -> 5000 zeny:Cancel")) {
+	switch(select("Save:Take me to spa -> 500 zeny:Cancel")) {
 	case 1:
 		mes getarg(0);
 		mes "Your respawn point";
@@ -219,18 +219,82 @@ function	script	F_InnMaid	{
 		close;
 	case 2:
 		mes getarg(0);
-		if(Zeny < 5000){
-			mes "I'm sorry, but the service charge is 5,000 zeny. Please make sure that you have enough money to check in next time, okay?";
+		if(Zeny < 500){
+			mes "I'm sorry, but the service charge is 500 zeny. Please make sure that you have enough money to check in next time, okay?";
 			close;
 		}
 		mes "Thank you.";
 		mes "I hope you";
 		mes "enjoy your rest~";
 		close2;
-		Zeny -= 5000;
-		percentheal 100,100;
-		return;
+		Zeny -= 500;
+		warp "1@gef_in",28,158;
+		close;
 	case 3:
 		close;
 	}
 }
+// Spawn: @gef_in 28 161
+
+1@gef_in,31,173,4	trader	Tool Dealer#spa	1_F_MERCHANT_01,{
+OnInit:
+	sellitem Arrow;
+	sellitem Silver_Arrow;
+	sellitem Fire_Arrow;
+	sellitem Iron_Arrow;
+	sellitem Spectacles;
+	sellitem Red_Potion;
+	sellitem Orange_Potion;
+	sellitem Yellow_Potion;
+	sellitem White_Potion;
+	sellitem Green_Potion;
+	sellitem Leaf_Of_Yggdrasil;
+	sellitem Center_Potion;
+	sellitem Awakening_Potion;
+	sellitem Berserk_Potion;
+	sellitem Wing_Of_Fly;
+	sellitem Wing_Of_Butterfly;
+	sellitem Blue_Gemstone;
+	sellitem Booby_Trap;
+}
+
+1@gef_in,28,167,5	script	Spa Service Employee	4_F_SHAMAN,{
+	mes "[Spa Service Emplotee]";
+	mes "Are you ready to leave?";
+	next;
+	switch(select("Leave:Cancel")) {
+	case 1:
+		mes "Your respawn point";
+		mes "has been saved.";
+		mes "Thank you,";
+		mes "please come again.";
+		
+		sc_start SC_CASH_PLUSEXP,1800000,50;
+		
+		warp "Save",0,0;
+		close;
+	case 2:
+		close;
+	}
+
+OnInit:
+OnTimer1000:
+	initnpctimer;
+	getmapxy(.@m$,.@x,.@y,1,strnpcinfo(0));
+	areapercentheal .@m$,.@x-10,.@y-10,.@x+10,.@y+10,3,3;
+	end;
+}
+
+1@gef_in,109,171,5	script	Steam Maker	4_F_SHAMAN,{
+// We will do a script instead of function for it to call on the exact map and the exact coordinates. But you can use as well function then instead of script.
+// We will also use -1 since we don't want to display the actual NPC. In other words, -1 will make the NPC invisible.
+end;
+
+OnInit:
+    atcommand "@clouds"; // You can change @sakura to @snow, @clouds, @clouds2, @fog, @fireworks or @leaves
+    end;
+}
+
+1@gef_in	mapflag	nowarp
+1@gef_in	mapflag	noteleport
+1@gef_in	mapflag	nomemo

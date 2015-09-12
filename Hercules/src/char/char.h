@@ -2,13 +2,12 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#ifndef CHAR_CHAR_H
-#define CHAR_CHAR_H
+#ifndef COMMON_CHAR_H
+#define COMMON_CHAR_H
 
-#include "common/hercules.h"
-#include "common/core.h" // CORE_ST_LAST
-#include "common/db.h"
-#include "common/mmo.h"
+#include "../common/cbasetypes.h"
+#include "../common/core.h" // CORE_ST_LAST
+#include "../common/db.h"
 
 enum E_CHARSERVER_ST {
 	CHARSERVER_ST_RUNNING = CORE_ST_LAST,
@@ -64,6 +63,58 @@ enum {
 	TABLE_GUILD_STORAGE,
 };
 
+#ifdef HERCULES_CORE
+extern int char_name_option;
+extern char char_name_letters[];
+extern bool char_gm_read;
+extern int autosave_interval;
+extern int save_log;
+extern char db_path[];
+extern char char_db[256];
+extern char scdata_db[256];
+extern char cart_db[256];
+extern char inventory_db[256];
+extern char charlog_db[256];
+extern char storage_db[256];
+extern char interlog_db[256];
+extern char skill_db[256];
+extern char memo_db[256];
+extern char guild_db[256];
+extern char guild_alliance_db[256];
+extern char guild_castle_db[256];
+extern char guild_expulsion_db[256];
+extern char guild_member_db[256];
+extern char guild_position_db[256];
+extern char guild_skill_db[256];
+extern char guild_storage_db[256];
+extern char party_db[256];
+extern char pet_db[256];
+extern char mail_db[256];
+extern char auction_db[256];
+extern char quest_db[256];
+extern char homunculus_db[256];
+extern char skill_homunculus_db[256];
+extern char mercenary_db[256];
+extern char mercenary_owner_db[256];
+extern char ragsrvinfo_db[256];
+extern char elemental_db[256];
+extern char interreg_db[32];
+extern char acc_reg_num_db[32];
+extern char acc_reg_str_db[32];
+extern char char_reg_str_db[32];
+extern char char_reg_num_db[32];
+
+extern int db_use_sql_item_db;
+extern int db_use_sql_mob_db;
+extern int db_use_sql_mob_skill_db;
+
+extern int guild_exp_rate;
+extern int log_inter;
+
+void char_load_defaults();
+void char_defaults();
+#endif // HERCULES_CORE
+
 struct char_auth_node {
 	int account_id;
 	int char_id;
@@ -94,7 +145,7 @@ struct char_interface {
 	int new_display;
 
 	char *CHAR_CONF_NAME;
-	char *NET_CONF_NAME; ///< Network config filename
+	char *LAN_CONF_NAME;
 	char *SQL_CONF_NAME;
 	char *INTER_CONF_NAME;
 
@@ -115,7 +166,6 @@ struct char_interface {
 	int (*mmo_char_tosql) (int char_id, struct mmo_charstatus* p);
 	int (*memitemdata_to_sql) (const struct item items[], int max, int id, int tableswitch);
 	int (*inventory_to_sql) (const struct item items[], int max, int id);
-	int (*mmo_gender) (const struct char_session_data *sd, const struct mmo_charstatus *p, char sex);
 	int (*mmo_chars_fromsql) (struct char_session_data* sd, uint8* buf);
 	int (*mmo_char_fromsql) (int char_id, struct mmo_charstatus* p, bool load_everything);
 	int (*mmo_char_sql_init) (void);
@@ -183,7 +233,6 @@ struct char_interface {
 	void (*ban) (int account_id, int char_id, time_t *unban_time, short year, short month, short day, short hour, short minute, short second);
 	void (*unban) (int char_id, int *result);
 	void (*ask_name_ack) (int fd, int acc, const char* name, int type, int result);
-	int (*changecharsex) (int char_id, int sex);
 	void (*parse_frommap_change_account) (int fd);
 	void (*parse_frommap_fame_list) (int fd);
 	void (*parse_frommap_divorce_char) (int fd);
@@ -205,7 +254,7 @@ struct char_interface {
 	int (*parse_frommap) (int fd);
 	int (*search_mapserver) (unsigned short map, uint32 ip, uint16 port);
 	int (*mapif_init) (int fd);
-	uint32 (*lan_subnet_check) (uint32 ip);
+	int (*lan_subnetcheck) (uint32 ip);
 	void (*delete2_ack) (int fd, int char_id, uint32 result, time_t delete_date);
 	void (*delete2_accept_actual_ack) (int fd, int char_id, uint32 result);
 	void (*delete2_accept_ack) (int fd, int char_id, uint32 result);
@@ -238,7 +287,7 @@ struct char_interface {
 	void (*parse_char_delete2_accept) (int fd, struct char_session_data* sd);
 	void (*parse_char_delete2_cancel) (int fd, struct char_session_data* sd);
 	void (*login_map_server_ack) (int fd, uint8 flag);
-	void (*parse_char_login_map_server) (int fd, uint32 ipl);
+	void (*parse_char_login_map_server) (int fd);
 	void (*parse_char_pincode_check) (int fd, struct char_session_data* sd);
 	void (*parse_char_pincode_window) (int fd, struct char_session_data* sd);
 	void (*parse_char_pincode_change) (int fd, struct char_session_data* sd);
@@ -254,62 +303,12 @@ struct char_interface {
 	int (*check_connect_login_server) (int tid, int64 tick, int id, intptr_t data);
 	int (*online_data_cleanup_sub) (DBKey key, DBData *data, va_list ap);
 	int (*online_data_cleanup) (int tid, int64 tick, int id, intptr_t data);
+	int (*lan_config_read) (const char *lancfgName);
 	void (*sql_config_read) (const char* cfgName);
 	void (*config_dispatch) (char *w1, char *w2);
 	int (*config_read) (const char* cfgName);
 };
 
-#ifdef HERCULES_CORE
-extern int char_name_option;
-extern char char_name_letters[];
-extern bool char_gm_read;
-extern int autosave_interval;
-extern int save_log;
-extern char db_path[];
-extern char char_db[256];
-extern char scdata_db[256];
-extern char cart_db[256];
-extern char inventory_db[256];
-extern char charlog_db[256];
-extern char storage_db[256];
-extern char interlog_db[256];
-extern char skill_db[256];
-extern char memo_db[256];
-extern char guild_db[256];
-extern char guild_alliance_db[256];
-extern char guild_castle_db[256];
-extern char guild_expulsion_db[256];
-extern char guild_member_db[256];
-extern char guild_position_db[256];
-extern char guild_skill_db[256];
-extern char guild_storage_db[256];
-extern char party_db[256];
-extern char pet_db[256];
-extern char mail_db[256];
-extern char auction_db[256];
-extern char quest_db[256];
-extern char homunculus_db[256];
-extern char skill_homunculus_db[256];
-extern char mercenary_db[256];
-extern char mercenary_owner_db[256];
-extern char ragsrvinfo_db[256];
-extern char elemental_db[256];
-extern char acc_reg_num_db[32];
-extern char acc_reg_str_db[32];
-extern char char_reg_str_db[32];
-extern char char_reg_num_db[32];
+struct char_interface *chr;
 
-extern int db_use_sql_item_db;
-extern int db_use_sql_mob_db;
-extern int db_use_sql_mob_skill_db;
-
-extern int guild_exp_rate;
-extern int log_inter;
-
-void char_load_defaults();
-void char_defaults();
-#endif // HERCULES_CORE
-
-HPShared struct char_interface *chr;
-
-#endif /* CHAR_CHAR_H */
+#endif /* COMMON_CHAR_H */

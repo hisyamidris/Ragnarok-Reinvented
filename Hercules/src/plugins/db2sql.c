@@ -1,24 +1,24 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 
-#include "config/core.h"
-
-#include "common/hercules.h"
-#include "common/cbasetypes.h"
-#include "common/conf.h"
-#include "common/malloc.h"
-#include "common/mmo.h"
-#include "common/strlib.h"
-#include "common/timer.h"
-#include "map/clif.h"
-#include "map/itemdb.h"
-#include "map/map.h"
-#include "map/pc.h"
-
-#include "common/HPMDataCheck.h"
+#include "../config/core.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "../common/HPMi.h"
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../map/clif.h"
+#include "../map/itemdb.h"
+#include "../map/map.h"
+#include "../map/pc.h"
+
+#include "../common/HPMDataCheck.h"
 
 HPExport struct hplugin_info pinfo = {
 	"DB2SQL",        // Plugin name
@@ -139,10 +139,7 @@ int db2sql(config_setting_t *entry, int n, const char *source) {
 
 		// bindonequip
 		StrBuf->Printf(&buf, "'%u',", it->flag.bindonequip?1:0);
-		
-		// forceserial
-		StrBuf->Printf(&buf, "'%u',", it->flag.force_serial?1:0);
-		
+
 		// buyingstore
 		StrBuf->Printf(&buf, "'%u',", it->flag.buyingstore?1:0);
 
@@ -272,7 +269,6 @@ void totable(void) {
 			"  `refineable` tinyint(1) UNSIGNED DEFAULT NULL,\n"
 			"  `view` smallint(3) UNSIGNED DEFAULT NULL,\n"
 			"  `bindonequip` tinyint(1) UNSIGNED DEFAULT NULL,\n"
-			"  `forceserial` tinyint(1) UNSIGNED DEFAULT NULL,\n"
 			"  `buyingstore` tinyint(1) UNSIGNED DEFAULT NULL,\n"
 			"  `delay` mediumint(9) UNSIGNED DEFAULT NULL,\n"
 			"  `trade_flag` smallint(4) UNSIGNED DEFAULT NULL,\n"
@@ -357,14 +353,21 @@ CMDLINEARG(db2sql)
 	map->minimal = torun = true;
 	return true;
 }
-HPExport void server_preinit(void) {
+HPExport void server_preinit (void) {
+	SQL = GET_SYMBOL("SQL");
+	itemdb = GET_SYMBOL("itemdb");
+	map = GET_SYMBOL("map");
+	strlib = GET_SYMBOL("strlib");
+	iMalloc = GET_SYMBOL("iMalloc");
+	libconfig = GET_SYMBOL("libconfig");
+	StrBuf = GET_SYMBOL("StrBuf");
 
 	addArg("--db2sql",false,db2sql,NULL);
 }
-HPExport void plugin_init(void) {
+HPExport void plugin_init (void) {
 	addCPCommand("server:tools:db2sql",db2sql);
 }
-HPExport void server_online(void) {
+HPExport void server_online (void) {
 	if( torun )
 		do_db2sql();
 }

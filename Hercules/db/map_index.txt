@@ -1003,3 +1003,12 @@ c_tower3_
 //
 //mymap	1250
 //mymap-2
+
+arena30
+arena40
+arena50
+arena60
+arena70
+arena80
+arena90
+arena

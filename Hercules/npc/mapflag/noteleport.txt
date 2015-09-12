@@ -449,3 +449,14 @@ nyd_dun02	mapflag	noteleport
 poring_w01	mapflag	noteleport
 poring_w02	mapflag	noteleport
 poring_w02	mapflag	monster_noteleport
+
+//Ragnarok Immersion Arena
+arena	mapflag	noteleport
+arena90	mapflag	noteleport
+arena80	mapflag	noteleport
+arena70	mapflag	noteleport
+arena60	mapflag	noteleport
+arena50	mapflag	noteleport
+arena40	mapflag	noteleport
+arena30	mapflag	noteleport
+

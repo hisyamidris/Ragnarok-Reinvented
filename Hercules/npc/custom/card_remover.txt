@@ -2,6 +2,7 @@
 //= Card Removal NPC
 //===== By: ==================================================
 //= TyrNemesis^
+//= Shade/ShadowLight
 //===== Current Version: =====================================
 //= 1.2a
 //===== Description: =========================================
@@ -12,19 +13,19 @@
 //= 1.2a Added 'disable_items' command. [Euphy]
 //============================================================
 
-prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
+prt_in,172,52,5	script	Enchanter Nami#eAcustom	4_F_HUWOMAN,{
 
 	set .zenycost,200000; // Set base cost in zeny of the card remover services
 	set .percardcost,25000; // set cost per card of the card remover services
-	set .faildestroy,1; // Should the card remover have a chance of failure that destroys items? 1 = Yes, 0 = No.
+	set .faildestroy,0; // Should the card remover have a chance of failure that destroys items? 1 = Yes, 0 = No.
 
 	disable_items;
-	mes "[Wise Old Woman]";
-	mes "Good day, young one. I have the power to remove cards that you have compounded onto your equipment. Does this idea please you?";
+	mes "[Enchanter Nami]";
+	mes "Hi there, how can I help you?";
 	next;
-	switch(select("Yes, it does.:What do you charge?:No thanks.")) {
+	switch(select("Can you remove cards from my equipment?:What do you charge to cards from equipments?:How are you able to remove cards from equipments?")) {
 	case 1:
-		mes "[Wise Old Woman]";
+		mes "[Enchanter Nami]";
 		mes "Very well. Which item shall I examine for you?";
 		next;
 
@@ -39,13 +40,13 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
 		}
 		set .@part,select(.@menu$);
 		if(!getequipisequiped(.@part)) {
-			mes "[Wise Old Woman]";
-			mes "Young one... Your not wearing anything there that I can remove cards from.";
+			mes "[Enchanter Nami]";
+			mes "You are not wearing anything there that I can remove cards from.";
 			close;
 		}
 		if(getequipcardcnt(.@part) == 0) {
-			mes "[Wise Old Woman]";
-			mes "Young one... There are no cards compounded on this item. I can do nothing with it, I'm afraid.";
+			mes "[Enchanter Nami]";
+			mes "There are no cards compounded on this item. I can do nothing with it, I'm afraid.";
 			close;
 		}
 		set .@cardcount,getequipcardcnt(.@part);
@@ -59,34 +60,31 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
 			mes "Kafra Storage and come again~";
 			close;
 		}
-		mes "[Wise Old Woman]";
+		mes "[Enchanter Nami]";
 		mes "This item has " + .@cardcount + " cards compounded on it. To perform my magic, I will need " + (.zenycost+(.@cardcount * .percardcost)) + " zeny, a ^0000FFStar Crumb^000000, and a ^0000FFYellow Gemstone^000000.";
 		next;
 		if(select("Very well. Do it.:Nevermind.") == 2) {
-			mes "[Wise Old Woman]";
+			mes "[Enchanter Nami]";
 			mes "Very well. Return at once if you seek my services.";
 			close;
 		}
 		if((Zeny < (.zenycost+(.@cardcount * .percardcost))) || (countitem(1000) < 1) || (countitem(715) < 1)) {
-			mes "[Wise Old Woman]";
+			mes "[Enchanter Nami]";
 			mes "You do not have all the items I require to work my magic, child. Come again when you do.";
 			close;
 		}
-		mes "[Wise Old Woman]";
-		mes "Before I begin, I must warn you--I may fail. If I do, I may destroy the cards, the item, or both. I do not give refunds. That being said, which is more important to you: The cards, or the item?";
+		mes "[Enchanter Nami]";
+		mes "Are you sure you want to remove the cards from this equipment?";
 		next;
-		switch(select("I changed my mind about this.:The item.:The cards.")) {
+		switch(select("I changed my mind about this.:Yes")) {
 		case 1:
-			mes "[Wise Old Woman]";
+			mes "[Enchanter Nami]";
 			mes "Very well. Return at once if you seek my services.";
 			close;
 		case 2:
 			set .@failtype,1;
-			break;
-		case 3:
-			set .@failtype,2;
 		}
-		mes "[Wise Old Woman]";
+		mes "[Enchanter Nami]";
 		mes "Very well. I shall begin.";
 		Zeny -= (.zenycost+(.@cardcount * .percardcost));
 		delitem 1000,1;
@@ -102,7 +100,7 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
 			if(.@failchance < 2) {
 				next;
 				failedremovecards .@part,0;
-				mes "[Wise Old Woman]";
+				mes "[Enchanter Nami]";
 				mes "The process was a total failure. I am afraid the item and the cards were destroyed.";
 				close;
 			}
@@ -111,7 +109,7 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
 				if (.@failtype == 1) {
 					next;
 					failedremovecards .@part,1;
-					mes "[Wise Old Woman]";
+					mes "[Enchanter Nami]";
 					mes "While I have managed to remove the cards from the item, they were destroyed in the process. The item, however, is okay.";
 					close;
 				}
@@ -119,32 +117,124 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	1_F_ORIENT_04,{
 				if (.@failtype == 2) {
 					next;
 					failedremovecards .@part,2;
-					mes "[Wise Old Woman]";
+					mes "[Enchanter Nami]";
 					mes "Most unfortunate. I succeeded at removing the cards, but the item itself was destroyed in the process.";
 					close;
 				}
 			}
 		}
 
-		if(.@failchance < 10) {
+		if(.@failchance < 0) {
 			next;
 			failedremovecards .@part,3;
-			mes "[Wise Old Woman]";
+			mes "[Enchanter Nami]";
 			mes "I have failed to remove the cards. Luckily, however, both the item and the cards are still okay.";
 			close;
 		}
 		next;
 		successremovecards .@part;
-		mes "[Wise Old Woman]";
+		mes "[Enchanter Nami]";
 		mes "The process was a success. Here are your cards and your item. Farewell.";
 		close;
 	case 2:
-		mes "[Wise Old Woman]";
+		mes "[Enchanter Nami]";
 		mes "I charge a flat fee of "+.zenycost+" zeny, plus "+.percardcost+" zeny for each card I remove from the item. In addition, I need a star crumb and a yellow gemstone to work my magic.";
 		close;
 	case 3:
-		mes "[Wise Old Woman]";
-		mes "Very well. Return at once if you seek my services.";
+		mes "[Enchanter Nami]";
+		mes "There used to be a Wise Old Lady who have this exact power. She is still the only one who manage to do it with her own bare hands.";
+		next;
+		mes "[Enchanter Nami]";
+		mes "Before she passed away, she gave a tome to Geffen's Council. With this tome, we were able to replicate her powers as long as we charge it.";
+		mes "[Enchanter Nami]";
+		mes "We 'Enchanter Guild' are assigned by the Leaders of Geffen to find out more about this magic.";
+		next;
+		mes "[Enchanter Nami]";
+		mes "That is why we're here. This library is filled with great knowledge and history. Hopefully, we'd be able to find what we need.";
 		close;
 	}
 }
+
+prt_in,167,61,1	script	Enchanter Fabian	4_M_HUMAN_01,{
+	mes "[Enchanter Fabian]";
+	mes "Once a card has been embedded into an equipment, it's magic will bind it permanently. It is impossible to reverse the process.";
+	next;
+	mes "[Enchanter Fabian]";
+	mes "Could it be possible that we've been looking at this wrong? What if she didn't extract the card out after all? What if the power she wielded is actually to extract the magic and placed it in another empty card.";
+	next;
+	mes "[Enchanter Fabian]";
+	mes "Imagine having full control of that power! Not only can we extract cards from equipment, we can actually combine the cards' power and create a new one!";
+	next;
+	mes "[Enchanter Fabian]";
+	mes "I'm getting ahead of myself again ... these are just theories ... but still ...";
+	close;
+}
+
+//===== Hercules Script ======================================
+//= Universal Rental NPC
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.2
+//===== Description: =========================================
+//= One-click automatic mount rentals.
+//= Replaced 'close' with 'end' [Streusel]
+//= Fixed 'close' issues. [Joseph]
+//============================================================
+
+payon,168,228,3	script	Animal Breeder	4_F_JOB_ASSASSIN,{
+	/* TODO: This can be optimized with just setmount(), as it can
+		 auto-detect the proper mount for the class/skills. */
+	if (hascashmount()) {
+		message strcharinfo(0),"You must first remove your mount.";
+		end;
+	} else if ((eaclass()&EAJ_THIRDMASK) == EAJ_RANGER && !countitem(Wolf's_Flute)) {
+		if (!checkfalcon() && getskilllv(HT_FALCON) && !checkwug()) {
+			if (select(" ~ Falcon: ~ Warg") == 1)
+				setfalcon;
+			else
+				getitem Wolf's_Flute, 1;
+			specialeffect2 EF_TEIHIT3;
+			close;
+		} else {
+			getitem Wolf's_Flute,1;
+		}
+	} else if ((eaclass()&EAJ_THIRDMASK) == EAJ_MECHANIC && !checkcart() && getskilllv(MC_PUSHCART)) {
+		if (!checkmount() != MOUNT_MADO && getskilllv(NC_MADOLICENCE)) {
+			if (select(" ~ Cart: ~ Mado") == 1) {
+				setcart;
+			} else {
+				setmount(MOUNT_MADO);
+			}
+			specialeffect2 EF_TEIHIT3;
+			close;
+		} else {
+			setcart;
+		}
+	} else if (!checkcart() && getskilllv(MC_PUSHCART)) {
+		setcart;
+	} else if (!checkfalcon() && getskilllv(HT_FALCON) && !checkwug()) {
+		setfalcon;
+	} else if (checkmount() != MOUNT_PECO && getskilllv(KN_RIDING)) {
+		setmount; // Peco or Dragon
+	} else if (checkmount() != MOUNT_MADO && getskilllv(NC_MADOLICENCE)) {
+		setmount(MOUNT_MADO);
+	} else {
+		message strcharinfo(0),"You do not meet requirements to rent.";
+		end;
+	}
+	specialeffect2 EF_TEIHIT3;
+	end;
+}
+
+//============================================================
+// Old changelog
+//============================================================
+//= A Free PecoPeco and Falcon Breeder
+//= 1.1 FIXED checkriding/cart/falcon funcs [Lupus]
+//= 1.2 Added Rebirth/Advanced Class support [Mass Zero]
+//= 1.3 Simplified the checks of job [Silentdragon]
+//= 1.3a Fixed a Typo Error. [Samuray22]
+//=      Thanks to ~AnnieRuru~.
+//= 1.4 Optimized Script. No need for 50 million Labels. [Spre]
+//============================================================

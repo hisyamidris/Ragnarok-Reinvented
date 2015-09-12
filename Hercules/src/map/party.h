@@ -5,12 +5,12 @@
 #ifndef MAP_PARTY_H
 #define MAP_PARTY_H
 
-#include "map/map.h" // TBL_PC
-#include "common/hercules.h"
-#include "common/db.h"
-#include "common/mmo.h" // struct party
-
 #include <stdarg.h>
+
+#include "map.h" // TBL_PC
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/mmo.h" // struct party
 
 #define PARTY_BOOKING_JOBS 6
 #define PARTY_BOOKING_RESULTS 10
@@ -139,10 +139,10 @@ struct party_interface {
 	int (*db_final) (DBKey key, DBData *data, va_list ap);
 };
 
+struct party_interface *party;
+
 #ifdef HERCULES_CORE
 void party_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct party_interface *party;
 
 #endif /* MAP_PARTY_H */

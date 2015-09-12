@@ -1,0 +1,427 @@
+/* malufett@yourservice */
+-	script	PrestigePoints	-1,{
+OnInit:
+	/* Configure maps here */
+	setarray .maps$, "arena30", "arena40", "arena50", "arena60", "arena70", "arena80", "arena90", "arena";
+	end;
+OnPCKillEvent:
+	if (killedrid == getcharid(0)) end;
+	.@mapin$ = strcharinfo(3);
+	for(.@i=0; .@i<getarraysize(.maps$); .@i++){
+		if(.maps$[.@i] == .@mapin$)
+			break;
+	}
+	if(.@i == getarraysize(.maps$))
+		end;
+	getpartymember getcharid(1), 0;
+	getpartymember getcharid(1), 1;
+	getpartymember getcharid(1), 2;
+	.@count = $@partymembercount;
+	.@online = 1;
+
+	for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+		if(killedrid == $@partymemberaid[.@i]){ // stop if killer killed his/her partymates
+			end;
+		}
+		if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+			if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+				if(.@mapin$ == .@mapname$)
+					.@online++;
+			}
+		}
+	}
+
+	if(.@count > 1 && .@online > 1){
+		for (.@i = 0; .@i < .@count; ++.@i) {
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+				attachrid($@partymemberaid[.@i]);
+				if(.@mapin$ != strcharinfo(3))
+					continue;
+				.@pt = (1000/.@online)/10; // bonus will only depends on number of online members
+				.@factor = 10-(.@pt%10);
+				if(.@factor<10)
+					.@pt += .@factor; // round up
+				.@pt = max(1, .@pt/10);
+				PRESTIGE_POINTS += .@pt;
+				dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total Prestige Point is " + PRESTIGE_POINTS;
+				detachrid;
+			}
+		}
+	}else{
+		.@pt = 10;
+		PRESTIGE_POINTS = PRESTIGE_POINTS + .@pt;
+		dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total Prestige Point is " + PRESTIGE_POINTS;
+	}
+	end;
+}
+
+-	script	SentinelPoints	-1,{
+OnNPCKillEvent:
+	if (getmonsterinfo(killedrid, MOB_MVPEXP)) {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@count = $@partymembercount;
+		.@online = 1;
+		.@level = getmonsterinfo(killedrid, MOB_LV)*10;
+		.@mapin$ = strcharinfo(3);
+
+		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+				if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+					if(.@mapin$ == .@mapname$)
+						.@online++;
+				}
+			}
+		}
+
+		if(.@count > 1 && .@online > 1){
+			for (.@i = 0; .@i < .@count; ++.@i) {
+				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+					attachrid($@partymemberaid[.@i]);
+					if(.@mapin$ != strcharinfo(3))
+						continue;
+					.@pt = ((100/.@online)/10)*(.@level); // bonus will only depends on number of online members
+					.@factor = 10-(.@pt%10);
+					if(.@factor<10)
+						.@pt += .@factor; // round up	
+					.@pt = max(1, .@pt/10);
+					SENTINEL_POINTS += .@pt;
+					AEGIS_POINTS += (.@pt * 500);
+					dispbottom "You have earn a Aegis Point(+" + (.@pt * 500) + "). Your total Aegis Point is " + AEGIS_POINTS;
+					dispbottom "You have earn a Sentinel Point(+" + .@pt + "). Your total Sentinel Point is " + SENTINEL_POINTS;
+					detachrid;
+				}
+			}
+		}else{
+			.@pt = .@level;
+			SENTINEL_POINTS = SENTINEL_POINTS + .@pt;
+			AEGIS_POINTS += (.@pt * 500);
+			dispbottom "You have earn a Aegis Point(+" + (.@pt * 500) + "). Your total Aegis Point is " + AEGIS_POINTS;
+			dispbottom "You have earn a Sentinel Point(+" + .@pt + "). Your total Sentinel Point is " + SENTINEL_POINTS;
+		}
+	}
+	end;
+}
+
+-	script	AegisPoints	-1,{
+OnNPCKillEvent:
+	if (killedrid > 3000) {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@count = $@partymembercount;
+		.@online = 1;
+		.@level = getmonsterinfo(killedrid, MOB_LV)*10;
+		.@mapin$ = strcharinfo(3);
+
+		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+				if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+					if(.@mapin$ == .@mapname$)
+						.@online++;
+				}
+			}
+		}
+
+		if(.@count > 1 && .@online > 1){
+			for (.@i = 0; .@i < .@count; ++.@i) {
+				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+					attachrid($@partymemberaid[.@i]);
+					if(.@mapin$ != strcharinfo(3))
+						continue;
+					.@pt = ((100/.@online)/10)*(.@level); // bonus will only depends on number of online members
+					.@factor = 10-(.@pt%10);
+					if(.@factor<10)
+						.@pt += .@factor; // round up	
+					.@pt = max(1, .@pt/10);
+					AEGIS_POINTS += .@pt;
+					dispbottom "You have earn a Aegis Point(+" + .@pt + "). Your total Aegis Point is " + AEGIS_POINTS;
+					detachrid;
+				}
+			}
+		}else{
+			.@pt = .@level;
+			AEGIS_POINTS = AEGIS_POINTS + .@pt;
+			dispbottom "You have earn a Aegis Point(+" + .@pt + "). Your total Aegis Point is " + AEGIS_POINTS;
+		}
+	}
+	end;
+}
+
+//Old Acc: #MaxLevel
+
+//New Acc: #VETERAN
+//New Char: CHAR_VETERAN
+-	script	Recommendation	-1,{
+OnPCLoginEvent:
+/*
+	if(BaseLevel == 99 && MAXLEVEL < 1) {
+		dispbottom "Congratulations! You've reached maximum level. You can now send Letter of Recommendation your other characters.";
+		#MaxLevel = #MaxLevel + 1;
+		getitem 30000,1;
+	}
+    end;
+*/
+
+	if(BaseLevel == 99 && #VETERAN == 0 && CHAR_VETERAN < 1 && #VETERAN < 9) {
+		dispbottom "Congratulations! You're now a veteran. You can now send Letter of Recommendation your other characters.";
+		#VETERAN = #VETERAN + 1;
+		CHAR_VETERAN = 1;
+		if(#MaxLevel < 1) getitem 30000,1;
+	} else if(BaseLevel == 99 && #VETERAN > 0 && CHAR_VETERAN < 1 && #VETERAN < 9) {
+		#VETERAN = #VETERAN + 1;
+		CHAR_VETERAN = 1;
+		dispbottom "Congratulations! You've received +1 Veteran Points. You now have "+ #VETERAN +" Veteran Points";
+	}
+    end;
+
+OnPCBaseLvUpEvent:
+	if(BaseLevel == 99 && #VETERAN == 0 && CHAR_VETERAN < 1) {
+		dispbottom "Congratulations! You're now a veteran. You can now send Letter of Recommendation your other characters.";
+		#VETERAN = #VETERAN + 1;
+		CHAR_VETERAN = 1;
+		if(#MaxLevel < 1) getitem 30000,1;
+	} else if(BaseLevel == 99 && #VETERAN > 0 && CHAR_VETERAN < 1 && #VETERAN < 9) {
+		#VETERAN = #VETERAN + 1;
+		CHAR_VETERAN = 1;
+		dispbottom "Congratulations! You've received +1 Veteran Points. You now have "+ #VETERAN +" Veteran Points";
+	}
+    end;
+}
+
+pvp_y_room,66,45,3	trader	Prestigious Vendor	4_M_RASWORD,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 30100,500;
+	sellitem 30101,500;
+	sellitem 30102,500;
+	sellitem 30103,500;
+	sellitem 30104,500;
+	sellitem 30105,500;
+	sellitem 30200,500;
+	sellitem 30201,500;
+	sellitem 30202,500;
+	sellitem 30203,500;
+	sellitem 30204,500;
+	sellitem 30205,500;
+	sellitem 30300,500;
+	sellitem 30301,500;
+	sellitem 30302,500;
+	sellitem 30303,500;
+	sellitem 30304,500;
+	sellitem 30305,500;
+	end;
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(PRESTIGE_POINTS);
+	dispbottom "This shop uses Prestige Points as currency.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( PRESTIGE_POINTS < @price )
+		end;
+	PRESTIGE_POINTS = PRESTIGE_POINTS - @price;
+	purchaseok();
+	dispbottom "You have " + PRESTIGE_POINTS + " remaining.";
+	end;
+}
+
+1@gef_in,36,175,3	trader	Sentinel Vendor	4_M_EDEN_GUARDER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 30110,500;
+	sellitem 30111,500;
+	sellitem 30112,500;
+	sellitem 30113,500;
+	sellitem 30114,500;
+	sellitem 30115,500;
+	sellitem 30210,500;
+	sellitem 30211,500;
+	sellitem 30212,500;
+	sellitem 30213,500;
+	sellitem 30214,500;
+	sellitem 30215,500;
+	sellitem 30310,500;
+	sellitem 30311,500;
+	sellitem 30312,500;
+	sellitem 30313,500;
+	sellitem 30314,500;
+	sellitem 30315,500;
+	end;
+	
+// allows currency to be item 501 and 502
+OnCountFunds:
+	setcurrency(SENTINEL_POINTS);
+	dispbottom "This shop uses Sentinel Points as currency.";
+	end;
+
+// receives @price (total cost) and @points (the secondary input field for cash windows)
+OnPayFunds:
+	if( SENTINEL_POINTS < @price )
+		end;
+	SENTINEL_POINTS = SENTINEL_POINTS - @price;
+	purchaseok();
+	dispbottom "You have "+ SENTINEL_POINTS +" remaining.";
+	end;
+}
+
+1@gef_in,26,177,5	trader	Aegis Armor Vendor	4_M_CRU_KNT,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 2102,500;
+	sellitem 2104,14000;
+	sellitem 2106,56000;
+	sellitem 2402,400;
+	sellitem 2404,3500;
+	sellitem 2406,18000;
+	sellitem 2502,1000;
+	sellitem 2504,5000;
+	sellitem 2506,32000;
+	sellitem 2302,10;
+	sellitem 2304,200;
+	sellitem 2306,1000;
+	sellitem 2322,8000;
+	sellitem 2329,5500;
+	sellitem 2324,6500;
+	sellitem 2333,7000;
+	sellitem 2308,10000;
+	sellitem 2310,22000;
+	sellitem 2313,48000;
+	sellitem 2326,54000;
+	sellitem 2315,65000;
+	sellitem 2336,71000;
+	sellitem 2336,74000;
+	sellitem 2621,55000;
+	sellitem 2625,55000;
+	sellitem 2623,55000;
+	sellitem 2622,55000;
+	sellitem 2624,55000;
+	sellitem 2626,55000;
+	end;
+	
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(AEGIS_POINTS);
+	dispbottom "This shop uses Aegis Points as currency.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( AEGIS_POINTS < @price )
+		end;
+	AEGIS_POINTS = AEGIS_POINTS - @price;
+	purchaseok();
+	dispbottom "You have "+ AEGIS_POINTS +" remaining.";
+	end;
+}
+
+1@gef_in,30,177,4	trader	Aegis Weapon Vendor	4_M_CRU_SOLD,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	//Dagger
+	sellitem 1202,50;
+	sellitem 1205,1250;
+	sellitem 1207,2400;
+	sellitem 1211,8500;
+	sellitem 1213,14000;
+	sellitem 1216,19500;
+	sellitem 1220,43000;
+	sellitem 1226,49000;
+	//One-handed Swords
+	sellitem 1102,100;
+	sellitem 1105,1500;
+	sellitem 1108,2900;
+	sellitem 1111,10000;
+	sellitem 1114,17000;
+	sellitem 1120,51000;
+	sellitem 1125,24000;
+	sellitem 1128,50000;
+	sellitem 1127,49000;
+	sellitem 1149,60000;
+	//Two-handed Swords
+	sellitem 1117,2000;
+	sellitem 1152,15000;
+	sellitem 1155,22500;
+	sellitem 1158,60000;
+	sellitem 1162,65000;
+	//One-handed Spears
+	sellitem 1402,150;
+	sellitem 1405,1700;
+	sellitem 1408,3450;
+	//Two-handed Spears
+	sellitem 1452,13000;
+	sellitem 1455,20000;
+	sellitem 1458,27000;
+	sellitem 1461,51000;
+	sellitem 1464,54000;
+	//Axes
+	sellitem 1302,500;
+	sellitem 1352,5400;
+	sellitem 1355,15500;
+	sellitem 1358,34000;
+	sellitem 1361,55000;
+	//Maces
+	sellitem 1502,120;
+	sellitem 1505,1600;
+	sellitem 1508,9000;
+	sellitem 1511,16000;
+	sellitem 1514,41000;
+	sellitem 1517,50000;
+	sellitem 1520,60000;
+	//Rods
+	sellitem 1602,50;
+	sellitem 1605,2500;
+	sellitem 1608,9500;
+	sellitem 1610,45000;
+	//Bows
+	sellitem 1702,1000;
+	sellitem 1705,2500;
+	sellitem 1708,10000;
+	sellitem 1711,17000;
+	sellitem 1714,48000;
+	sellitem 1715,42000;
+	sellitem 1726,71000;
+	//Knuckles
+	sellitem 1802,8000;
+	sellitem 1804,25000;
+	sellitem 1806,32000;
+	sellitem 1808,53000;
+	sellitem 1810,67000;
+	sellitem 1812,58000;
+	//Instruments
+	sellitem 1902,4000;
+	sellitem 1904,18000;
+	sellitem 1906,24500;
+	sellitem 1908,47000;
+	sellitem 1910,62000;
+	sellitem 1912,54000;
+	//Whips
+	sellitem 1951,2500;
+	sellitem 1953,12000;
+	sellitem 1955,17500;
+	sellitem 1957,32000;
+	sellitem 1959,41000;
+	sellitem 1961,38000;
+	//Katars
+	sellitem 1251,19500;
+	sellitem 1253,41000;
+	sellitem 1255,37200;
+	end;
+	
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(AEGIS_POINTS);
+	dispbottom "This shop uses Aegis Points as currency.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( AEGIS_POINTS < @price )
+		end;
+	AEGIS_POINTS = AEGIS_POINTS - @price;
+	purchaseok();
+	dispbottom "You have "+ AEGIS_POINTS +" remaining.";
+	end;
+}

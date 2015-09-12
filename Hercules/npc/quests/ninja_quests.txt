@@ -1,11 +1,11 @@
 //===== Hercules Script ======================================
-//= Ninja Equipment Quests
+//= Ninja quests
 //===== By: ==================================================
 //= Playtester
 //===== Current Version: =====================================
 //= 1.2a
 //===== Description: =========================================
-//= Quests for Ninja weapons and armor.
+//= Ninja quests
 //===== Additional Comments: =================================
 //= 1.0 Ninja Arm Guards only yet [Playtester]
 //= 1.1 Added Kaibara [Playtester]

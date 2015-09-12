@@ -27,6 +27,11 @@ mosk_dun01,198,223,10,10	monster	Les	1881,2,10000,0,1
 mosk_dun01,0,0,0,0	monster	Poporing	1031,20,10000,0,1
 mosk_dun01,0,0,0,0	monster	Mantis	1139,10,20000,0,0
 
+mosk_dun01,198,223,10,10	monster	Paragon Wood Goblin	3880,5,10000,0,1,2
+mosk_dun01,198,223,10,10	monster	Paragon Les	3881,5,10000,0,1,2
+mosk_dun01,0,0,0,0	monster	Paragon Poporing	3031,5,10000,0,1,2
+mosk_dun01,0,0,0,0	monster	Paragon Mantis	3139,5,20000,0,0,2
+
 //==================================================
 // mosk_dun02 - Moscovia Dungeon 2
 //==================================================
@@ -34,6 +39,10 @@ mosk_dun02,0,0,0,0	monster	Wood Goblin	1880,30,10000,10000,1
 mosk_dun02,0,0,0,0	monster	Les	1881,40,10000,10000,1
 mosk_dun02,0,0,0,0	monster	Baba Yaga	1882,20,20000,10000,1
 mosk_dun02,0,0,0,0	monster	Uzhas	1883,5,20000,10000,1
+
+mosk_dun02,0,0,0,0	monster	Paragon Wood Goblin	3880,3,10000,10000,1,2
+mosk_dun02,0,0,0,0	monster	Paragon Les	3881,4,10000,10000,1,2
+mosk_dun02,0,0,0,0	monster	Paragon Baba Yaga	3882,2,20000,10000,1,2
 
 //==================================================
 // mosk_dun03 - Moscovia Dungeon 3
@@ -45,3 +54,7 @@ mosk_dun03,0,0,0,0	monster	Yellow Plant	1081,10,0,0,0
 mosk_dun03,0,0,0,0	monster	White Plant	1082,10,0,0,0
 mosk_dun03,0,0,0,0	monster	Shining Plant	1083,5,10000,0,0
 mosk_dun03,207,221,5,5	boss_monster	Gopinich	1885,1,7200000,600000,1
+
+mosk_dun03,0,0,0,0	monster	Paragon Baba Yaga	3882,6,10000,10000,1,2
+mosk_dun03,0,0,0,0	monster	Paragon Uzhas	3883,3,20000,10000,1,2
+mosk_dun03,0,0,0,0	monster	Paragon Mavka	3884,1,20000,10000,1,2

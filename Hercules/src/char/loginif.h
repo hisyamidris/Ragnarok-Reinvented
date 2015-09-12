@@ -5,9 +5,7 @@
 #ifndef CHAR_LOGINIF_H
 #define CHAR_LOGINIF_H
 
-#include "common/hercules.h"
-
-struct char_session_data;
+#include "char.h"
 
 /**
  * loginif interface
@@ -28,10 +26,10 @@ struct loginif_interface {
 	void (*connect_to_server) (void);
 };
 
+struct loginif_interface *loginif;
+
 #ifdef HERCULES_CORE
 void loginif_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct loginif_interface *loginif;
 
 #endif /* CHAR_LOGINIF_H */

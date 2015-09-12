@@ -2,7 +2,7 @@
 
 REM Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 REM See the LICENSE file
-REM Base Author: Mumbles @ http://herc.ws
+REM Base Author: Mumbles @ http://hercules.ws
 
 COLOR 0F
 

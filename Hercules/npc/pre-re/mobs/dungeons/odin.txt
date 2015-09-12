@@ -25,6 +25,11 @@ odin_tem01,0,0,0,0	monster	Green Plant	1080,5,60000,30000,1
 odin_tem01,0,0,0,0	monster	Yellow Plant	1081,5,60000,30000,1
 odin_tem01,0,0,0,0	monster	Blue Plant	1079,5,600000,300000,1
 
+odin_tem01,0,0,0,0	monster	Paragon Breeze	3692,1,300000,240000,0,2
+odin_tem01,0,0,0,0	monster	Paragon Plasma	3697,1,900000,300000,0,2
+odin_tem01,0,0,0,0	monster	Paragon Frus	3753,1,0,0,0,2
+odin_tem01,0,0,0,0	monster	Paragon Skogul	3752,1,0,0,0,2
+
 //==================================================
 // odin_tem02 - Odin Temple F2
 //==================================================
@@ -40,6 +45,11 @@ odin_tem02,190,236,3,3	monster	Skogul	1761,1,30000,15000,0
 odin_tem02,205,198,3,3	monster	Frus	1762,1,30000,15000,0
 odin_tem02,0,0,0,0	monster	Valkyrie	1765,1,5400000,1800000,0
 odin_tem02,0,0,0,0	monster	Blue Plant	1079,10,1800000,900000,1
+
+odin_tem02,0,0,0,0	monster	Paragon Plasma	3693,1,900000,300000,0,2
+odin_tem02,0,0,0,0	monster	Paragon Skeggiold	3754,1,1800000,0,0,2
+odin_tem02,0,0,0,0	monster	Paragon Frus	3753,1,0,0,0,2
+odin_tem02,0,0,0,0	monster	Paragon Skogul	3752,1,0,0,0,2
 
 //==================================================
 // odin_tem03 - Odin Temple F3
@@ -63,3 +73,8 @@ odin_tem03,0,0,0,0	monster	Valkyrie	1765,2,1800000,1200000,0
 odin_tem03,0,0,0,0	boss_monster	Valkyrie Randgris	1751,1,28800000,600000,1
 odin_tem03,0,0,0,0	monster	Blue Plant	1079,15,1800000,900000,1
 odin_tem03,0,0,0,0	monster	Shining Plant	1083,15,1800000,900000,1
+
+odin_tem03,0,0,0,0	monster	Paragon Plasma	3693,2,900000,300000,0,2
+odin_tem03,0,0,0,0	monster	Paragon Skeggiold	3754,2,0,0,0,2
+odin_tem03,0,0,0,0	monster	Paragon Frus	3753,1,0,0,0,2
+odin_tem03,0,0,0,0	monster	Paragon Skogul	3752,1,0,0,0,2

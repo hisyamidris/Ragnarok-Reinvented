@@ -14,6 +14,53 @@
 //= -> Juno -> Hugel -> ...
 //============================================================
 
+//============================================================
+//= Ragnarok Immersion Airship Route
+/*
+alberta,192,147
+pay_fild03
+pay_fild07
+payon,73,58
+pay_fild04
+izlude,185,73
+prontera,238,52
+mjolnir_09
+prt_fild00
+gef_fild00
+geffen,41,146
+mjolnir_06
+mjolnir_03
+aldebaran,102,222
+yuno_fild12
+yuno_fild07
+yuno_fild04
+yuno,92,260
+yuno_fild04
+ein_fild05
+Einbroch,92,278
+lhz_fild02
+Lighthalzen,302,75
+ra_fild12
+rachel,28,148
+ve_fild02
+ve_fild04
+Veins,199,353
+ve_fild07
+Umbala,138,224
+um_fild04
+um_fild02
+Comodo,106,336
+cmd_fild01
+cmd_fild03
+moc_fild19
+morocc,126,285
+pay_fild02
+pay_fild03
+...
+Alberta,140,223
+*/
+//============================================================
+
 airplane,243,73,0	script	#AirshipWarp-1	WARPNPC,1,1,{
 	end;
 
@@ -29,140 +76,386 @@ OnUnhide:
 	end;
 
 OnTouch:
+	specialeffect EF_ENHANCE;
 	switch ($@airplanelocation) {
-	case 0: warp "yuno",92,260; end;
-	case 1: warp "einbroch",92,278; end;
-	case 2: warp "lighthalzen",302,75; end;
-	case 3: warp "hugel",181,146; end;
+	case 0: warp "payon",72,58; end;
+	case 1: warp "izlude",185,73; end;
+	case 2: warp "prontera",269,63; end;
+	case 3: warp "geffen",41,146; end;
+	case 4: warp "aldebaran",102,222; end;
+	case 5: warp "yuno",78,262; end;
+	case 6: warp "einbroch",81,267; end;
+	case 7: warp "lighthalzen",260,76; end;
+	case 8: warp "rachel",224,227; end;
+	case 9: warp "veins",199,353; end;
+	case 10: warp "umbala",138,220; end;
+	case 11: warp "comodo",106,336; end;
+	case 12: warp "morocc",126,285; end;
+	case 13: warp "alberta",140,234; end;
 	}
 }
 
+
 airplane,243,29,0	duplicate(#AirshipWarp-1)	#AirshipWarp-2	WARPNPC,1,1
 
+//============================================================
+
+payon,70,60,0	script	#PayonCCW	WARPNPC,1,1,{
+	end;
+
+OnInit:
+OnHide:
+	specialeffect EF_BASH;
+	disablenpc strnpcinfo(0);
+	end;
+
+OnUnhide:
+	enablenpc strnpcinfo(0);
+	specialeffect EF_SUMMONSLAVE;
+	end;
+
+OnTouch:
+	specialeffect EF_ENHANCE;
+	warp "airplane",244,62; end;
+}
+
+
+izlude,190,65,0	duplicate(#PayonCCW)	#IzludeCCW	WARPNPC,1,1
+prontera,272,60,0	duplicate(#PayonCCW)	#PronteraCCW	WARPNPC,1,1
+geffen,39,152,0	duplicate(#PayonCCW)	#GeffenCCW	WARPNPC,1,1
+aldebaran,102,228,0	duplicate(#PayonCCW)	#AldebaranCCW	WARPNPC,1,1
+yuno,90,261,0	duplicate(#PayonCCW)	#YunoCCW	WARPNPC,1,1
+einbroch,91,267,0	duplicate(#PayonCCW)	#EinbrochCCW	WARPNPC,1,1
+lighthalzen,265,76,0	duplicate(#PayonCCW)	#LighthalzenCCW	WARPNPC,1,1
+rachel,228,230,0	duplicate(#PayonCCW)	#RachelCCW	WARPNPC,1,1
+veins,194,358,0	duplicate(#PayonCCW)	#VeinsCCW	WARPNPC,1,1
+umbala,138,227,0	duplicate(#PayonCCW)	#UmbalaCCW	WARPNPC,1,1
+comodo,102,340,0	duplicate(#PayonCCW)	#ComodoCCW	WARPNPC,1,1
+morocc,132,288,0	duplicate(#PayonCCW)	#MoroccCCW	WARPNPC,1,1
+alberta,144,239,0	duplicate(#PayonCCW)	#AlbertaCCW	WARPNPC,1,1
+//============================================================
+
+//============================================================
+payon,70,60,5	script	Portal Placement#ccwp1::CWBoard	4_BOARD3,{
+	mes "Counter-clockwise portal will be summoned here when airship is in range.";
+	close;
+}
+izlude,190,65,5	duplicate(CWBoard)	Portal Placement#ccwp2	4_BOARD3
+prontera,272,60,5	duplicate(CWBoard)	Portal Placement#ccwp3	4_BOARD3
+geffen,39,152,5	duplicate(CWBoard)	Portal Placement#ccwp4	4_BOARD3
+aldebaran,102,228,5	duplicate(CWBoard)	Portal Placement#ccwp5	4_BOARD3
+yuno,90,261,5	duplicate(CWBoard)	Portal Placement#ccwp6	4_BOARD3
+einbroch,91,267,5	duplicate(CWBoard)	Portal Placement#ccwp7	4_BOARD3
+lighthalzen,265,76,5	duplicate(CWBoard)	Portal Placement#ccwp8	4_BOARD3
+rachel,228,230,5	duplicate(CWBoard)	Portal Placement#ccwp9	4_BOARD3
+veins,194,358,5	duplicate(CWBoard)	Portal Placement#ccwp10	4_BOARD3
+umbala,138,227,5	duplicate(CWBoard)	Portal Placement#ccwp11	4_BOARD3
+comodo,102,340,5	duplicate(CWBoard)	Portal Placement#ccwp12	4_BOARD3
+morocc,132,288,5	duplicate(CWBoard)	Portal Placement#ccwp13	4_BOARD3
+alberta,144,239,5	duplicate(CWBoard)	Portal Placement#ccwp14	4_BOARD3
+//==============================================================
 airplane,1,1,0	script	Domestic_Airship	-1,{
 	end;
 OnInit:
 	initnpctimer;
+	$@airplanelocation  = 0;
 	end;
 OnTimer20000:
-	mapannounce "airplane","We are heading to Einbroch.",bc_map,"0x00ff00";
+	mapannounce "airplane","We are heading to Payon.",bc_map,"0x00ff00";
 	end;
-OnTimer50000:
-	mapannounce "airplane","We will arrive in Einbroch shortly.",bc_map,"0x00ff00";
+OnTimer30000:
+	mapannounce "airplane","We will arrive in Payon shortly.",bc_map,"0x00ff00";
+	mapannounce "payon","Airship will arrive in Payon shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"payon";
 	end;
-OnTimer60000:
-	$@airplanelocation = 1;
-	donpcevent "#AirshipWarp-1::OnUnhide";
-	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Einbroch. Have a safe trip.",bc_map,"0x00ff00";
-	end;
-OnTimer70000:
-	mapannounce "airplane","Currently we are in Einbroch. The Airship will take off shortly.",bc_map,"0x00ff00";
-	end;
-OnTimer80000:
-	donpcevent "#AirshipWarp-1::OnHide";
-	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is now taking off. Our next destination is Lighthalzen.",bc_map,"0x70dbdb";
-	end;
-OnTimer100000:
-	mapannounce "airplane","We are heading to Lighthalzen.",bc_map,"0x70dbdb";
-	end;
-OnTimer130000:
-	mapannounce "airplane","We will arrive in Lighthalzen shortly.",bc_map,"0x70dbdb";
-	end;
-OnTimer140000:
-	$@airplanelocation = 2;
-	donpcevent "#AirshipWarp-1::OnUnhide";
-	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Lighthalzen. Have a safe trip.",bc_map,"0x70dbdb";
-	end;
-OnTimer150000:
-	mapannounce "airplane","Currently we are in Lighthalzen. The Airship will leave shortly.",bc_map,"0x70dbdb";
-	end;
-OnTimer160000:
-	donpcevent "#AirshipWarp-1::OnHide";
-	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Einbroch.",bc_map,"0x00ff00";
-	end;
-OnTimer180000:
-	mapannounce "airplane","We are heading to Einbroch.",bc_map,"0x00ff00";
-	end;
-OnTimer210000:
-	mapannounce "airplane","We will arrive in Einbroch shortly.",bc_map,"0x00FF00";
-	end;
-OnTimer220000:
-	$@airplanelocation = 1;
-	donpcevent "#AirshipWarp-1::OnUnhide";
-	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Einbroch. Have a safe trip.",bc_map,"0x00ff00";
-	end;
-OnTimer230000:
-	mapannounce "airplane","Currently we are in Einbroch. The Airship will take off shortly.",bc_map,"0x00ff00";
-	end;
-OnTimer240000:
-	donpcevent "#AirshipWarp-1::OnHide";
-	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is now taking off. Our next destination is Juno.",bc_map,"0xff8200";
-	end;
-OnTimer260000:
-	mapannounce "airplane","We are heading to Juno.",bc_map,"0xff8200";
-	end;
-OnTimer290000:
-	mapannounce "airplane","We will arrive in Juno shortly.",bc_map,"0xff8200";
-	end;
-OnTimer300000:
+OnTimer40000:
 	$@airplanelocation = 0;
 	donpcevent "#AirshipWarp-1::OnUnhide";
 	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Juno. Have a safe trip.",bc_map,"0xff8200";
+	donpcevent "#PayonCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Payon Village. Have a safe trip.",bc_map,"0x00ff00";
+	mapannounce "payon","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
 	end;
-OnTimer310000:
-	mapannounce "airplane","Currently we are in Juno. The Airship will leave shortly.",bc_map,"0xff8200";
+OnTimer50000:
+	mapannounce "airplane","Currently we are in Payon Village. The Airship will take off shortly.",bc_map,"0x00ff00";
 	end;
-OnTimer320000:
+OnTimer60000:
 	donpcevent "#AirshipWarp-1::OnHide";
 	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Hugel.",bc_map,"0xca4bf3";
+	donpcevent "#PayonCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving Payon Village. Our next destination is Izlude.",bc_map,"0x70dbdb";
+	mapannounce "izlude","Airship will arrive in Izlude shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"izlude";
 	end;
-OnTimer340000:
-	mapannounce "airplane","We are heading to Hugel.",bc_map,"0xca4bf3";
-	end;
-OnTimer370000:
-	mapannounce "airplane","We will arrive in Hugel shortly.",bc_map,"0xca4bf3";
-	end;
-OnTimer380000:
-	$@airplanelocation = 3;
+OnTimer70000:
+	$@airplanelocation += 1;
 	donpcevent "#AirshipWarp-1::OnUnhide";
 	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Hugel. Have a safe trip.",bc_map,"0xca4bf3";
+	donpcevent "#IzludeCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Izlude. Have a safe trip.",bc_map,"0x70dbdb";
+	mapannounce "izlude","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer80000:
+	mapannounce "airplane","Currently we are in Izlude. The Airship will leave shortly.",bc_map,"0x70dbdb";
+	end;
+OnTimer90000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#IzludeCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the Izlude. Our next destination is Prontera.",bc_map,"0x00ff00";
+	mapannounce "prontera","Airship will arrive in Prontera shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"prontera";
+	end;
+OnTimer100000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#PronteraCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Prontera City. Have a safe trip.",bc_map,"0x00ff00";
+	mapannounce "prontera","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer110000:
+	mapannounce "airplane","Currently we are in Prontera City. The Airship will take off shortly.",bc_map,"0x00ff00";
+	end;
+OnTimer120000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#PronteraCCW::OnHide";
+	mapannounce "airplane","The Airship is now taking off. Our next destination is Geffen City.",bc_map,"0xff8200";
+	end;
+OnTimer140000:
+	mapannounce "airplane","We will arrive in Geffen shortly.",bc_map,"0xff8200";
+	mapannounce "geffen","Airship will arrive in Geffen shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"geffen";
+	end;
+OnTimer150000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#GeffenCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Geffen City. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "geffen","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer160000:
+	mapannounce "airplane","Currently we are in Geffen City. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer170000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#GeffenCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Al De Baran.",bc_map,"0xca4bf3";
+	end;
+OnTimer180000:
+	mapannounce "airplane","We will arrive in Al De Baran shortly.",bc_map,"0xca4bf3";
+	mapannounce "aldebaran","Airship will arrive in Al De Baran shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"aldebaran";
+	end;
+OnTimer190000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#AldebaranCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Al De Baran. Have a safe trip.",bc_map,"0xca4bf3";
+	mapannounce "aldebaran","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer200000:
+	mapannounce "airplane","Currently we are in Al De Baran. The Airship will leave shortly.",bc_map,"0xca4bf3";
+	end;
+OnTimer210000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#AldebaranCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Juno.",bc_map,"0xff8200";
+	end;
+OnTimer230000:
+	mapannounce "airplane","We will arrive in Juno shortly.",bc_map,"0xff8200";
+	mapannounce "yuno","Airship will arrive in Juno shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"yuno";
+	end;
+OnTimer240000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#YunoCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Juno. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "yuno","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer250000:
+	mapannounce "airplane","Currently we are in Juno. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer260000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#YunoCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Einbroch.",bc_map,"0xff8200";
+	end;
+OnTimer270000:
+	mapannounce "airplane","We will arrive in Einbroch shortly.",bc_map,"0xff8200";
+	mapannounce "einbroch","Airship will arrive in Einbroch shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"einbroch";
+	end;
+OnTimer280000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#EinbrochCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Einbroch. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "einbroch","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer290000:
+	mapannounce "airplane","Currently we are in Einbroch. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer300000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#EinbrochCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Lighthalzen.",bc_map,"0xff8200";
+	mapannounce "Lighthalzen","Airship will arrive in Lighthalzen shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"lighthalzen";
+	end;
+OnTimer310000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#LighthalzenCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Lighthalzen. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "lighthalzen","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer320000:
+	mapannounce "airplane","Currently we are in Lighthalzen. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer330000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#LighthalzenCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Rachel.",bc_map,"0xff8200";
+	mapannounce "rachel","Airship will arrive in Rachel shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"rachel";
+	end;
+OnTimer340000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#RachelCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Rachel. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "rachel","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer350000:
+	mapannounce "airplane","Currently we are in Rachel. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer360000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#RachelCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Veins.",bc_map,"0xff8200";
+	end;
+OnTimer370000:
+	mapannounce "airplane","We will arrive in Veins shortly.",bc_map,"0xff8200";
+	mapannounce "veins","Airship will arrive in Veins shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"veins";
+	end;
+OnTimer380000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#VeinsCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Veins. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "veins","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
 	end;
 OnTimer390000:
-	mapannounce "airplane","Currently we are in Hugel. The Airship will leave shortly.",bc_map,"0xca4bf3";
+	mapannounce "airplane","Currently we are in Veins. The Airship will leave shortly.",bc_map,"0xff8200";
 	end;
 OnTimer400000:
 	donpcevent "#AirshipWarp-1::OnHide";
 	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Juno.",bc_map,"0xff8200";
+	donpcevent "#VeinsCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Umbala Village.",bc_map,"0xff8200";
+	mapannounce "umbala","Airship will arrive in Umbala shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"umbala";
 	end;
-OnTimer420000:
-	mapannounce "airplane","We are heading to Juno.",bc_map,"0xff8200";
-	end;
-OnTimer450000:
-	mapannounce "airplane","We will arrive in Juno shortly.",bc_map,"0xff8200";
-	end;
-OnTimer460000:
-	$@airplanelocation = 0;
+OnTimer410000:
+	$@airplanelocation += 1;
 	donpcevent "#AirshipWarp-1::OnUnhide";
 	donpcevent "#AirshipWarp-2::OnUnhide";
-	mapannounce "airplane","Welcome to Juno. Have a safe trip.",bc_map,"0xff8200";
+	donpcevent "#UmbalaCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Umbala Village. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "umbala","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
 	end;
-OnTimer470000:
-	mapannounce "airplane","Currently we are in Juno. The Airship will leave shortly.",bc_map,"0xff8200";
+OnTimer420000:
+	mapannounce "airplane","Currently we are in Umbala Village. The Airship will leave shortly.",bc_map,"0xff8200";
 	end;
-OnTimer480000:
+OnTimer430000:
 	donpcevent "#AirshipWarp-1::OnHide";
 	donpcevent "#AirshipWarp-2::OnHide";
-	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Einbroch.",bc_map,"0x00ff00";
+	donpcevent "#UmbalaCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Comodo.",bc_map,"0xff8200";
+	end;
+OnTimer440000:
+	mapannounce "airplane","We will arrive in Comodo shortly.",bc_map,"0xff8200";
+	mapannounce "comodo","Airship will arrive in Comodo shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"comodo";
+	end;
+OnTimer450000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#ComodoCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Comodo. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "comodo","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer460000:
+	mapannounce "airplane","Currently we are in Comodo. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer470000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#ComodoCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Morocc.",bc_map,"0xff8200";
+	end;
+OnTimer490000:
+	mapannounce "airplane","We will arrive in Morocc shortly.",bc_map,"0xff8200";
+	mapannounce "morocc","Airship will arrive in Morocc shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"morocc";
+	end;
+OnTimer500000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#MoroccCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Morocc. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "morocc","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer510000:
+	mapannounce "airplane","Currently we are in Morocc. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer520000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#MoroccCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Alberta.",bc_map,"0xff8200";
+	end;
+OnTimer530000:
+	mapannounce "airplane","We will arrive in Alberta Port shortly.",bc_map,"0xff8200";
+	mapannounce "alberta","Airship will arrive in Alberta shortly.",bc_map,"0x00ff00";
+	soundeffectall "opensoon.wav",0,"alberta";
+	end;
+OnTimer540000:
+	$@airplanelocation += 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	donpcevent "#AlbertaCCW::OnUnhide";
+	mapannounce "airplane","Welcome to Alberta Port. Have a safe trip.",bc_map,"0xff8200";
+	mapannounce "alberta","Airship is now in range for teleportation. Portal is open for 20 seconds.",bc_map,"0x00ff00";
+	end;
+OnTimer550000:
+	mapannounce "airplane","Currently we are in Alberta Port. The Airship will leave shortly.",bc_map,"0xff8200";
+	end;
+OnTimer560000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	donpcevent "#AlbertaCCW::OnHide";
+	mapannounce "airplane","The Airship is leaving the ground. Our next destination is Payon Village.",bc_map,"0x00ff00";
+	$@airplanelocation += 0;
 	stopnpctimer;
 	initnpctimer;
 }
@@ -383,7 +676,7 @@ airplane,221,158,2	script	Pilot#airplane	4_M_EIN_SOLDIER,{
 		mes "......";
 		mes "No one ever really";
 		mes "comes into this room.";
-		mes "And the captain IS a reindeer. I could just strip to my boxers.";
+		mes "And the captain IS a reindeer.^FFFFFF ^000000 I could just strip to my boxers.";
 		next;
 		emotion e_omg;
 		mes "[Pilot]";
@@ -655,7 +948,7 @@ OnTouch:
 	switch ($@airplanelocation2) {
 	case 0: warp "ra_fild12",292,204; end;
 	case 1:
-		if (RENEWAL)
+		if(checkre(0))
 			warp "izlude",200,73;
 		else
 			warp "izlude",200,56;

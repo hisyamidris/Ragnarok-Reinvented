@@ -5,11 +5,13 @@
 #ifndef MAP_SKILL_H
 #define MAP_SKILL_H
 
-#include "map/map.h" // struct block_list
-#include "map/status.h" // enum sc_type
-#include "common/hercules.h"
-#include "common/db.h"
-#include "common/mmo.h" // MAX_SKILL, struct square
+#include "../config/core.h" // RENEWAL_CAST
+
+#include "map.h" // struct block_list
+#include "status.h" // enum sc_type
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/mmo.h" // MAX_SKILL, struct square
 
 /**
  * Declarations
@@ -42,6 +44,8 @@ struct status_change_entry;
 #define MAX_SKILL_ITEM_REQUIRE    10
 #define MAX_SKILLUNITGROUPTICKSET 25
 #define MAX_SKILL_NAME_LENGTH     30
+#define MAX_TRANSMUTE_DB         200
+#define MAX_TRANSMUTE_RESOURCE     5
 
 // (Epoque:) To-do: replace this macro with some sort of skill tree check (rather than hard-coded skill names)
 #define skill_ischangesex(id) ( \
@@ -1566,7 +1570,7 @@ enum {
 	UNT_DEATHWAVE, //TODO
 	UNT_WATERATTACK, //TODO
 	UNT_WINDATTACK, //TODO
-	UNT_EARTHQUAKE,
+	UNT_EARTHQUAKE, //TODO
 	UNT_EVILLAND,
 	UNT_DARK_RUNNER, //TODO
 	UNT_DARK_TRANSFER, //TODO
@@ -1730,7 +1734,6 @@ struct skill_unit {
 	int limit;
 	int val1,val2;
 	short alive,range;
-	int prev;
 };
 
 struct skill_unit_group_tickset {
@@ -1773,7 +1776,10 @@ struct skill_cd_entry {
 	int timer;/* timer id */
 	uint16 skill_id;//skill id
 };
-
+struct i_transmute_db {
+	int nameid, trigger;
+	int cre_id[MAX_ARROW_RESOURCE], cre_amount[MAX_ARROW_RESOURCE];
+};
 /**
  * Skill Cool Down Delay Saving
  * Struct skill_cd is not a member of struct map_session_data
@@ -1812,21 +1818,6 @@ struct s_skill_spellbook_db {
 
 typedef int (*SkillFunc)(struct block_list *src, struct block_list *target, uint16 skill_id, uint16 skill_lv, int64 tick, int flag);
 
-struct s_skill_dbs {
-BEGIN_ZEROED_BLOCK; // This block will be zeroed in skill_defaults() as well as skill_readdb()
-	struct s_skill_db db[MAX_SKILL_DB];
-	struct s_skill_produce_db produce_db[MAX_SKILL_PRODUCE_DB];
-	struct s_skill_arrow_db arrow_db[MAX_SKILL_ARROW_DB];
-	struct s_skill_abra_db abra_db[MAX_SKILL_ABRA_DB];
-	struct s_skill_magicmushroom_db magicmushroom_db[MAX_SKILL_MAGICMUSHROOM_DB];
-	struct s_skill_improvise_db improvise_db[MAX_SKILL_IMPROVISE_DB];
-	struct s_skill_changematerial_db changematerial_db[MAX_SKILL_PRODUCE_DB];
-	struct s_skill_spellbook_db spellbook_db[MAX_SKILL_SPELLBOOK_DB];
-	bool reproduce_db[MAX_SKILL_DB];
-END_ZEROED_BLOCK;
-	struct s_skill_unit_layout unit_layout[MAX_SKILL_UNIT_LAYOUT];
-};
-
 /**
  * Skill.c Interface
  **/
@@ -1848,7 +1839,17 @@ struct skill_interface {
 	struct eri *cd_ers; // ERS Storage for skill cool down managers [Ind/Hercules]
 	struct eri *cd_entry_ers; // ERS Storage for skill cool down entries [Ind/Hercules]
 	/* */
-	struct s_skill_dbs *dbs;
+	struct s_skill_db db[MAX_SKILL_DB];
+	struct s_skill_produce_db produce_db[MAX_SKILL_PRODUCE_DB];
+	struct s_skill_arrow_db arrow_db[MAX_SKILL_ARROW_DB];
+	struct s_skill_abra_db abra_db[MAX_SKILL_ABRA_DB];
+	struct s_skill_magicmushroom_db magicmushroom_db[MAX_SKILL_MAGICMUSHROOM_DB];
+	struct s_skill_improvise_db improvise_db[MAX_SKILL_IMPROVISE_DB];
+	struct s_skill_changematerial_db changematerial_db[MAX_SKILL_PRODUCE_DB];
+	struct s_skill_spellbook_db spellbook_db[MAX_SKILL_SPELLBOOK_DB];
+	bool reproduce_db[MAX_SKILL_DB];
+	struct s_skill_unit_layout unit_layout[MAX_SKILL_UNIT_LAYOUT];
+	struct i_transmute_db transmute_db[MAX_TRANSMUTE_DB];
 	/* */
 	int enchant_eff[5];
 	int deluge_eff[5];
@@ -2080,12 +2081,15 @@ struct skill_interface {
 	bool (*get_requirement_off_unknown) (struct status_change *sc, uint16 *skill_id);
 	bool (*get_requirement_item_unknown) (struct status_change *sc, struct map_session_data* sd, uint16 *skill_id, uint16 *skill_lv, uint16 *idx, int *i);
 	void (*get_requirement_unknown) (struct status_change *sc, struct map_session_data* sd, uint16 *skill_id, uint16 *skill_lv, struct skill_condition *req);
+
+	bool (*parse_row_transmutedb) (char* split[], int columns, int current);
+	int (*create_transmute) (struct map_session_data *sd, int nameid);
 };
+
+struct skill_interface *skill;
 
 #ifdef HERCULES_CORE
 void skill_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct skill_interface *skill;
 
 #endif /* MAP_SKILL_H */

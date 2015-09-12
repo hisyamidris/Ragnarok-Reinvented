@@ -13,12 +13,75 @@
 
 // PVP Warpers
 //============================================================
-pvp_y_room,86,85,4	script	Fight Square Reception#8	8W_SOLDIER,{
-	callfunc "F_PVP_FSRS";
+pvp_y_room,86,85,4	script	Fight Square Reception#0	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",99,99;
 	end;
 
 OnInit:
-	waitingroom "Free for all",0;
+	waitingroom "Level 99",0;
+	end;
+}
+
+pvp_y_room,78,85,4	script	Fight Square Reception#9	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",90,99;
+	end;
+
+OnInit:
+	waitingroom "Level 90-99",0;
+	end;
+}
+
+pvp_y_room,70,85,4	script	Fight Square Reception#8	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",80,89;
+	end;
+
+OnInit:
+	waitingroom "Level 80-89",0;
+	end;
+}
+
+pvp_y_room,62,85,4	script	Fight Square Reception#7	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",70,79;
+	end;
+
+OnInit:
+	waitingroom "Level 70-79",0;
+	end;
+}
+
+pvp_y_room,54,85,4	script	Fight Square Reception#6	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",60,69;
+	end;
+
+OnInit:
+	waitingroom "Level 60-69",0;
+	end;
+}
+
+pvp_y_room,46,85,4	script	Fight Square Reception#5	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",50,59;
+	end;
+
+OnInit:
+	waitingroom "Level 50-59",0;
+	end;
+}
+
+pvp_y_room,38,85,4	script	Fight Square Reception#4	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",40,49;
+	end;
+
+OnInit:
+	waitingroom "Level 40-49",0;
+	end;
+}
+
+pvp_y_room,30,85,4	script	Fight Square Reception#3	8W_SOLDIER,{
+	callfunc "F_PVP_FSRS",30,39;
+	end;
+
+OnInit:
+	waitingroom "Level 30-39",0;
 	end;
 }
 

@@ -8,21 +8,21 @@
 
 #include "npc.h" // struct npc_data
 
-#include "map/mob.h" // struct mob_data
-#include "map/pc.h" // struct map_session_data
-#include "map/script.h" // set_var()
-#include "common/malloc.h"
-#include "common/nullpo.h"
-#include "common/showmsg.h"
-#include "common/strlib.h"
-#include "common/timer.h"
-
-#include <pcre/include/pcre.h>
-
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../../3rdparty/pcre/include/pcre.h"
+
+#include "mob.h" // struct mob_data
+#include "pc.h" // struct map_session_data
+#include "script.h" // set_var()
+#include "../common/malloc.h"
+#include "../common/nullpo.h"
+#include "../common/showmsg.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
 
 /**
  * interface sources
@@ -30,8 +30,6 @@
 struct npc_chat_interface npc_chat_s;
 struct pcre_interface libpcre_s;
 
-struct npc_chat_interface *npc_chat;
-struct pcre_interface *libpcre;
 
 /**
  *  Written by MouseJstr in a vision... (2/21/2005)
@@ -373,7 +371,7 @@ int npc_chat_sub(struct block_list* bl, va_list ap)
 				}
 				
 				// run the npc script
-				script->run_npc(nd->u.scr.script,lst[i].pos,sd->bl.id,nd->bl.id);
+				script->run(nd->u.scr.script,lst[i].pos,sd->bl.id,nd->bl.id);
 				return 0;
 			}
 		}

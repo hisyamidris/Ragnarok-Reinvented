@@ -5,12 +5,9 @@
 #ifndef MAP_ATCOMMAND_H
 #define MAP_ATCOMMAND_H
 
-#include "map/pc_groups.h"
-#include "common/hercules.h"
-#include "common/conf.h"
-#include "common/db.h"
-
-#include <stdarg.h>
+#include "pc_groups.h"
+#include "../common/conf.h"
+#include "../common/db.h"
 
 /**
  * Declarations
@@ -25,9 +22,6 @@ struct block_list;
 #define ATCOMMAND_LENGTH 50
 #define MAX_MSG 1500
 #define msg_txt(idx) atcommand->msg(idx)
-#define msg_sd(sd,msg_number) atcommand->msgsd((sd),(msg_number))
-#define msg_fd(fd,msg_number) atcommand->msgfd((fd),(msg_number))
-
 /**
  * Enumerations
  **/
@@ -80,12 +74,8 @@ struct atcommand_interface {
 	/* other vars */
 	DBMap* db; //name -> AtCommandInfo
 	DBMap* alias_db; //alias -> AtCommandInfo
-	/**
-	 * msg_table[lang_id][msg_id]
-	 * Server messages (0-499 reserved for GM commands, 500-999 reserved for others)
-	 **/
-	char*** msg_table;
-	uint8 max_message_table;
+	/* */
+	char* msg_table[MAX_MSG]; // Server messages (0-499 reserved for GM commands, 500-999 reserved for others)
 	/* */
 	void (*init) (bool minimal);
 	void (*final) (void);
@@ -122,16 +112,14 @@ struct atcommand_interface {
 	void (*base_commands) (void);
 	bool (*add) (char *name, AtCommandFunc func, bool replace);
 	const char* (*msg) (int msg_number);
-	void (*expand_message_table) (void);
-	const char* (*msgfd) (int fd, int msg_number);
-	const char* (*msgsd) (struct map_session_data *sd, int msg_number);
+	bool (*readdb_chkpnt) (char* fields[], int columns, int current);
 };
+
+struct atcommand_interface *atcommand;
 
 #ifdef HERCULES_CORE
 void atcommand_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct atcommand_interface *atcommand;
 
 /* stay here */
 #define ACMD(x) static bool atcommand_ ## x (const int fd, struct map_session_data* sd, const char* command, const char* message, struct AtCommandInfo *info)

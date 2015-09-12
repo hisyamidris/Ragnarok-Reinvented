@@ -1,0 +1,5 @@
+// <given_name>,<var_name>
+Aegis,AEGIS_POINTS
+Prestige,PRESTIGE_POINTS
+Sentinel,SENTINEL_POINTS
+Veteran,#VETERAN

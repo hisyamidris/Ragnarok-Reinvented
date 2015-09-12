@@ -182,33 +182,16 @@ geffen_in,67,63,4	duplicate(pvpe)	PVP Narrator#pe6	4_M_02
 	mes "modes or rules, Please ask";
 	mes "the Narrator...";
 	next;
-	switch(select("^FF5533' PvP Nightmare Mode'^000000:^3355FF' PvP Yoyo Mode'^000000:^3355FF' PvP Event Mode'^000000:Quit")) {
+	switch(select("^3355FF' PvP Yoyo Mode'^000000:Quit")) {
 		case 1:
 			mes "[Gate Keeper]";
-			mes "I am sorry, but currently the Nightmare mode service is not available.";
-			mes "Please use the Yoyo Mode instead. We apologize for the inconvenience.";
-			break;
-		case 2:
-			mes "[Gate Keeper]";
-			mes "The admission fee is 500 Zeny.";
 			mes "Do you want to move";
 			mes "to the Yoyo Mode";
 			mes "fight square?";
 			next;
 			switch(select("Move:Cancel")) {
 			case 1:
-				if ((Zeny > 499) && (BaseLevel > 30)) {
-					Zeny -= 500;
 					callsub L_Warp,"pvp_y_room";
-				}
-				else {
-					mes "[Gate Keeper]";
-					mes "Excuse me, but";
-					mes "did you not come prepared?";
-					mes "Double check that you have the";
-					mes "500 Zeny entrance fee, and";
-					mes "that you are at least level 31!";
-				}
 				close;
 			case 2:
 				mes "[Gate Keeper]";
@@ -220,27 +203,7 @@ geffen_in,67,63,4	duplicate(pvpe)	PVP Narrator#pe6	4_M_02
 				mes "we welcome your challenge!";
 				close;
 			}
-		case 3:
-			mes "[Gate Keeper]";
-			mes "Welcome!";
-			mes "Please double check";
-			mes "that you have the admission or viewing ticket.";
-			next;
-			if ((countitem(7028) == 0) && (countitem(7029) == 0)) {
-				mes "[Gate Keeper]";
-				mes "Eh? You don't have it? Then I";
-				mes "am sorry, this fight square is";
-				mes "only for people who have";
-				mes "admission or viewing tickets.";
-				mes "You cannot come in without it.";
-				close;
-			}
-			mes "[Gate Keeper]";
-			mes "Yes, thank you for participating. Have fun!";
-			if (Zeny >= 500) Zeny -= 500;
-			callsub L_Warp,"pvp_room";
-			break;
-		case 4:
+		case 2:
 			mes "[Gate Keeper]";
 			mes "With war raging between monsters";
 			mes "and humans, This competition";
@@ -254,7 +217,7 @@ geffen_in,67,63,4	duplicate(pvpe)	PVP Narrator#pe6	4_M_02
 
 L_Warp:
 	.@map$ = getarg(0);
-	if (RENEWAL) {
+	if (checkre(0)) {
 		switch(rand(1,10)) {
 			case 1: warp .@map$,34,38; break;
 			case 2: warp .@map$,46,38; break;
@@ -290,21 +253,57 @@ function	script	F_PVP_FSRS	{
 			close;
 		}
 	}
-	if (strnpcinfo(4) == "pvp_y_room") {
+	if (BaseLevel > 98) {
 		.@base$ = "pvp_y_"+strnpcinfo(2);
-		setarray .@maps$[0],	.@base$+"-1",	.@base$+"-2",	.@base$+"-3",	.@base$+"-4",	.@base$+"-5";
-		setarray .@name$[0],	"Prontera",		"Izlude",		"Payon",		"Alberta",		"Morroc";
-		setarray .@Limit[0],	128,			128,			128,			128,			128;
+		setarray .@maps$[0],	"arena";
+		setarray .@name$[0],	"Max Level Arena";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 99 && BaseLevel > 89) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena90";
+		setarray .@name$[0],	"Arena 90 - 98";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 90 && BaseLevel > 79) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena80";
+		setarray .@name$[0],	"Arena 80 - 89";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 80 && BaseLevel > 69) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena70";
+		setarray .@name$[0],	"Arena 70 - 79";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 70 && BaseLevel > 59) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena60";
+		setarray .@name$[0],	"Arena 60 - 69";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 60 && BaseLevel > 49) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena50";
+		setarray .@name$[0],	"Arena 50 - 59";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 50 && BaseLevel > 39) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena40";
+		setarray .@name$[0],	"Arena 40 - 49";
+		setarray .@Limit[0],	20;
+	} else if (BaseLevel < 40 && BaseLevel > 29) {
+		.@base$ = "pvp_y_"+strnpcinfo(2);
+		setarray .@maps$[0],	"arena30";
+		setarray .@name$[0],	"Arena 30 - 39";
+		setarray .@Limit[0],	20;
 	} else {
-		setarray .@maps$[0],	"pvp_n_8-1",	"pvp_n_8-2",	"pvp_n_8-3",	"pvp_n_8-4",	"pvp_n_8-5";
-		setarray .@name$[0],	"Sandwich",		"Lock on",		"Four Room",	"Under cross",	"Compass Room";
-		setarray .@Limit[0],	64,				32,				32,				32,				32;
+			mes "[PVP Fight Square Reception Staff]";
+			mes "You need to be at least level 30 to enter the arena.";
+			warp "Save",0,0;
+			close;
 	}
-	for (.@i = 0; .@i<5; ++.@i)
+	for (.@i = 0; .@i<1; ++.@i)
 		.@menu$ += .@name$[.@i]+" ["+getmapusers(.@maps$[.@i])+" / "+.@Limit[.@i]+"]:";
 	.@menu$ += "Cancel.";
 	.@i = select(.@menu$)-1;
-	if (.@i == 5) close;
+	if (.@i == 1) close;
 	if (getmapusers(.@maps$[.@i]) >= .@Limit[.@i]) {
 		mes "[PVP Fight Square Reception Staff]";
 		mes "This map is currently full.";

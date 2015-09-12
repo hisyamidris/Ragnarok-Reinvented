@@ -5,9 +5,9 @@
 #ifndef COMMON_CONF_H
 #define COMMON_CONF_H
 
-#include "common/hercules.h"
+#include "../common/cbasetypes.h"
 
-#include <libconfig/libconfig.h>
+#include "../../3rdparty/libconfig/libconfig.h"
 
 /**
  * The libconfig interface -- specially for plugins, but we enforce it throughout the core to be consistent
@@ -74,13 +74,13 @@ struct libconfig_interface {
 	int (*setting_remove_elem) (config_setting_t *parent, unsigned int idx);
 	void (*setting_set_hook) (config_setting_t *setting, void *hook);
 
-	config_setting_t * (*lookup) (const config_t *config, const char *filepath);
-	config_setting_t * (*lookup_from) (config_setting_t *setting, const char *filepath);
-	int (*lookup_int) (const config_t *config, const char *filepath, int *value);
-	int (*lookup_int64) (const config_t *config, const char *filepath, long long *value);
-	int (*lookup_float) (const config_t *config, const char *filepath, double *value);
-	int (*lookup_bool) (const config_t *config, const char *filepath, int *value);
-	int (*lookup_string) (const config_t *config, const char *filepath, const char **value);
+	config_setting_t * (*lookup) (const config_t *config, const char *path);
+	config_setting_t * (*lookup_from) (config_setting_t *setting, const char *path);
+	int (*lookup_int) (const config_t *config, const char *path, int *value);
+	int (*lookup_int64) (const config_t *config, const char *path, long long *value);
+	int (*lookup_float) (const config_t *config, const char *path, double *value);
+	int (*lookup_bool) (const config_t *config, const char *path, int *value);
+	int (*lookup_string) (const config_t *config, const char *path, const char **value);
 
 	/* those are custom and are from src/common/conf.c */
 	/* Functions to copy settings from libconfig/contrib */
@@ -91,10 +91,10 @@ struct libconfig_interface {
 	int (*setting_copy) (config_setting_t *parent, const config_setting_t *src);
 };
 
+struct libconfig_interface *libconfig;
+
 #ifdef HERCULES_CORE
 void libconfig_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct libconfig_interface *libconfig;
 
 #endif // COMMON_CONF_H

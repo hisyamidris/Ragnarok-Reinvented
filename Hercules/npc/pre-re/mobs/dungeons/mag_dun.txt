@@ -19,6 +19,12 @@ mag_dun01,0,0,0,0	monster	Kaho	1072,20,0,0,0
 mag_dun01,0,0,0,0	monster	Explosion	1383,30,0,0,0
 mag_dun01,0,0,0,0	monster	Grizzly	1381,10,0,0,0
 
+mag_dun01,0,0,0,0	monster	Paragon Blazer	3367,2,0,0,0,2
+mag_dun01,0,0,0,0	monster	Paragon Lava Golem	3366,2,600000,300000,0,2
+mag_dun01,0,0,0,0	monster	Paragon Kaho	3072,2,0,0,0,2
+mag_dun01,0,0,0,0	monster	Paragon Explosion	3383,3,0,0,0,2
+mag_dun01,0,0,0,0	monster	Paragon Grizzly	3381,1,0,0,0,2
+
 //==================================================
 // mag_dun02 - Nogg Road F2
 //==================================================
@@ -39,3 +45,8 @@ mag_dun02,184,170,43,55	monster	Nightmare Terror	1379,7,300000,150000,0
 mag_dun02,197,59,50,37	monster	Deleter	1384,3,300000,150000,0
 mag_dun02,197,59,50,37	monster	Deleter	1385,5,300000,150000,0
 mag_dun02,197,59,50,37	monster	Diabolic	1382,5,300000,30000,0
+
+mag_dun02,0,0,0,0	monster	Paragon Gig	3387,1,0,0,0,2
+mag_dun02,0,0,0,0	monster	Paragon Deleter	3384,2,0,0,0,2
+mag_dun02,0,0,0,0	monster	Diabolic	3382,1,120000,30000,0,2
+mag_dun02,0,0,0,0	monster	Paragon Nightmare Terror	3379,1,0,0,0,2

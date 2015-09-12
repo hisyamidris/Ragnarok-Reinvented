@@ -16,6 +16,9 @@ c_tower1,0,0,0,0	monster	Rideword	1195,70,0,0,0
 c_tower1,0,0,0,0	monster	Clock Tower Manager	1270,1,0,0,0
 c_tower1,0,0,0,0	monster	Bathory	1102,1,0,0,0
 
+c_tower1,0,0,0,0	monster	Paragon Punk	3199,7,0,0,0,2
+c_tower1,0,0,0,0	monster	Paragon Rideword	3195,7,0,0,0,2
+
 //==================================================
 // c_tower2 - Clock Tower F2
 //==================================================
@@ -32,6 +35,8 @@ c_tower2,0,0,0,0	monster	Clock Tower Manager	1270,1,0,0,0
 c_tower2,0,0,0,0	monster	Elder	1377,1,3600000,1800000,0
 c_tower2,0,0,0,0	monster	Elder	1377,1,3600000,1800000,0
 
+c_tower2,0,0,0,0	monster	Paragon Punk	3199,4,0,0,0,2
+c_tower2,0,0,0,0	monster	Paragon Clock	3269,4,0,0,0,2
 //==================================================
 // c_tower3 - Clock Tower F3
 //==================================================
@@ -40,6 +45,8 @@ c_tower3,0,0,0,0	monster	Rideword	1195,5,0,0,0
 c_tower3,153,220,10,10	monster	Rideword	1195,1,126000,100000,0
 c_tower3,0,0,0,0	monster	Mimic	1191,7,0,0,0
 c_tower3,0,0,0,0	monster	Clock Tower Manager	1270,3,0,0,0
+
+c_tower3,0,0,0,0	monster	Paragon Alarm	3193,8,0,0,0,2
 
 //==================================================
 // c_tower4 - Clock Tower F4
@@ -97,3 +104,8 @@ c_tower4,148,85,0,0	monster	Mimic	1191,1,1800000,900000,1
 c_tower4,189,51,0,0	monster	Mimic	1191,1,1800000,900000,1
 c_tower4,170,34,0,0	monster	Mimic	1191,1,1800000,900000,1
 c_tower4,42,41,0,0	monster	Executioner	1205,1,7200000,3600000,1
+
+c_tower4,0,0,0,10	monster	Paragon Alarm	3193,6,0,0,0,2
+c_tower4,0,0,0,10	monster	Paragon Clock	3269,7,0,0,0,2
+c_tower4,0,0,0,10	monster	Paragon Owl Duke	3320,3,0,0,0,2
+c_tower4,0,0,0,0	monster	Paragon Rideword	3195,1,0,0,0,2

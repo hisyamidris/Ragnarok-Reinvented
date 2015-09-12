@@ -6,18 +6,17 @@
 
 #include "geoip.h"
 
-#include "common/cbasetypes.h"
-#include "common/malloc.h"
-#include "common/showmsg.h"
-
 #include <errno.h>
 #include <stdio.h>
 #include <sys/stat.h> // for stat/lstat/fstat - [Dekamaster/Ultimate GM Tool]
 
+#include "../common/cbasetypes.h"
+#include "../common/malloc.h"
+#include "../common/showmsg.h"
+
 struct s_geoip geoip_data;
 
 struct geoip_interface geoip_s;
-struct geoip_interface *geoip;
 
 /* [Dekamaster/Nightroad] */
 #define GEOIP_MAX_COUNTRIES 255
@@ -146,20 +145,18 @@ void geoip_init(void)
 	}
 
 	// Search database type
-	if (fseek(db, -3l, SEEK_END) != 0) {
-		db_type = 0;
-	} else {
-		for (i = 0; i < GEOIP_STRUCTURE_INFO_MAX_SIZE; i++) {
-			if (fread(delim, sizeof(delim[0]), 3, db) != 3) {
+	fseek(db, -3l, SEEK_END);
+	for (i = 0; i < GEOIP_STRUCTURE_INFO_MAX_SIZE; i++) {
+		if (fread(delim, sizeof(delim[0]), 3, db) != 3) {
+			db_type = 0;
+			break;
+		}
+		if (delim[0] == 255 && delim[1] == 255 && delim[2] == 255) {
+			if (fread(&db_type, sizeof(db_type), 1, db) != 1) {
 				db_type = 0;
-				break;
 			}
-			if (delim[0] == 255 && delim[1] == 255 && delim[2] == 255) {
-				if (fread(&db_type, sizeof(db_type), 1, db) != 1) {
-					db_type = 0;
-				}
-				break;
-			}
+			break;
+		} else {
 			if (fseek(db, -4l, SEEK_CUR) != 0) {
 				db_type = 0;
 				break;

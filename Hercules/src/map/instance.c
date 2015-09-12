@@ -4,26 +4,7 @@
 
 #define HERCULES_CORE
 
-#include "config/core.h" // CELL_NOSTACK
 #include "instance.h"
-
-#include "map/channel.h"
-#include "map/clif.h"
-#include "map/guild.h"
-#include "map/map.h"
-#include "map/npc.h"
-#include "map/party.h"
-#include "map/pc.h"
-#include "common/HPM.h"
-#include "common/cbasetypes.h"
-#include "common/db.h"
-#include "common/malloc.h"
-#include "common/nullpo.h"
-#include "common/showmsg.h"
-#include "common/socket.h"
-#include "common/strlib.h"
-#include "common/timer.h"
-#include "common/utils.h"
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -31,8 +12,25 @@
 #include <string.h>
 #include <time.h>
 
+#include "../config/core.h" // CELL_NOSTACK
+#include "channel.h"
+#include "clif.h"
+#include "map.h"
+#include "npc.h"
+#include "party.h"
+#include "pc.h"
+#include "../common/HPM.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
+#include "../common/malloc.h"
+#include "../common/nullpo.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h"
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
+
 struct instance_interface instance_s;
-struct instance_interface *instance;
 
 /// Checks whether given instance id is valid or not.
 bool instance_is_valid(int instance_id) {
@@ -358,7 +356,7 @@ int instance_init_npc(struct block_list* bl, va_list args) {
 	snprintf(evname, EVENT_NAME_LENGTH, "%s::OnInstanceInit", nd->exname);
 
 	if( ( ev = strdb_get(npc->ev_db, evname) ) )
-		script->run_npc(ev->nd->u.scr.script, ev->pos, 0, ev->nd->bl.id);
+		script->run(ev->nd->u.scr.script, ev->pos, 0, ev->nd->bl.id);
 
 	return 1;
 }

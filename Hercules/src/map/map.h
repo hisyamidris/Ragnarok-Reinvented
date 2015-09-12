@@ -5,16 +5,17 @@
 #ifndef MAP_MAP_H
 #define MAP_MAP_H
 
-#include "map/atcommand.h"
-#include "common/hercules.h"
-#include "common/core.h" // CORE_ST_LAST
-#include "common/db.h"
-#include "common/mapindex.h"
-#include "common/mmo.h"
-#include "common/sql.h"
+#include "../config/core.h"
 
-#include <stdio.h>
 #include <stdarg.h>
+
+#include "atcommand.h"
+#include "../common/cbasetypes.h"
+#include "../common/core.h" // CORE_ST_LAST
+#include "../common/db.h"
+#include "../common/mapindex.h"
+#include "../common/mmo.h"
+#include "../common/sql.h"
 
 struct mob_data;
 struct npc_data;
@@ -63,6 +64,16 @@ enum MOBID {
 	MOBID_SILVERSNIPER = 2042,
 	MOBID_MAGICDECOY_WIND = 2046,
 };
+
+// The following system marks a different job ID system used by the map server,
+// which makes a lot more sense than the normal one. [Skotlex]
+// These marks the "level" of the job.
+#define JOBL_2_1 0x100 //256
+#define JOBL_2_2 0x200 //512
+#define JOBL_2 0x300
+#define JOBL_UPPER 0x1000 //4096
+#define JOBL_BABY 0x2000  //8192
+#define JOBL_THIRD 0x4000 //16384
 
 // For filtering and quick checking.
 #define MAPID_BASEMASK 0x00ff
@@ -213,13 +224,7 @@ enum {
 #define EVENT_NAME_LENGTH ( NAME_LENGTH * 2 + 3 )
 #define DEFAULT_AUTOSAVE_INTERVAL (5*60*1000)
 // Specifies maps where players may hit each other
-#define map_flag_vs(m) ( \
-		map->list[m].flag.pvp \
-		|| map->list[m].flag.gvg_dungeon \
-		|| map->list[m].flag.gvg \
-		|| ((map->agit_flag || map->agit2_flag) && map->list[m].flag.gvg_castle) \
-		|| map->list[m].flag.battleground \
-		)
+#define map_flag_vs(m) (map->list[m].flag.pvp || map->list[m].flag.gvg_dungeon || map->list[m].flag.gvg || ((map->agit_flag || map->agit2_flag) && map->list[m].flag.gvg_castle) || map->list[m].flag.battleground)
 // Specifies maps that have special GvG/WoE restrictions
 #define map_flag_gvg(m) (map->list[m].flag.gvg || ((map->agit_flag || map->agit2_flag) && map->list[m].flag.gvg_castle))
 // Specifies if the map is tagged as GvG/WoE (regardless of map->agit_flag status)
@@ -261,15 +266,10 @@ enum {
 	RC_DEMIHUMAN,
 	RC_ANGEL,
 	RC_DRAGON,
-	RC_PLAYER,
 	RC_BOSS,
 	RC_NONBOSS,
-	RC_MAX,
 	RC_NONDEMIHUMAN,
-	RC_NONPLAYER,
-	RC_DEMIPLAYER,
-	RC_NONDEMIPLAYER,
-	RC_ALL = 0xFF
+	RC_MAX
 };
 
 enum {
@@ -280,8 +280,6 @@ enum {
 	RC2_GOLEM,
 	RC2_GUARDIAN,
 	RC2_NINJA,
-	RC2_SCARABA,
-	RC2_TURTLE,
 	RC2_MAX
 };
 
@@ -296,8 +294,7 @@ enum elements {
 	ELE_DARK,
 	ELE_GHOST,
 	ELE_UNDEAD,
-	ELE_MAX,
-	ELE_ALL = 0xFF
+	ELE_MAX
 };
 
 /**
@@ -383,6 +380,8 @@ enum status_point_types {
 
 	// Mercenaries
 	SP_MERCFLEE=165, SP_MERCKILLS=189, SP_MERCFAITH=190,
+	
+	SP_BONUS_EXP, SP_BONUS_DROP, // 191 - 192
 
 	// original 1000-
 	SP_ATTACKRANGE=1000, SP_ATKELE,SP_DEFELE, // 1000-1002
@@ -428,7 +427,6 @@ enum status_point_types {
 	SP_SKILL_COOLDOWN,SP_SKILL_FIXEDCAST, SP_SKILL_VARIABLECAST, SP_FIXCASTRATE, SP_VARCASTRATE, //2050-2054
 	SP_SKILL_USE_SP,SP_MAGIC_ATK_ELE, SP_ADD_FIXEDCAST, SP_ADD_VARIABLECAST,  //2055-2058
 	SP_SET_DEF_RACE,SP_SET_MDEF_RACE, //2059-2060
-	SP_RACE_TOLERANCE, //2061
 
 	/* must be the last, plugins add bonuses from this value onwards */
 	SP_LAST_KNOWN,
@@ -766,6 +764,8 @@ struct mapit_interface {
 	bool                    (*exists) (struct s_mapiterator* iter);
 };
 
+struct mapit_interface *mapit;
+
 #define mapit_getallusers() (mapit->alloc(MAPIT_NORMAL,BL_PC))
 #define mapit_geteachpc()   (mapit->alloc(MAPIT_NORMAL,BL_PC))
 #define mapit_geteachmob()  (mapit->alloc(MAPIT_NORMAL,BL_MOB))
@@ -863,13 +863,12 @@ struct map_interface {
 	char mob_db2_db[32];
 	char mob_skill_db_db[32];
 	char mob_skill_db2_db[32];
+	char interreg_db[32];
 	char autotrade_merchants_db[32];
 	char autotrade_data_db[32];
 	char npc_market_data_db[32];
 
 	char default_codepage[32];
-	char default_lang_str[64];
-	uint8 default_lang_id;
 
 	int server_port;
 	char server_ip[32];
@@ -896,15 +895,15 @@ struct map_interface {
 	DBMap* regen_db;  // int id -> struct block_list* (status_natural_heal processing)
 	DBMap* zone_db;   // string => struct map_zone_data
 	DBMap* iwall_db;
+	/* order respected by map_defaults() in order to zero */
+	/* from block_free until zone_pk */
 	struct block_list **block_free;
 	int block_free_count, block_free_lock, block_free_list_size;
 	struct block_list **bl_list;
 	int bl_list_count, bl_list_size;
-BEGIN_ZEROED_BLOCK; // This block is zeroed in map_defaults()
 	struct block_list bl_head;
 	struct map_zone_data zone_all;/* used as a base on all maps */
 	struct map_zone_data zone_pk;/* used for (pk_mode) */
-END_ZEROED_BLOCK;
 	/* */
 	struct map_session_data *cpsd;
 	struct map_data *list;
@@ -1087,11 +1086,10 @@ END_ZEROED_BLOCK;
 	void (*zone_clear_single) (struct map_zone_data *zone);
 };
 
+struct map_interface *map;
+
 #ifdef HERCULES_CORE
 void map_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct mapit_interface *mapit;
-HPShared struct map_interface *map;
 
 #endif /* MAP_MAP_H */

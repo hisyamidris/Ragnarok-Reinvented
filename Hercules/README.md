@@ -131,10 +131,7 @@ The following list of links point to various help files within the GIT, articles
 pages on the Wiki or topics within the Hercules forum.
 
 * Hercules Forums
-	http://herc.ws/board/
-
-* Hercules Wiki
-	http://herc.ws/wiki/Main_Page
+	http://hercules.ws/board/
 
 * GIT Repository URL:
 	https://github.com/HerculesWS/Hercules

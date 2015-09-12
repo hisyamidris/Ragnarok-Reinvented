@@ -23,6 +23,12 @@ lou_dun01,0,0,0,0	monster	Leib Olmai	1306,1,300000,120000,0
 lou_dun01,197,77,10,10	monster	Black Mushroom	1084,5,0,0,0
 lou_dun01,0,0,0,0	monster	Shining Plant	1083,5,0,0,0
 
+lou_dun01,0,0,0,0	monster	Paragon Horong	3129,1,0,0,0,2
+lou_dun01,0,0,0,0	monster	Paragon Mi Gao	3516,1,0,0,0,2
+lou_dun01,215,159,40,80	monster	Paragon Side Winder	3037,1,300000,120000,0,2
+lou_dun01,0,0,0,0	monster	Paragon Jing Guai	3517,2,0,0,0,2
+lou_dun01,0,0,0,0	monster	Paragon Grizzly	3381,1,0,0,0,2
+
 //==================================================
 // lou_dun02 - Inside the Royal Tomb
 //==================================================
@@ -30,6 +36,9 @@ lou_dun02,0,0,0,0	monster	Yao Jun	1512,40,300000,120000,0
 lou_dun02,0,0,0,0	monster	Munak	1026,25,0,0,0
 lou_dun02,0,0,0,0	monster	Zhu Po Long	1514,5,0,0,0
 lou_dun02,0,0,0,0	monster	Mimic	1191,5,0,0,0
+
+lou_dun02,0,0,0,0	monster	Paragon Yao Jun	3512,4,300000,120000,0,2
+lou_dun02,0,0,0,0	monster	Paragon Munak	3026,2,0,0,0,2
 
 //==================================================
 // lou_dun03 - Suei Long Gon
@@ -39,3 +48,7 @@ lou_dun03,0,0,0,0	monster	Zhu Po Long	1514,25,120000,60000,0
 lou_dun03,0,0,0,0	monster	Mao Guai	1513,15,0,0,0
 lou_dun03,0,0,0,0	monster	Green Maiden	1631,5,3000000,1800000,1
 lou_dun03,0,0,0,0	boss_monster	White Lady	1630,1,7000000,600000,1
+
+lou_dun03,0,0,0,0	monster	Paragon Yao Jun	3512,2,120000,60000,0,2
+lou_dun03,0,0,0,0	monster	Paragon Zhu Po Long	3514,2,120000,60000,0,2
+lou_dun03,0,0,0,0	monster	Paragon Mao Guai	3513,1,0,0,0,2

@@ -4,73 +4,71 @@
 
 #define HERCULES_CORE
 
-#include "config/core.h" // CELL_NOSTACK, CIRCULAR_AREA, CONSOLE_INPUT, DBPATH, RENEWAL
+#include "../config/core.h" // CELL_NOSTACK, CIRCULAR_AREA, CONSOLE_INPUT, DBPATH, RENEWAL
 #include "map.h"
-
-#include "map/HPMmap.h"
-#include "map/atcommand.h"
-#include "map/battle.h"
-#include "map/battleground.h"
-#include "map/channel.h"
-#include "map/chat.h"
-#include "map/chrif.h"
-#include "map/clif.h"
-#include "map/duel.h"
-#include "map/elemental.h"
-#include "map/guild.h"
-#include "map/homunculus.h"
-#include "map/instance.h"
-#include "map/intif.h"
-#include "map/irc-bot.h"
-#include "map/itemdb.h"
-#include "map/log.h"
-#include "map/mail.h"
-#include "map/mapreg.h"
-#include "map/mercenary.h"
-#include "map/mob.h"
-#include "map/npc.h"
-#include "map/npc.h" // npc_setcells(), npc_unsetcells()
-#include "map/party.h"
-#include "map/path.h"
-#include "map/pc.h"
-#include "map/pet.h"
-#include "map/quest.h"
-#include "map/script.h"
-#include "map/skill.h"
-#include "map/status.h"
-#include "map/storage.h"
-#include "map/trade.h"
-#include "map/unit.h"
-#include "common/HPM.h"
-#include "common/cbasetypes.h"
-#include "common/conf.h"
-#include "common/console.h"
-#include "common/core.h"
-#include "common/ers.h"
-#include "common/grfio.h"
-#include "common/malloc.h"
-#include "common/nullpo.h"
-#include "common/random.h"
-#include "common/showmsg.h"
-#include "common/socket.h" // WFIFO*()
-#include "common/strlib.h"
-#include "common/timer.h"
-#include "common/utils.h"
 
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "HPMmap.h"
+#include "atcommand.h"
+#include "battle.h"
+#include "battleground.h"
+#include "channel.h"
+#include "chat.h"
+#include "chrif.h"
+#include "clif.h"
+#include "duel.h"
+#include "elemental.h"
+#include "guild.h"
+#include "homunculus.h"
+#include "instance.h"
+#include "intif.h"
+#include "irc-bot.h"
+#include "itemdb.h"
+#include "log.h"
+#include "mail.h"
+#include "mapreg.h"
+#include "mercenary.h"
+#include "mob.h"
+#include "npc.h"
+#include "npc.h" // npc_setcells(), npc_unsetcells()
+#include "party.h"
+#include "path.h"
+#include "pc.h"
+#include "pet.h"
+#include "quest.h"
+#include "script.h"
+#include "skill.h"
+#include "status.h"
+#include "storage.h"
+#include "trade.h"
+#include "unit.h"
+#include "../common/HPM.h"
+#include "../common/cbasetypes.h"
+#include "../common/conf.h"
+#include "../common/console.h"
+#include "../common/core.h"
+#include "../common/ers.h"
+#include "../common/grfio.h"
+#include "../common/malloc.h"
+#include "../common/nullpo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/socket.h" // WFIFO*()
+#include "../common/strlib.h"
+#include "../common/timer.h"
+#include "../common/utils.h"
+
 #ifndef _WIN32
 #include <unistd.h>
 #endif
 
 struct map_interface map_s;
 struct mapit_interface mapit_s;
-
-struct map_interface *map;
-struct mapit_interface *mapit;
 
 /*==========================================
  * server player count (of all mapservers)
@@ -1802,7 +1800,7 @@ int map_quit(struct map_session_data *sd) {
 	if( sd->bg_id && !sd->bg_queue.arena ) /* TODO: dump this chunk after bg_queue is fully enabled */
 		bg->team_leave(sd,BGTL_QUIT);
 
-	if (sd->state.autotrade && core->runflag != MAPSERVER_ST_SHUTDOWN && !channel->config->closing)
+	if (sd->state.autotrade && runflag != MAPSERVER_ST_SHUTDOWN && !channel->config->closing)
 		pc->autotrade_update(sd,PAUC_REMOVE);
 
 	skill->cooldown_save(sd);
@@ -1846,13 +1844,13 @@ int map_quit(struct map_session_data *sd) {
 	for( i = 0; i < EQI_MAX; i++ ) {
 		if( sd->equip_index[ i ] >= 0 )
 			if( !pc->isequip( sd , sd->equip_index[ i ] ) )
-				pc->unequipitem(sd, sd->equip_index[i], PCUNEQUIPITEM_FORCE);
+				pc->unequipitem( sd , sd->equip_index[ i ] , 2 );
 	}
 
 	// Return loot to owner
 	if( sd->pd ) pet->lootitem_drop(sd->pd, sd);
 
-	if( sd->state.storage_flag == STORAGE_FLAG_NORMAL ) sd->state.storage_flag = STORAGE_FLAG_CLOSED; // No need to Double Save Storage on Quit.
+	if( sd->state.storage_flag == 1 ) sd->state.storage_flag = 0; // No need to Double Save Storage on Quit.
 
 	if( sd->ed ) {
 		elemental->clean_effect(sd->ed);
@@ -3541,12 +3539,12 @@ int map_config_read(char *cfgName) {
 		*ptr = '\0';
 
 		if(strcmpi(w1,"timestamp_format")==0)
-			safestrncpy(showmsg->timestamp_format, w2, 20);
+			safestrncpy(timestamp_format, w2, 20);
 		else if(strcmpi(w1,"stdout_with_ansisequence")==0)
-			showmsg->stdout_with_ansisequence = config_switch(w2) ? true : false;
+			stdout_with_ansisequence = config_switch(w2);
 		else if(strcmpi(w1,"console_silent")==0) {
-			showmsg->silent = atoi(w2);
-			if (showmsg->silent) // only bother if its actually enabled
+			msg_silent = atoi(w2);
+			if( msg_silent ) // only bother if its actually enabled
 				ShowInfo("Console Silent Setting: %d\n", atoi(w2));
 		} else if (strcmpi(w1, "userid")==0)
 			chrif->setuserid(w2);
@@ -3596,9 +3594,7 @@ int map_config_read(char *cfgName) {
 		else if (strcmpi(w1, "use_grf") == 0)
 			map->enable_grf = config_switch(w2);
 		else if (strcmpi(w1, "console_msg_log") == 0)
-			showmsg->console_log = atoi(w2);//[Ind]
-		else if (strcmpi(w1, "default_language") == 0)
-			safestrncpy(map->default_lang_str, w2, sizeof(map->default_lang_str));
+			console_msg_log = atoi(w2);//[Ind]
 		else if (strcmpi(w1, "import") == 0)
 			map->config_read(w2);
 		else
@@ -3733,6 +3729,8 @@ int inter_config_read(char *cfgName) {
 			safestrncpy(map->mob_skill_db_db, w2, sizeof(map->mob_skill_db_db));
 		else if(strcmpi(w1,"mob_skill_db2_db")==0)
 			safestrncpy(map->mob_skill_db2_db, w2, sizeof(map->mob_skill_db2_db));
+		else if(strcmpi(w1,"interreg_db")==0)
+			safestrncpy(map->interreg_db, w2, sizeof(map->interreg_db));
 		/* map sql stuff */
 		else if(strcmpi(w1,"map_server_ip")==0)
 			safestrncpy(map->server_ip, w2, sizeof(map->server_ip));
@@ -3749,38 +3747,14 @@ int inter_config_read(char *cfgName) {
 		else if(strcmpi(w1,"use_sql_item_db")==0) {
 			map->db_use_sql_item_db = config_switch(w2);
 			ShowStatus ("Using item database as SQL: '%s'\n", w2);
-			if (map->db_use_sql_item_db) {
-				// Deprecated 2015-08-09 [Haru]
-				ShowWarning("Support for the SQL item database is deprecated and it will removed in future versions. "
-						"Please upgrade to the non-sql version as soon as possible. "
-						"Bug reports or pull requests concerning the SQL item database are no longer accepted.\n");
-				ShowInfo("Resuming in 10 seconds...\n");
-				HSleep(10);
-			}
 		}
 		else if(strcmpi(w1,"use_sql_mob_db")==0) {
 			map->db_use_sql_mob_db = config_switch(w2);
 			ShowStatus ("Using monster database as SQL: '%s'\n", w2);
-			if (map->db_use_sql_mob_db) {
-				// Deprecated 2015-08-09 [Haru]
-				ShowWarning("Support for the SQL monster database is deprecated and it will removed in future versions. "
-						"Please upgrade to the non-sql version as soon as possible. "
-						"Bug reports or pull requests concerning the SQL monster database are no longer accepted.\n");
-				ShowInfo("Resuming in 10 seconds...\n");
-				HSleep(10);
-			}
 		}
 		else if(strcmpi(w1,"use_sql_mob_skill_db")==0) {
 			map->db_use_sql_mob_skill_db = config_switch(w2);
 			ShowStatus ("Using monster skill database as SQL: '%s'\n", w2);
-			if (map->db_use_sql_mob_skill_db) {
-				// Deprecated 2015-08-09 [Haru]
-				ShowWarning("Support for the SQL monster skill database is deprecated and it will removed in future versions. "
-						"Please upgrade to the non-sql version as soon as possible. "
-						"Bug reports or pull requests concerning the SQL monster skill database are no longer accepted.\n");
-				ShowInfo("Resuming in 10 seconds...\n");
-				HSleep(10);
-			}
 		}
 		else if(strcmpi(w1,"autotrade_merchants_db")==0)
 			safestrncpy(map->autotrade_merchants_db, w2, sizeof(map->autotrade_merchants_db));
@@ -5545,9 +5519,9 @@ void set_server_type(void) {
 /// Called when a terminate signal is received.
 void do_shutdown(void)
 {
-	if( core->runflag != MAPSERVER_ST_SHUTDOWN )
+	if( runflag != MAPSERVER_ST_SHUTDOWN )
 	{
-		core->runflag = MAPSERVER_ST_SHUTDOWN;
+		runflag = MAPSERVER_ST_SHUTDOWN;
 		ShowStatus("Shutting down...\n");
 		{
 			struct map_session_data* sd;
@@ -5555,7 +5529,7 @@ void do_shutdown(void)
 			for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter) )
 				clif->GM_kick(NULL, sd);
 			mapit->free(iter);
-			sockt->flush_fifos();
+			flush_fifos();
 		}
 		chrif->check_shutdown();
 	}
@@ -5615,6 +5589,60 @@ void map_cp_defaults(void) {
 	console->input->addCommand("gm:use",CPCMD_A(gm_use));
 #endif
 }
+/* Hercules Plugin Mananger */
+void map_hp_symbols(void) {
+	/* full interfaces */
+	HPM->share(atcommand,"atcommand");
+	HPM->share(battle,"battle");
+	HPM->share(bg,"battlegrounds");
+	HPM->share(buyingstore,"buyingstore");
+	HPM->share(channel,"channel");
+	HPM->share(clif,"clif");
+	HPM->share(chrif,"chrif");
+	HPM->share(guild,"guild");
+	HPM->share(gstorage,"gstorage");
+	HPM->share(homun,"homun");
+	HPM->share(map,"map");
+	HPM->share(ircbot,"ircbot");
+	HPM->share(itemdb,"itemdb");
+	HPM->share(logs,"logs");
+	HPM->share(mail,"mail");
+	HPM->share(instance,"instance");
+	HPM->share(script,"script");
+	HPM->share(searchstore,"searchstore");
+	HPM->share(skill,"skill");
+	HPM->share(vending,"vending");
+	HPM->share(pc,"pc");
+	HPM->share(pcg,"pc_groups");
+	HPM->share(party,"party");
+	HPM->share(storage,"storage");
+	HPM->share(trade,"trade");
+	HPM->share(status,"status");
+	HPM->share(chat, "chat");
+	HPM->share(duel,"duel");
+	HPM->share(elemental,"elemental");
+	HPM->share(intif,"intif");
+	HPM->share(mercenary,"mercenary");
+	HPM->share(mob,"mob");
+	HPM->share(unit,"unit");
+	HPM->share(npc,"npc");
+	HPM->share(mapreg,"mapreg");
+	HPM->share(pet,"pet");
+	HPM->share(path,"path");
+	HPM->share(quest,"quest");
+#ifdef PCRE_SUPPORT
+	HPM->share(npc_chat,"npc_chat");
+	HPM->share(libpcre,"libpcre");
+#endif
+	HPM->share(mapit,"mapit");
+	HPM->share(mapindex,"mapindex");
+	/* sql link */
+	HPM->share(map->mysql_handle,"sql_handle");
+	/* specific */
+	HPM->share(atcommand->create,"addCommand");
+	HPM->share(script->addScript,"addScript");
+	HPM->share(HPM_map_add_group_permission,"addGroupPermission");
+}
 
 void map_load_defaults(void) {
 	mapindex_defaults();
@@ -5669,7 +5697,7 @@ void map_load_defaults(void) {
  */
 static CMDLINEARG(runonce)
 {
-	core->runflag = CORE_ST_STOP;
+	runflag = CORE_ST_STOP;
 	return true;
 }
 /**
@@ -5777,7 +5805,7 @@ static CMDLINEARG(logconfig)
 static CMDLINEARG(scriptcheck)
 {
 	map->minimal = true;
-	core->runflag = CORE_ST_STOP;
+	runflag = CORE_ST_STOP;
 	map->scriptcheck = true;
 	return true;
 }
@@ -5793,24 +5821,6 @@ static CMDLINEARG(loadscript)
 	map->extra_scripts[map->extra_scripts_count-1] = aStrdup(params);
 	return true;
 }
-
-/**
- * --generate-translations
- *
- * Creates "./generated_translations.pot"
- * @see cmdline->exec
- **/
-static CMDLINEARG(generatetranslations) {
-	script->lang_export_file = aStrdup("./generated_translations.pot");
-	
-	if( !(script->lang_export_fp = fopen(script->lang_export_file,"wb")) ) {
-		ShowError("export-dialog: failed to open '%s' for writing\n",script->lang_export_file);
-	}
-	
-	core->runflag = CORE_ST_STOP;
-	return true;
-}
-
 /**
  * Defines the local command line arguments
  */
@@ -5827,7 +5837,6 @@ void cmdline_args_init_local(void)
 	CMDLINEARG_DEF2(log-config, logconfig, "Alternative logging configuration.", CMDLINE_OPT_NORMAL|CMDLINE_OPT_PARAM);
 	CMDLINEARG_DEF2(script-check, scriptcheck, "Doesn't run the server, only tests the scripts passed through --load-script.", CMDLINE_OPT_SILENT);
 	CMDLINEARG_DEF2(load-script, loadscript, "Loads an additional script (can be repeated).", CMDLINE_OPT_NORMAL|CMDLINE_OPT_PARAM);
-	CMDLINEARG_DEF2(generate-translations, generatetranslations, "Creates './generated_translations.pot' file with all translateable strings from scripts, server terminates afterwards.", CMDLINE_OPT_NORMAL);
 }
 
 int do_init(int argc, char *argv[])
@@ -5851,6 +5860,7 @@ int do_init(int argc, char *argv[])
 	map->GRF_PATH_FILENAME       = aStrdup("conf/grf-files.txt");
 
 	HPM_map_do_init();
+	HPM->symbol_defaults_sub = map_hp_symbols;
 	cmdline->exec(argc, argv, CMDLINE_OPT_PREINIT);
 	HPM->config_read();
 	
@@ -5871,7 +5881,7 @@ int do_init(int argc, char *argv[])
 
 		if (!map->ip_set || !map->char_ip_set) {
 			char ip_str[16];
-			sockt->ip2str(sockt->addr_[0], ip_str);
+			ip2str(sockt->addr_[0], ip_str);
 
 			ShowWarning("Not all IP addresses in /conf/map-server.conf configured, auto-detecting...\n");
 
@@ -6005,9 +6015,9 @@ int do_init(int argc, char *argv[])
 	
 	ShowStatus("Server is '"CL_GREEN"ready"CL_RESET"' and listening on port '"CL_WHITE"%d"CL_RESET"'.\n\n", map->port);
 
-	if( core->runflag != CORE_ST_STOP ) {
-		core->shutdown_callback = map->do_shutdown;
-		core->runflag = MAPSERVER_ST_RUNNING;
+	if( runflag != CORE_ST_STOP ) {
+		shutdown_callback = map->do_shutdown;
+		runflag = MAPSERVER_ST_RUNNING;
 	}
 
 	map_cp_defaults();
@@ -6059,6 +6069,7 @@ void map_defaults(void) {
 	sprintf(map->mob_db2_db, "mob_db2");
 	sprintf(map->mob_skill_db_db, "mob_skill_db");
 	sprintf(map->mob_skill_db2_db, "mob_skill_db2");
+	sprintf(map->interreg_db, "interreg");
 	
 	map->INTER_CONF_NAME="conf/inter-server.conf";
 	map->LOG_CONF_NAME="conf/logs.conf";
@@ -6076,7 +6087,6 @@ void map_defaults(void) {
 	sprintf(map->server_pw,"ragnarok");
 	sprintf(map->server_db,"ragnarok");
 	map->mysql_handle = NULL;
-	map->default_lang_str[0] = '\0';
 
 	map->cpsd_active = false;
 	
@@ -6108,7 +6118,10 @@ void map_defaults(void) {
 	map->bl_list_size = 0;
 	
 	//all in a big chunk, respects order
-	memset(ZEROED_BLOCK_POS(map), 0, ZEROED_BLOCK_SIZE(map));
+	memset(&map->bl_head,0,sizeof(map->bl_head)
+		   + sizeof(map->zone_all)
+		   + sizeof(map->zone_pk)
+		   );
 	
 	map->cpsd = NULL;
 	map->list = NULL;

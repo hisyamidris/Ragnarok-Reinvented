@@ -4,9 +4,11 @@
 #ifndef MAP_CHANNEL_H
 #define MAP_CHANNEL_H
 
-#include "common/hercules.h"
-#include "common/db.h"
-#include "common/mmo.h"
+#include <stdarg.h>
+
+#include "map.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
 
 /**
  * Declarations
@@ -49,7 +51,7 @@ struct Channel_Config {
 	char **colors_name;
 	unsigned char colors_count;
 	bool local, ally, irc;
-	bool local_autojoin, ally_autojoin, irc_autojoin;
+	bool local_autojoin, ally_autojoin;
 	char local_name[HCS_NAME_LENGTH], ally_name[HCS_NAME_LENGTH], irc_name[HCS_NAME_LENGTH];
 	unsigned char local_color, ally_color, irc_color;
 	bool closing;
@@ -104,15 +106,14 @@ struct channel_interface {
 	void (*guild_join_alliance) (const struct guild *g_source, const struct guild *g_ally);
 	void (*guild_leave_alliance) (const struct guild *g_source, const struct guild *g_ally);
 	void (*quit_guild) (struct map_session_data *sd);
-	void (*irc_join) (struct map_session_data *sd);
 
 	void (*config_read) (void);
 };
 
+struct channel_interface *channel;
+
 #ifdef HERCULES_CORE
 void channel_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct channel_interface *channel;
 
 #endif /* MAP_CHANNEL_H */

@@ -4,45 +4,50 @@
 
 #define HERCULES_CORE
 
-#include "config/core.h"
+#include "../config/core.h"
 #include "core.h"
 
-#include "common/cbasetypes.h"
-#include "common/console.h"
-#include "common/db.h"
-#include "common/malloc.h"
-#include "common/mmo.h"
-#include "common/random.h"
-#include "common/showmsg.h"
-#include "common/strlib.h"
-#include "common/sysinfo.h"
-#include "common/nullpo.h"
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../common/cbasetypes.h"
+#include "../common/console.h"
+#include "../common/malloc.h"
+#include "../common/mmo.h"
+#include "../common/random.h"
+#include "../common/showmsg.h"
+#include "../common/strlib.h"
+#include "../common/sysinfo.h"
+#include "../common/nullpo.h"
 
 #ifndef MINICORE
-#	include "common/HPM.h"
-#	include "common/conf.h"
-#	include "common/ers.h"
-#	include "common/socket.h"
-#	include "common/sql.h"
-#	include "common/thread.h"
-#	include "common/timer.h"
-#	include "common/utils.h"
+#	include "../common/HPM.h"
+#	include "../common/conf.h"
+#	include "../common/db.h"
+#	include "../common/ers.h"
+#	include "../common/socket.h"
+#	include "../common/sql.h"
+#	include "../common/thread.h"
+#	include "../common/timer.h"
+#	include "../common/utils.h"
 #endif
 
 #ifndef _WIN32
 #	include <unistd.h>
 #else
-#	include "common/winapi.h" // Console close event handling
+#	include "../common/winapi.h" // Console close event handling
 #endif
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 /// Called when a terminate signal is received.
 void (*shutdown_callback)(void) = NULL;
 
-struct core_interface core_s;
-struct core_interface *core = &core_s;
+int runflag = CORE_ST_RUN;
+int arg_c = 0;
+char **arg_v = NULL;
+
+char *SERVER_NAME = NULL;
 
 #ifndef MINICORE // minimalist Core
 // Added by Gabuzomeu
@@ -87,7 +92,7 @@ static BOOL WINAPI console_handler(DWORD c_event) {
 			if( shutdown_callback != NULL )
 				shutdown_callback();
 			else
-				core->runflag = CORE_ST_STOP;// auto-shutdown
+				runflag = CORE_ST_STOP;// auto-shutdown
 			break;
 		default:
 			return FALSE;
@@ -115,7 +120,7 @@ static void sig_proc(int sn) {
 			if( shutdown_callback != NULL )
 				shutdown_callback();
 			else
-				core->runflag = CORE_ST_STOP;// auto-shutdown
+				runflag = CORE_ST_STOP;// auto-shutdown
 			break;
 		case SIGSEGV:
 		case SIGFPE:
@@ -173,7 +178,6 @@ void core_defaults(void) {
 	console_defaults();
 	strlib_defaults();
 	malloc_defaults();
-	showmsg_defaults();
 	cmdline_defaults();
 #ifndef MINICORE
 	libconfig_defaults();
@@ -246,7 +250,7 @@ static CMDLINEARG(help)
  */
 static CMDLINEARG(version)
 {
-	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://herc.ws/\n");
+	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://hercules.ws/\n");
 	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.rizon.net/#Hercules\n");
 	ShowInfo("Open "CL_WHITE"readme.txt"CL_RESET" for more information.\n");
 	return false;
@@ -315,7 +319,7 @@ int cmdline_exec(int argc, char **argv, unsigned int options)
 		}
 		if (options&CMDLINE_OPT_SILENT) {
 			if (data->options&CMDLINE_OPT_SILENT) {
-				showmsg->silent = 0x7; // silence information and status messages
+				msg_silent = 0x7; // silence information and status messages
 				break;
 			}
 		} else if ((data->options&CMDLINE_OPT_PREINIT) == (options&CMDLINE_OPT_PREINIT)) {
@@ -358,7 +362,6 @@ void cmdline_final(void)
 }
 
 struct cmdline_interface cmdline_s;
-struct cmdline_interface *cmdline;
 
 void cmdline_defaults(void)
 {
@@ -386,14 +389,12 @@ int main (int argc, char **argv) {
 			SERVER_NAME = ++p1;
 			p2 = p1;
 		}
-		core->arg_c = argc;
-		core->arg_v = argv;
-		core->runflag = CORE_ST_RUN;
+		arg_c = argc;
+		arg_v = argv;
 	}
 	core_defaults();
 
 	iMalloc->init();// needed for Show* in display_title() [FlavioJS]
-	showmsg->init();
 
 	cmdline->init();
 
@@ -403,7 +404,7 @@ int main (int argc, char **argv) {
 	
 	sysinfo->init();
 
-	if (!(showmsg->silent&0x1))
+	if (!(msg_silent&0x1))
 		console->display_title();
 
 	usercheck();
@@ -440,7 +441,7 @@ int main (int argc, char **argv) {
 	do_init(argc,argv);
 
 	// Main runtime cycle
-	while (core->runflag != CORE_ST_STOP) {
+	while (runflag != CORE_ST_STOP) {
 		int next = timer->perform(timer->gettick_nocache());
 		sockt->perform(next);
 	}
@@ -459,7 +460,6 @@ int main (int argc, char **argv) {
 	//sysinfo->final(); Called by iMalloc->final()
 
 	iMalloc->final();
-	showmsg->final(); // Should be after iMalloc->final()
 
 	return retval;
 }

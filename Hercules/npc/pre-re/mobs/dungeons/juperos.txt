@@ -33,6 +33,9 @@ juperos_01,0,0,0,0	monster	Dimik	1672,5,0,0,1
 juperos_01,0,0,0,0	monster	Dimik	1673,5,0,0,1
 juperos_01,232,202,25,25	monster	Dimik	1670,5,420000,0,0
 
+juperos_01,192,132,60,80	monster	Paragon Venatu	3678,45,300000,0,1,2
+juperos_01,0,0,0,0	monster	Paragon Dimik	3670,5,0,0,1,2
+
 //========================================================================================
 // - Juperos 02
 //========================================================================================
@@ -42,6 +45,9 @@ juperos_02,0,0,0,0	monster	Venatu	1676,65,0,0,1
 juperos_02,0,0,0,0	monster	Venatu	1677,65,0,0,1
 juperos_02,0,0,0,0	monster	Venatu	1678,65,0,0,1
 juperos_02,0,0,0,0	monster	Apocalypse	1365,70,0,0,1
+
+juperos_02,0,0,0,0	monster	Paragon Venatu	3678,6,0,0,1,2
+juperos_02,0,0,0,0	monster	Paragon Apocalypse	3365,7,0,0,1,2
 
 //========================================================================================
 // - Juperos Core
@@ -56,3 +62,6 @@ jupe_core,0,0,0,0	monster	Dimik	1672,40,0,0,1
 jupe_core,0,0,0,0	monster	Dimik	1673,40,0,0,1
 jupe_core,0,0,0,0	monster	Archdam	1668,40,0,0,1
 jupe_core,0,0,0,0	boss_monster	Vesper	1685,1,7200000,600000,1
+
+jupe_core,0,0,0,0	monster	Paragon Venatu	3678,2,0,0,1,2
+jupe_core,0,0,0,0	monster	Paragon Dimik	3670,4,0,0,1,2

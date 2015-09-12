@@ -5,8 +5,8 @@
 #ifndef MAP_BATTLE_H
 #define MAP_BATTLE_H
 
-#include "map/map.h" //ELE_MAX
-#include "common/hercules.h"
+#include "map.h" //ELE_MAX
+#include "../common/cbasetypes.h"
 
 /**
  * Declarations
@@ -74,27 +74,6 @@ enum e_battle_check_target { //New definitions [Skotlex]
 	BCT_NOENEMY     =   0x3d0000, ///< This must be (~BCT_ENEMY&BCT_ALL)
 
 	BCT_ALL         =   0x3f0000, ///< Sum of BCT_NOONE to BCT_SAMEGUILD
-};
-
-/**
- * Values used by (struct Damage).type, as well as clif->damage(type) and clif->skill_damage(type)
- *
- * Note: some values may not apply in some contexts.
- */
-enum battle_dmg_type {
-	BDT_NORMAL      = 0,  // Normal attack
-	//BDT_PICKUP      = 1,  // Pick up item
-	//BDT_SITDOWN     = 2,  // Sit down
-	//BDT_STANDUP     = 3,  // Stand up
-	BDT_ENDURE      = 4,  // Damage (endure)
-	BDT_SPLASH      = 5,  // Splash
-	BDT_SKILL       = 6,  // Skill
-	//BDT_REPEAT      = 7,  // (repeat damage?)
-	BDT_MULTIHIT    = 8,  // Multi-hit damage
-	BDT_MULTIENDURE = 9,  // Multi-hit damage (endure)
-	BDT_CRIT        = 10, // Critical hit
-	BDT_PDODGE      = 11, // Lucky dodge
-	//BDT_TOUCH       = 12, // (touch skill?)
 };
 
 /**
@@ -405,7 +384,6 @@ struct Battle_Config {
 	int skill_wall_check; // [Skotlex]
 	int official_cell_stack_limit; // [Playtester]
 	int custom_cell_stack_limit; // [Skotlex]
-	int check_occupied_cells; // [4144]
 	int skill_caster_check; // [Skotlex]
 	int sc_castcancel; // [Skotlex]
 	int pc_sc_def_rate; // [Skotlex]
@@ -509,6 +487,10 @@ struct Battle_Config {
 	int feature_roulette;
 };
 
+#ifdef HERCULES_CORE
+extern struct Battle_Config battle_config;
+#endif // HERCULES_CORE
+
 /* criteria for battle_config.idletime_critera */
 enum e_battle_config_idletime {
 	BCIDLE_WALK          = 0x001,
@@ -575,7 +557,6 @@ struct battle_interface {
 	int64 (*attr_fix) (struct block_list *src, struct block_list *target, int64 damage, int atk_elem, int def_type, int def_lv);
 	/* applies card modifiers */
 	int64 (*calc_cardfix) (int attack_type, struct block_list *src, struct block_list *target, int nk, int s_ele, int s_ele_, int64 damage, int left, int flag);
-	int64 (*calc_cardfix2) (struct block_list *src, struct block_list *bl, int64 damage, int s_ele, int nk, int flag);
 	/* applies element modifiers */
 	int64 (*calc_elefix) (struct block_list *src, struct block_list *target, uint16 skill_id, uint16 skill_lv, int64 damage, int nk, int n_ele, int s_ele, int s_ele_, bool left, int flag);
 	/* applies mastery modifiers */
@@ -639,12 +620,10 @@ struct battle_interface {
 	void (*calc_misc_attack_unknown) (struct block_list *src, struct block_list *target, uint16 *skill_id, uint16 *skill_lv, int *mflag, struct Damage *md);
 };
 
-#ifdef HERCULES_CORE
-extern struct Battle_Config battle_config;
+struct battle_interface *battle;
 
+#ifdef HERCULES_CORE
 void battle_defaults(void);
 #endif // HERCULES_CORE
-
-HPShared struct battle_interface *battle;
 
 #endif /* MAP_BATTLE_H */

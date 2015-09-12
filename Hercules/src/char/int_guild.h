@@ -4,8 +4,7 @@
 #ifndef CHAR_INT_GUILD_H
 #define CHAR_INT_GUILD_H
 
-#include "common/db.h"
-#include "common/mmo.h"
+#include "../common/mmo.h"
 
 enum {
 	GS_BASIC = 0x0001,
@@ -22,6 +21,10 @@ enum {
 	GS_BASIC_MASK = (GS_BASIC | GS_EMBLEM | GS_CONNECT | GS_LEVEL | GS_MES),
 	GS_REMOVE = 0x8000,
 };
+
+#ifdef HERCULES_CORE
+void inter_guild_defaults(void);
+#endif // HERCULES_CORE
 
 /**
  * inter_guild interface
@@ -55,10 +58,6 @@ struct inter_guild_interface {
 	int (*broken) (int guild_id);
 };
 
-#ifdef HERCULES_CORE
-void inter_guild_defaults(void);
-#endif // HERCULES_CORE
-
-HPShared struct inter_guild_interface *inter_guild;
+struct inter_guild_interface *inter_guild;
 
 #endif /* CHAR_INT_GUILD_H */

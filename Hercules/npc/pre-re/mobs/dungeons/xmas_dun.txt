@@ -25,6 +25,13 @@ xmas_dun01,0,0,0,0	monster	Chepet	1250,1,1200000,900000,0
 xmas_dun01,0,0,0,0	monster	Mastering	1090,1,1800000,900000,0
 xmas_dun01,0,0,0,0	monster	Angeling	1096,1,3600000,1800000,0
 
+xmas_dun01,0,0,0,0	monster	Paragon Marin	3242,2,0,0,0,2
+xmas_dun01,0,0,0,0	monster	Paragon Poring	3002,1,0,0,0,2
+xmas_dun01,0,0,0,0	monster	Paragon Drops	3113,1,0,0,0,2
+xmas_dun01,0,0,0,0	monster	Paragon Poporing	3031,2,0,0,0,2
+xmas_dun01,0,0,0,0	monster	Paragon Cookie	3265,4,0,0,0,2
+xmas_dun01,0,0,0,0	monster	Paragon Christmas Cookie	3246,4,0,0,0,2
+
 //==================================================
 // xmas_dun02 - Toy Monitoring Room
 //==================================================
@@ -34,3 +41,8 @@ xmas_dun02,0,0,0,0	monster	Cruiser	1248,35,0,0,0
 xmas_dun02,0,0,0,0	monster	Myst Case	1249,50,0,0,0
 xmas_dun02,0,0,0,0	monster	Garm Baby	1515,1,1800000,0,0
 xmas_dun02,0,0,0,0	boss_monster	Stormy Knight	1251,1,3600000,600000,0
+
+xmas_dun02,0,0,0,0	monster	Paragon Christmas Cookie	3246,2,0,0,0,2
+xmas_dun02,0,0,0,0	monster	Paragon Cookie	3265,2,0,0,0,2
+xmas_dun02,0,0,0,0	monster	Paragon Cruiser	3248,3,0,0,0,2
+xmas_dun02,0,0,0,0	monster	Paragon Myst Case	3249,5,0,0,0,2

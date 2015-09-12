@@ -1,4 +1,4 @@
-//================== Hercules Script =================
+//======= Hercules Script ===========================
 //=       _   _                     _                =
 //=      | | | |                   | |               =
 //=      | |_| | ___ _ __ ___ _   _| | ___  ___      =
@@ -6,10 +6,27 @@
 //=      | | | |  __/ | | (__| |_| | |  __/\__ \     =
 //=      \_| |_/\___|_|  \___|\__,_|_|\___||___/     =
 //=                                                  =
-//=            http://herc.ws/board/             =
+//=            http://hercules.ws/board/             =
 //====================================================
 // run when any character logs in, attached to them.
 -	script	HerculesMOTD	-1,{
-	message strcharinfo(0),"Welcome to Hercules! Enjoy! Please report any bugs you find.";
+	message strcharinfo(0),"Welcome to Ragnarok Immersion. Current version: 0.02h.";
+	end;
+}
+
+-	script	#chan_control	-1,{
+OnInit:
+	bindatcmd("channeljoin",strnpcinfo(0)+"::OnChannelJoin");
+	end;
+OnChannelJoin:
+	set channel_join_off, !channel_join_off;
+	message strcharinfo(0),"Channel auto-join is now "+((channel_join_off)?"disabled":"enabled")+".";
+	end;
+OnPCLoginEvent:
+	if (!channel_join_off) {
+		atcommand "@join #main";
+		atcommand "@join #support";
+		atcommand "@join #trade";
+	}
 	end;
 }
