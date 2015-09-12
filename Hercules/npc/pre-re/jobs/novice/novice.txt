@@ -2555,31 +2555,15 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 		mes "Now that you've graduated from this academy, you should now be equipped to explore Rune-Midgard ... safely.";
 		next;
 		mes "[Hanson]";
-		mes "I will teleport you to the city of your choice whenever you're ready.";
+		mes "Remember that you can always visit the Spa if you're hurt. You can ask an Inn Keeper located in every city to get a good Spa Service.";
+		next;
+		mes "[Hanson]";
+		mes "I will teleport you to the Payon Village you're ready.";
 		next;
 		switch(select("I am ready.:I need a few moments to prepare.")) {
 		case 1:
 			mes "[Hanson]";
-			mes "Choose your starting town:";
-			next;
-			select( "Geffen:Alberta:Morocc:Payon:Prontera" );
-			mes "[Hanson]";
-			mes "You have chosen";
-			if (@menu == 1) {
-				mes "Geffen City as your starting location.";
-			}
-			else if (@menu == 2) {
-				mes "Alberta port as your starting location.";
-			}
-			else if (@menu == 3) {
-				mes "Morocc City as your starting location.";
-			}
-			else if (@menu == 4) {
-				mes "Payon Village as your starting location.";
-			}
-			else {
-				mes "Prontera City as your starting location.";
-			}
+			mes "I heard rumors that Paragons has started terrorizing the border of Payon.";
 			next;
 			mes "[Hanson]";
 			mes "Let me give you";
@@ -2591,20 +2575,20 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 			mes "^0000335 Free Ticket for Kafra Storage^000000";
 			mes "^0000335 Free Ticket for Kafra Transportation^000000";
 			mes "^0000331 Adventurer's Suit^000000";
-			mes "^0000331 Wrapped Mask^000000";
-			mes "^0000331 Jewelry Box^000000";
-			mes "^00003330 Authoritative Badge^000000";
-			mes "^0000993000 Zeny^000000";
+			mes "^0000331 Shoes^000000";
+			mes "^0000331 Muffler^000000";
+			mes "^0000331 Egg Shell^000000";
+			mes "^0000995000 Zeny^000000";
 			next;
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 			nov_3_swordman = 40;
-			getitem 12106,1;
-			getitem 12107,1;
-			getitem 662,30;
 			getitem 7059,5; //Cargo_Free_Ticket
 			getitem 7060,5; //Warp_Free_Ticket
+			getitem 5015,1; //Egg Shell
+			getitem 2503,1; //Muffler
+			getitem 2403,1; //Shoes
 			getitem 2305,1; //Adventure_Suit
-			Zeny += 3000;
+			Zeny += 5000;
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 			mes "[Hanson]";
 			mes "Please check your inventory";
@@ -2631,323 +2615,14 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 			nov_3_magician = 0;
 			nov_3_acolyte = 0;
 			nov_3_merchant = 0;
-			if(@menu == 1) {
-				savepoint "geffen_in",70,59;
-				warp "geffen_in",70,59;
-			}
-			else if (@menu == 2) {
-				savepoint "alberta_in",26,142;
-				warp "alberta_in",26,142;
-			}
-			else if (@menu == 3) {
-				savepoint "morocc_in",173,135; end;
-				warp "morocc_in",173,135; end;
-			}
-			else if (@menu == 4) {
 				savepoint "payon_in01",136,61;
 				warp "payon_in01",136,61;
-			}
-			else {
-				savepoint "prt_in",238,130;
-				warp "prt_in",238,130;
-			}
 			return;
 		case 2:
 			mes "[Hanson]";
 			mes "Understood, let me know when you're ready.";
 			close;
 		}
-}
-
-//Novice Instructor
-new_1-4,91,22,4	script	Bruce#nv	1_M_LIBRARYMASTER,{
-	if (Class == Job_Novice) {
-		if (nov_3_swordman == 20) {
-			mes "[Bruce]";
-			mes "Let me explain the";
-			mes "First Job Classes";
-			mes "to you once again.";
-			mes "Which job did you";
-			mes "have in mind?";
-			next;
-			while(1) {
-				switch(select("Swordman:Mage:Archer:Merchant:Thief:Acolyte:End conversation.")) {
-				case 1:
-					mes "[Bruce]";
-					mes "As the name implies, the";
-					mes "Swordman is an expert in wielding Swords. They can also use Spear weapons, but typically you don't see Spear wielding Swordmen very often.";
-					next;
-					mes "[Bruce]";
-					mes "Swordman possess strong physical strength, allowing them to equip heavy armor and weapons. Most weapon classes, except for bows and rods, can be equipped by the Swordman class.";
-					next;
-					mes "[Bruce]";
-					mes "The only weakness of the Swordman class is that they cannot use magic spells. However, this can be compensated by using weapons with an elemental attribute.";
-					next;
-					mes "[Bruce]";
-					mes "One of the greatest benefits of being a Swordman is having an enormous amount of HP, meaning they can more easily withstand damage from their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "After learning some strong attack skills, the Swordman is almost unbeatable in a melee fight.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Swordman generally takes the position of tanker, protecting characters of other classes from being attacked or hurt.";
-					next;
-					mes "[Bruce]";
-					mes "A Swordman is the ideal character to take the position of party leader. When advancing to the Second Job Class, Swordmen can change their jobs to ^8E2323Knights^000000 or ^8E2323Crusaders^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 2:
-					mes "[Bruce]";
-					mes "The Mage class specializes in using the forces of Fire, Water, Earth and Lightning to attack their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "However, due to their weak physical strength, they are only allowed to equip Rods and Knives as weapons, and wear light armor for defense.";
-					next;
-					mes "[Bruce]";
-					mes "Despite their physical weakness, they are able to do massive damage with their powerful spells. This fact alone attracts many people to join this class.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, the Mage takes a heavily offensive role in parties and is depended upon to deal great damage to enemies.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Mages can change their jobs to ^8E2323Wizards^000000 or ^8E2323Sages^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 3:
-					mes "[Bruce]";
-					mes "The Archer class are experts in using Bow weapons, and are useful in parties for their long range attacks.";
-					next;
-					mes "[Bruce]";
-					mes "Despite being physically weaker, Archers possess high accuracy with powerful long range bows. This allows them to attack and kill monsters from a safe distance.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Archers have relatively little HP, but their long range attacks allow them to easily dispatch enemies before the enemy gets close enough to hurt them.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, every Archer may advance to the ^8E2323Hunter^000000 class. Alternatively, male Archers may advance to become ^8E2323Bards^000000, and female Archers may become ^8E2323Dancers^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 4:
-					mes "[Bruce]";
-					mes "The Merchant class specializes in commerce. Due to the strong influence of the Merchant Guild, the Merchant class is attractive to those who wish to focus on earning Zeny.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, the Merchant class possesses various economic abilities. Merchants can learn to sell items to NPCs for higher prices, as well as receive discounts from NPCs.";
-					next;
-					mes "[Bruce]";
-					mes "In addition, Merchants may rent";
-					mes "a Cart that greatly expands their carrying capacity and allows them to open shops with their own items and prices.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Merchants can change their jobs to ^8E2323Blacksmiths^000000 or ^8E2323Alchemists^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 5:
-					mes "[Bruce]";
-					mes "Thieves are experts at using Dagger class weapons. They strike quickly and easily evade attacks from their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "Thieves can learn skills that allow them to hide from their enemies, or steal items from monsters. They are also feared for their use of poison, which slowly weakens";
-					mes "their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Thieves can change their jobs to ^8E2323Assassins^000000 or ^8E2323Rogues^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 6:
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Acolytes act as messengers of God in Rune-Midgard. They possess skills that support their allies, as well as the life saving Heal ability.";
-					next;
-					mes "[Bruce]";
-					mes "The Acolyte's support abilities make them a welcome addition to any party. In difficult situations, the Acolyte's skills will ensure the survival of the party, allowing other members to focus on offense.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Acolytes can change their jobs to ^8E2323Priests^000000 or ^8E2323Monks^000000.";
-					mes "";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 7:
-					mes "[Bruce]";
-					mes "For more information,";
-					mes "please visit the official";
-					mes "Ragnarok Online website:";
-					mes " ";
-					mes "^0000FFiro.ragnarokonline.com^000000.";
-					next;
-					mes "[Bruce]";
-					mes "Hanson is waiting";
-					mes "for you now. Good luck";
-					mes "out there, young Novice.";
-					close;
-				}
-			}
-		}
-		else if (nov_3_swordman == 40) {
-			mes "[Bruce]";
-			mes "I'm sorry, but";
-			mes "there's nothing";
-			mes "more I can teach you.";
-			next;
-			mes "[Bruce]";
-			mes "Hanson is waiting";
-			mes "for you now. Good luck";
-			mes "out there, young Novice.";
-			close;
-		}
-		else {
-			mes "[Bruce]";
-			mes "You've gone";
-			mes "through quite";
-			mes "a bit of trouble";
-			mes "to finish all the";
-			mes "training courses.";
-			next;
-			mes "[Bruce]";
-			mes "Hello there,";
-			mes "^A62A2A" + strcharinfo(0) + "'^000000,";
-			mes "pleased to meet you.";
-			mes "I am Bruce of the";
-			mes "Rune-Midgarts Kingdom.";
-			next;
-			mes "[Bruce]";
-			mes "My duty is to assist you by teaching information about each First Job Class, so that you can decide which job you want to be.";
-			next;
-			mes "[Bruce]";
-			mes "The First Job Classes are";
-			mes "^0000FFSwordman, Mage, Archer, Merchant, Thief and Acolyte^000000.";
-			next;
-			mes "[Bruce]";
-			mes "So...";
-			mes "Which job did";
-			mes "you have in mind?";
-			next;
-			while(1) {
-				switch(select("Swordman:Mage:Archer:Merchant:Thief:Acolyte:End conversation.")) {
-				case 1:
-					mes "[Bruce]";
-					mes "As the name implies, the";
-					mes "Swordman is an expert in wielding Swords. They can also use Spear weapons, but typically you don't see Spear wielding Swordmen";
-					mes "very often.";
-					next;
-					mes "[Bruce]";
-					mes "Swordmen possess strong physical strength, allowing them to equip heavy armor and weapons. Most weapon classes, except for bows and rods, can be equipped by the Swordman class.";
-					next;
-					mes "[Bruce]";
-					mes "The only weakness of the Swordman class is that they cannot use magic spells. However, this can be compensated by using weapons with an elemental attribute.";
-					next;
-					mes "[Bruce]";
-					mes "One of the greatest benefits of being a Swordman is having an enormous amount of HP, meaning they can more easily withstand damage from their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "After learning some strong attack skills, the Swordman is almost unbeatable in a melee fight.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Swordman generally takes the position of tanker, protecting characters of other classes from being attacked or hurt.";
-					next;
-					mes "[Bruce]";
-					mes "A Swordman is the ideal character to take the position of party leader. When advancing to the Second Job Class, Swordmen can change their jobs to ^8E2323Knights^000000 or ^8E2323Crusaders^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 2:
-					mes "[Bruce]";
-					mes "The Mage class specializes in using the forces of Fire, Water, Earth and Lightning to attack their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "However, due to their weak physical strength, they are only allowed to equip Rods and Knives as weapons, and wear light armor for defense.";
-					next;
-					mes "[Bruce]";
-					mes "Despite their physical weakness, they are able to do massive damage with their powerful spells. This fact alone attracts many people to join this class.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, the Mage takes a heavily offensive role in parties and is depended upon to deal great damage to enemies.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Mages can change their jobs to ^8E2323Wizards^000000 or ^8E2323Sages^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 3:
-					mes "[Bruce]";
-					mes "The Archer class are experts in using Bow weapons, and are useful in parties for their long range attacks.";
-					next;
-					mes "[Bruce]";
-					mes "Despite being physically weaker, Archers possess high accuracy with powerful long range bows. This allows them to attack and kill monsters from a safe distance.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Archers have relatively little HP, but their long range attacks allow them to easily dispatch enemies before the enemy gets close enough to hurt them.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, every Archer may advance to the ^8E2323Hunter^000000 class. Alternatively, male Archers may advance to become ^8E2323Bards^000000, and female Archers may become ^8E2323Dancers^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 4:
-					mes "[Bruce]";
-					mes "The Merchant class specializes in commerce. Due to the strong influence of the Merchant Guild, the Merchant class is attractive to those who wish to focus on earning Zeny.";
-					next;
-					mes "[Bruce]";
-					mes "In Ragnarok Online, the Merchant class possesses various economic abilities. Merchants can learn to sell items to NPCs for higher prices, as well as receive discounts from NPCs.";
-					next;
-					mes "[Bruce]";
-					mes "In addition, Merchants may rent";
-					mes "a Cart that greatly expands their carrying capacity and allows them to open shops with their own items and prices.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Merchants can change their jobs to ^8E2323Blacksmiths^000000 or ^8E2323Alchemists^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 5:
-					mes "[Bruce]";
-					mes "Thieves are experts at using Dagger class weapons. They strike quickly and easily evade attacks from their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "Thieves can learn skills that allow them to hide from their enemies, or steal items from monsters. They are also feared for their use of poison, which slowly weakens";
-					mes "their enemies.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Thieves can change their jobs to ^8E2323Assassins^000000 or ^8E2323Rogues^000000.";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 6:
-					mes "[Bruce]";
-					mes "In Ragnarok Online, Acolytes act as messengers of God in Rune-Midgard. They possess skills that support their allies, as well as the life saving Heal ability.";
-					next;
-					mes "[Bruce]";
-					mes "The Acolyte's support abilities make them a welcome addition to any party. In difficult situations, the Acolyte's skills will ensure the survival of the party, allowing other members to focus on offense.";
-					next;
-					mes "[Bruce]";
-					mes "When advancing to the Second Job Class, Acolytes can change their jobs to ^8E2323Priests^000000 or ^8E2323Monks^000000.";
-					mes "";
-					nov_3_swordman = 20;
-					next;
-					break;
-				case 7:
-					mes "[Bruce]";
-					mes "For more information,";
-					mes "please visit the official";
-					mes "Ragnarok Online website:";
-					mes " ";
-					mes "^0000FFiro.ragnarokonline.com^000000.";
-					next;
-					mes "[Bruce]";
-					mes "Hanson is waiting";
-					mes "for you now. Good luck";
-					mes "out there, young Novice.";
-					close;
-				}
-			}
-
-		}
-	}
 }
 
 // Training Ground Mobs
