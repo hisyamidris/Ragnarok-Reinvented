@@ -1,5 +1,5 @@
 /* malufett@yourservice */
--	script	PrestigePoints	-1,{
+-	script	PvPAegisPoints	-1,{
 OnInit:
 	/* Configure maps here */
 	setarray .maps$, "arena30", "arena40", "arena50", "arena60", "arena70", "arena80", "arena90", "arena";
@@ -42,15 +42,15 @@ OnPCKillEvent:
 				if(.@factor<10)
 					.@pt += .@factor; // round up
 				.@pt = max(1, .@pt/10);
-				PRESTIGE_POINTS += .@pt;
-				dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total Prestige Point is " + PRESTIGE_POINTS;
+				AEGIS_POINTS += .@pt;
+				dispbottom "You have earn a AEGIS Point(+" + .@pt + "). Your total AEGIS Point is " + AEGIS_POINTS;
 				detachrid;
 			}
 		}
 	}else{
 		.@pt = 10;
-		PRESTIGE_POINTS = PRESTIGE_POINTS + .@pt;
-		dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total Prestige Point is " + PRESTIGE_POINTS;
+		AEGIS_POINTS = AEGIS_POINTS + .@pt;
+		dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total AEGIS Point is " + AEGIS_POINTS;
 	}
 	end;
 }
@@ -87,8 +87,6 @@ OnNPCKillEvent:
 						.@pt += .@factor; // round up	
 					.@pt = max(1, .@pt/10);
 					SENTINEL_POINTS += .@pt;
-					AEGIS_POINTS += (.@pt * 500);
-					dispbottom "You have earn a Aegis Point(+" + (.@pt * 500) + "). Your total Aegis Point is " + AEGIS_POINTS;
 					dispbottom "You have earn a Sentinel Point(+" + .@pt + "). Your total Sentinel Point is " + SENTINEL_POINTS;
 					detachrid;
 				}
@@ -96,8 +94,6 @@ OnNPCKillEvent:
 		}else{
 			.@pt = .@level;
 			SENTINEL_POINTS = SENTINEL_POINTS + .@pt;
-			AEGIS_POINTS += (.@pt * 500);
-			dispbottom "You have earn a Aegis Point(+" + (.@pt * 500) + "). Your total Aegis Point is " + AEGIS_POINTS;
 			dispbottom "You have earn a Sentinel Point(+" + .@pt + "). Your total Sentinel Point is " + SENTINEL_POINTS;
 		}
 	}
@@ -112,7 +108,7 @@ OnNPCKillEvent:
 		getpartymember getcharid(1), 2;
 		.@count = $@partymembercount;
 		.@online = 1;
-		.@level = getmonsterinfo(killedrid, MOB_LV)*10;
+		.@level = getmonsterinfo(killedrid, MOB_LV)*20;
 		.@mapin$ = strcharinfo(3);
 
 		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
@@ -270,35 +266,35 @@ OnPayFunds:
 1@gef_in,26,177,5	trader	Aegis Armor Vendor	4_M_CRU_KNT,{
 	OnInit:
 	tradertype(NST_CUSTOM);
-	sellitem 2102,500;
-	sellitem 2104,14000;
-	sellitem 2106,56000;
-	sellitem 2402,400;
-	sellitem 2404,3500;
-	sellitem 2406,18000;
-	sellitem 2502,1000;
-	sellitem 2504,5000;
-	sellitem 2506,32000;
-	sellitem 2302,10;
-	sellitem 2304,200;
-	sellitem 2306,1000;
-	sellitem 2322,8000;
-	sellitem 2329,5500;
-	sellitem 2324,6500;
-	sellitem 2333,7000;
-	sellitem 2308,10000;
-	sellitem 2310,22000;
-	sellitem 2313,48000;
-	sellitem 2326,54000;
-	sellitem 2315,65000;
-	sellitem 2336,71000;
-	sellitem 2336,74000;
-	sellitem 2621,55000;
-	sellitem 2625,55000;
-	sellitem 2623,55000;
-	sellitem 2622,55000;
-	sellitem 2624,55000;
-	sellitem 2626,55000;
+	sellitem 2102,333;
+	sellitem 2104,9333;
+	sellitem 2106,37333;
+	sellitem 2402,267;
+	sellitem 2404,2333;
+	sellitem 2406,12000;
+	sellitem 2502,667;
+	sellitem 2504,3333;
+	sellitem 2506,21333;
+	sellitem 2302,7;
+	sellitem 2304,133;
+	sellitem 2306,667;
+	sellitem 2322,5333;
+	sellitem 2329,3667;
+	sellitem 2324,4333;
+	sellitem 2333,4667;
+	sellitem 2308,6667;
+	sellitem 2310,14667;
+	sellitem 2313,32000;
+	sellitem 2326,36000;
+	sellitem 2315,43333;
+	sellitem 2336,47333;
+	sellitem 2336,49333;
+	sellitem 2621,36667;
+	sellitem 2625,36667;
+	sellitem 2623,36667;
+	sellitem 2622,36667;
+	sellitem 2624,36667;
+	sellitem 2626,36667;
 	end;
 	
 /* allows currency to be item 501 and 502 */
@@ -320,94 +316,95 @@ OnPayFunds:
 1@gef_in,30,177,4	trader	Aegis Weapon Vendor	4_M_CRU_SOLD,{
 	OnInit:
 	tradertype(NST_CUSTOM);
-	//Dagger
-	sellitem 1202,50;
-	sellitem 1205,1250;
-	sellitem 1207,2400;
-	sellitem 1211,8500;
-	sellitem 1213,14000;
-	sellitem 1216,19500;
-	sellitem 1220,43000;
-	sellitem 1226,49000;
-	//One-handed Swords
-	sellitem 1102,100;
-	sellitem 1105,1500;
-	sellitem 1108,2900;
-	sellitem 1111,10000;
-	sellitem 1114,17000;
-	sellitem 1120,51000;
-	sellitem 1125,24000;
-	sellitem 1128,50000;
-	sellitem 1127,49000;
-	sellitem 1149,60000;
-	//Two-handed Swords
-	sellitem 1117,2000;
-	sellitem 1152,15000;
-	sellitem 1155,22500;
-	sellitem 1158,60000;
-	sellitem 1162,65000;
-	//One-handed Spears
-	sellitem 1402,150;
-	sellitem 1405,1700;
-	sellitem 1408,3450;
-	//Two-handed Spears
-	sellitem 1452,13000;
-	sellitem 1455,20000;
-	sellitem 1458,27000;
-	sellitem 1461,51000;
-	sellitem 1464,54000;
-	//Axes
-	sellitem 1302,500;
-	sellitem 1352,5400;
-	sellitem 1355,15500;
-	sellitem 1358,34000;
-	sellitem 1361,55000;
-	//Maces
-	sellitem 1502,120;
-	sellitem 1505,1600;
-	sellitem 1508,9000;
-	sellitem 1511,16000;
-	sellitem 1514,41000;
-	sellitem 1517,50000;
-	sellitem 1520,60000;
-	//Rods
-	sellitem 1602,50;
-	sellitem 1605,2500;
-	sellitem 1608,9500;
-	sellitem 1610,45000;
-	//Bows
-	sellitem 1702,1000;
-	sellitem 1705,2500;
-	sellitem 1708,10000;
-	sellitem 1711,17000;
-	sellitem 1714,48000;
-	sellitem 1715,42000;
-	sellitem 1726,71000;
-	//Knuckles
-	sellitem 1802,8000;
-	sellitem 1804,25000;
-	sellitem 1806,32000;
-	sellitem 1808,53000;
-	sellitem 1810,67000;
-	sellitem 1812,58000;
-	//Instruments
-	sellitem 1902,4000;
-	sellitem 1904,18000;
-	sellitem 1906,24500;
-	sellitem 1908,47000;
-	sellitem 1910,62000;
-	sellitem 1912,54000;
-	//Whips
-	sellitem 1951,2500;
-	sellitem 1953,12000;
-	sellitem 1955,17500;
-	sellitem 1957,32000;
-	sellitem 1959,41000;
-	sellitem 1961,38000;
-	//Katars
-	sellitem 1251,19500;
-	sellitem 1253,41000;
-	sellitem 1255,37200;
+	//Dagger		
+	sellitem 1202,33;
+	sellitem 1205,833;
+	sellitem 1207,1600;
+	sellitem 1211,5667;
+	sellitem 1213,9333;
+	sellitem 1216,13000;
+	sellitem 1220,28667;
+	sellitem 1226,32667;
+	//One-handed Swords	0	
+	sellitem 1102,67;
+	sellitem 1105,1000;
+	sellitem 1108,1933;
+	sellitem 1111,6667;
+	sellitem 1114,11333;
+	sellitem 1120,34000;
+	sellitem 1125,16000;
+	sellitem 1128,33333;
+	sellitem 1127,32667;
+	sellitem 1149,40000;
+	//Two-handed Swords	0	
+	sellitem 1117,1333;
+	sellitem 1152,10000;
+	sellitem 1155,15000;
+	sellitem 1158,40000;
+	sellitem 1162,43333;
+	//One-handed Spears	0	
+	sellitem 1402,100;
+	sellitem 1405,1133;
+	sellitem 1408,2300;
+	//Two-handed Spears	0	
+	sellitem 1452,8667;
+	sellitem 1455,13333;
+	sellitem 1458,18000;
+	sellitem 1461,34000;
+	sellitem 1464,36000;
+	//Axes	0	
+	sellitem 1302,333;
+	sellitem 1352,3600;
+	sellitem 1355,10333;
+	sellitem 1358,22667;
+	sellitem 1361,36667;
+	//Maces	0	
+	sellitem 1502,80;
+	sellitem 1505,1067;
+	sellitem 1508,6000;
+	sellitem 1511,10667;
+	sellitem 1514,27333;
+	sellitem 1517,33333;
+	sellitem 1520,40000;
+	//Rods	0	
+	sellitem 1602,33;
+	sellitem 1605,1667;
+	sellitem 1608,6333;
+	sellitem 1610,30000;
+	//Bows	0	
+	sellitem 1702,667;
+	sellitem 1705,1667;
+	sellitem 1708,6667;
+	sellitem 1711,11333;
+	sellitem 1714,32000;
+	sellitem 1715,28000;
+	sellitem 1726,47333;
+	//Knuckles	0	
+	sellitem 1802,5333;
+	sellitem 1804,16667;
+	sellitem 1806,21333;
+	sellitem 1808,35333;
+	sellitem 1810,44667;
+	sellitem 1812,38667;
+	//Instruments	0	
+	sellitem 1902,2667;
+	sellitem 1904,12000;
+	sellitem 1906,16333;
+	sellitem 1908,31333;
+	sellitem 1910,41333;
+	sellitem 1912,36000;
+	//Whips	0	
+	sellitem 1951,1667;
+	sellitem 1953,8000;
+	sellitem 1955,11667;
+	sellitem 1957,21333;
+	sellitem 1959,27333;
+	sellitem 1961,25333;
+	//Katars	0	
+	sellitem 1251,13000;
+	sellitem 1253,27333;
+	sellitem 1255,24800;
+
 	end;
 	
 /* allows currency to be item 501 and 502 */
