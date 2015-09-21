@@ -43,14 +43,14 @@ OnPCKillEvent:
 					.@pt += .@factor; // round up
 				.@pt = max(1, .@pt/10);
 				AEGIS_POINTS += .@pt;
-				dispbottom "You have earn a AEGIS Point(+" + .@pt + "). Your total AEGIS Point is " + AEGIS_POINTS;
+				dispbottom "You have earn a Aegis Point(+" + .@pt + "). Your total Aegis Point is " + AEGIS_POINTS;
 				detachrid;
 			}
 		}
 	}else{
 		.@pt = 10;
 		AEGIS_POINTS = AEGIS_POINTS + .@pt;
-		dispbottom "You have earn a Prestige Point(+" + .@pt + "). Your total AEGIS Point is " + AEGIS_POINTS;
+		dispbottom "You have earn a Aegis Point(+" + .@pt + "). Your total Aegis Point is " + AEGIS_POINTS;
 	}
 	end;
 }
@@ -76,12 +76,13 @@ OnNPCKillEvent:
 		}
 
 		if(.@count > 1 && .@online > 1){
+			.@level = .@level + (.@level/4 * .@online);
 			for (.@i = 0; .@i < .@count; ++.@i) {
 				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
 					attachrid($@partymemberaid[.@i]);
 					if(.@mapin$ != strcharinfo(3))
 						continue;
-					.@pt = ((100/.@online)/10)*(.@level); // bonus will only depends on number of online members
+					.@pt = ((100/.@online)/5)*(.@level); // bonus will only depends on number of online members
 					.@factor = 10-(.@pt%10);
 					if(.@factor<10)
 						.@pt += .@factor; // round up	
@@ -108,7 +109,7 @@ OnNPCKillEvent:
 		getpartymember getcharid(1), 2;
 		.@count = $@partymembercount;
 		.@online = 1;
-		.@level = getmonsterinfo(killedrid, MOB_LV)*20;
+		.@level = getmonsterinfo(killedrid, MOB_LV)*10;
 		.@mapin$ = strcharinfo(3);
 
 		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
@@ -121,6 +122,7 @@ OnNPCKillEvent:
 		}
 
 		if(.@count > 1 && .@online > 1){
+			.@level = .@level + (.@level/4 * .@online);
 			for (.@i = 0; .@i < .@count; ++.@i) {
 				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
 					attachrid($@partymemberaid[.@i]);
@@ -266,35 +268,33 @@ OnPayFunds:
 1@gef_in,26,177,5	trader	Aegis Armor Vendor	4_M_CRU_KNT,{
 	OnInit:
 	tradertype(NST_CUSTOM);
-	sellitem 2102,333;
-	sellitem 2104,9333;
-	sellitem 2106,37333;
-	sellitem 2402,267;
-	sellitem 2404,2333;
-	sellitem 2406,12000;
-	sellitem 2502,667;
-	sellitem 2504,3333;
-	sellitem 2506,21333;
-	sellitem 2302,7;
-	sellitem 2304,133;
-	sellitem 2306,667;
-	sellitem 2322,5333;
-	sellitem 2329,3667;
-	sellitem 2324,4333;
-	sellitem 2333,4667;
-	sellitem 2308,6667;
-	sellitem 2310,14667;
-	sellitem 2313,32000;
-	sellitem 2326,36000;
-	sellitem 2315,43333;
-	sellitem 2336,47333;
-	sellitem 2336,49333;
-	sellitem 2621,36667;
-	sellitem 2625,36667;
-	sellitem 2623,36667;
-	sellitem 2622,36667;
-	sellitem 2624,36667;
-	sellitem 2626,36667;
+	sellitem 985,2500;
+	sellitem 2102,4000;
+	sellitem 2104,4000;
+	sellitem 2106,4000;
+	sellitem 2404,7000;
+	sellitem 2406,7000;
+	sellitem 2504,6000;
+	sellitem 2506,6000;
+	sellitem 2322,10000;
+	sellitem 2329,10000;
+	sellitem 2324,10000;
+	sellitem 2333,10000;
+	sellitem 2308,10000;
+	sellitem 2310,10000;
+	sellitem 2313,10000;
+	sellitem 2326,10000;
+	sellitem 2315,10000;
+	sellitem 2336,10000;
+	sellitem 2336,10000;
+	sellitem 2372,10000;
+	sellitem 2331,10000;
+	sellitem 2621,30000;
+	sellitem 2625,30000;
+	sellitem 2623,30000;
+	sellitem 2622,30000;
+	sellitem 2624,30000;
+	sellitem 2626,30000;
 	end;
 	
 /* allows currency to be item 501 and 502 */
@@ -316,6 +316,8 @@ OnPayFunds:
 1@gef_in,30,177,4	trader	Aegis Weapon Vendor	4_M_CRU_SOLD,{
 	OnInit:
 	tradertype(NST_CUSTOM);
+	//Oridecon
+	sellitem 984,2500;
 	//Dagger		
 	sellitem 1202,33;
 	sellitem 1205,833;
@@ -400,7 +402,7 @@ OnPayFunds:
 	sellitem 1957,21333;
 	sellitem 1959,27333;
 	sellitem 1961,25333;
-	//Katars	0	
+	//Katars
 	sellitem 1251,13000;
 	sellitem 1253,27333;
 	sellitem 1255,24800;

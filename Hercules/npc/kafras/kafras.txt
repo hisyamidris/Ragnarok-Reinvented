@@ -685,3 +685,15 @@ alb2trea,59,69,5	script	Kafra Employee::kaf_alb2trea	4_F_KAFRA1,{
 	savepoint "alb2trea",92,64;
 	callfunc "F_KafEnd",0,1,0,"at Sunken Ship";
 }
+
+// - Spa Center
+1@gef_in,34,167,3	script	Kafra Employee::kaf_spa_01	4_F_KAFRA2,{
+	cutin "kafra_02",2;
+	mes "[Kafra Employee]";
+	mes "I am not sure why they";
+	mes "make us wear this here.";
+	mes "How can I help you today?";
+	callfunc "F_Kafra",5,6,1,100,0;
+	savepoint "payon_in01",136,61;
+	callfunc "F_KafEnd",0,1,"at the Spa";
+}

@@ -259,7 +259,7 @@ OnInit:
 }
 
 1@gef_in,28,167,5	script	Spa Service Employee	4_F_SHAMAN,{
-	mes "[Spa Service Emplotee]";
+	mes "[Spa Service Employee]";
 	mes "Are you ready to leave?";
 	next;
 	switch(select("Leave:Cancel")) {

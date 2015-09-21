@@ -354,31 +354,20 @@ alberta_in,55,142,7	script	Hair Dresser	4_F_02,{
 			}
 		}
 	case 2:
-		if(BaseLevel < 60) {
+		if(BaseLevel < 10) {
 			mes "[Veronica]";
 			mes "Oh, dear, you're looking fabulous with";
 			mes "your current hairstyle. Why don't you";
 			mes "try a new hair accessory rather than changing your look?";
 			close;
-		} else if((countitem(973) < 3) || (countitem(974) < 3) || (countitem(901) <100) || (countitem(1094) <100) || (countitem(1020) <100) || (countitem(1060) <100) || (countitem(7152) <100) || (Zeny < 99800)) {
+		} else if((Zeny < 100000)) {
 			mes "[Veronica]";
 			mes "If you wish to change your";
 			mes "hairstyle, you should meet some";
 			mes "requirements. I suggest that you";
-			mes "write down all the items that";
-			mes "you will need.";
 			next;
 			mes "[Veronica]";
-			mes "3 Counteragent,";
-			mes "3 Mixture,";
-			mes "100 Danggie,";
-			mes "100 Short Danggie,";
-			mes "100 Black Hair,";
-			mes "100 Golden Hair,";
-			mes "100 Glossy Hair, and lastly...";
-			next;
-			mes "[Veronica]";
-			mes "You will need 99,800 zeny.";
+			mes "You will need 100,000 zeny.";
 			mes "Please come back when you're";
 			mes "ready. I will make you look";
 			mes "fabulous. Hohohohoho~";
