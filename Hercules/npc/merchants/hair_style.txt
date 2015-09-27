@@ -459,14 +459,7 @@ alberta_in,55,142,7	script	Hair Dresser	4_F_02,{
 				mes "- *snip snip snip snip* -";
 				mes "- *bzzzzzzz bzzzzzzz bzzzzzzz bzzzzzzz* -";
 				next;
-				Zeny -= 99800;
-				delitem 973,3;	// Counteragent
-				delitem 974,3;	// Mixture
-				delitem 901,100;	// Danggie
-				delitem 1094,100;	// Short_Daenggie
-				delitem 1020,100;	// Long_Hair
-				delitem 1060,100;	// Golden_Hair
-				delitem 7152,100;	// Glossy_Hair
+				Zeny -= 100000;
 				setlook 1,.@style;
 				setlook 6,.@pallete;
 				cutin "",255;
