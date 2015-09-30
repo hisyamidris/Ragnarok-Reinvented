@@ -3,3 +3,7 @@ Aegis,AEGIS_POINTS
 Prestige,PRESTIGE_POINTS
 Sentinel,SENTINEL_POINTS
 Veteran,#VETERAN
+Geffen Reputation,GEFFEN_REP
+Payon Reputation,PAYON_REP
+Prontera Reputation,PRONTERA_REP
+Morocc Reputation,MOROCC_REP

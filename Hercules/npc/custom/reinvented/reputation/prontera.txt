@@ -1,0 +1,147 @@
+// Mysterious Crystal Quest
+
+prt_castle,74,173,4	script	Prontera Taskmaster	1_M_KNIGHTMASTER,{
+		if (repdailytimer > gettimetick(2)) 
+		{
+			mes "[Taskmaster]";
+			mes "We don't have any task to give at the moment. Come back next time.";
+			close;
+		}
+		else if (repquest_inprogress > 0)
+		{
+			if(pronterarep_quest1 == 1)
+			{
+				mes "[Taskmaster]";
+				mes "We need you to send a message by killing 5 of their captains north of Orc Village.";
+				next;
+				mes "[Taskmaster]";
+				mes "Come back when the threat is no more.";
+				close;
+			} else if (pronterarep_quest1 == 2)
+			{
+				mes "[Taskmaster]";
+				mes "Have you done what's neccessary?";
+				next;
+				mes "[Taskmaster]";
+				mes "We, the citizen of Prontera City, would like to thank you for your help. We truly appreaciate it.";
+				PRONTERA_REP = PRONTERA_REP + 20;
+				dispbottom "You have earn 20 Prontera Reputations. Your total Prontera Reputation is " + PRONTERA_REP;
+				pronterarep_quest1 = 0;
+				repquest_inprogress = 0;
+				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
+				close;
+			} else {
+				mes "[Taskmaster]";
+				mes "We don't have any task to give at the moment. Come back next time.";
+				close;
+			}
+		}
+		else {
+			mes "[Taskmaster]";
+			mes "Can I help you today?";
+			while (1) {
+			switch(select("Nothing.:Is there something I can do to help Prontera?:Who are you?")) {
+			case 1:
+				close;
+				end;
+			case 2:
+				next;
+				mes "[Taskmaster]";
+				mes "Maybe you could help out with something. Geffen said that they are harmless, but the king believe that it can be a major threat.";
+				next;
+				mes "[Taskmaster]";
+				mes "We heard that the orcs are slowly moving north from their village. They claimed to be 'peaceful' but the king highly doubt it.";
+				next;
+				mes "[Taskmaster]";
+				mes "We need your help to reduce possible threats by taking down their High Orc Captains.";
+				while (1) 
+				{
+					switch(select("Let me think about it.:Let me help you out with that~")) 
+					{
+						case 1:
+							close;
+							end;
+						case 2:
+							next;
+							mes "[Taskmaster]";
+							mes "Thank you very much for volunteering.";
+							next;
+							mes "[Taskmaster]";
+							mes "We need you to send a message by killing 5 of their captains.";
+							next;
+							mes "[Taskmaster]";
+							mes "Come back when the threat is no more.";
+							repquest_inprogress = 1;
+							pronterarep_quest1 = 1;
+							close;
+					}
+				}
+			case 3:
+				next;
+				mes "[Taskmaster]";
+				mes "I understand.";
+				mes "Please, take your time.";
+				close;
+			}
+			
+		}
+
+	}
+}
+
+-	script	OrcThreatDQ	-1,{
+OnNPCKillEvent:
+	if (killedrid == 3439 && pronterarep_quest1 > 0) {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@count = $@partymembercount;
+		.@online = 1;
+		.@level = 20;
+		.@mapin$ = strcharinfo(3);
+
+		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+				if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+					if(.@mapin$ == .@mapname$)
+						.@online++;
+				}
+			}
+		}
+
+		if(.@count > 1 && .@online > 1){
+			.@level = .@level + (.@level/4 * .@online);
+			for (.@i = 0; .@i < .@count; ++.@i) {
+				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+					attachrid($@partymemberaid[.@i]);
+					if(.@mapin$ != strcharinfo(3))
+						continue;
+					pronterarep_quest1_progress += .@level;
+					if(pronterarep_quest1_progress >= 100)
+					{
+						dispbottom "You've eliminated the orcs threat. Return to the taskmaster to complete this quest.";
+						pronterarep_quest1 = 2;
+						detachrid;
+					} else 
+					{
+						dispbottom "[Prontera Quest] Orc Captain Hunt progress: " + pronterarep_quest1_progress/20 + "/5.";
+						detachrid;
+					}
+				}
+			}
+		}else{
+			pronterarep_quest1_progress += .@level;
+			if(pronterarep_quest1_progress >= 100)
+			{
+				dispbottom "You've eliminated the orcs threat. Return to the taskmaster to complete this quest.";
+				pronterarep_quest1 = 2;
+			} else 
+			{
+				dispbottom "[Prontera Quest] Orc Captain Hunt progress: " + pronterarep_quest1_progress/20 + "/5.";
+				detachrid;
+			}
+		}
+	}
+}
+
+gef_fild09,0,0,0,0	monster	High Orc Captain	3439,10,0,0,0,0

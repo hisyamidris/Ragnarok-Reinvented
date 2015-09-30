@@ -10,7 +10,7 @@
 //====================================================
 // run when any character logs in, attached to them.
 -	script	HerculesMOTD	-1,{
-	message strcharinfo(0),"Welcome to Ragnarok Reinvented. Current version: 1.01.";
+	message strcharinfo(0),"Welcome to Ragnarok Reinvented. Current version: 1.99.";
 	end;
 }
 

@@ -387,3 +387,6 @@ ecl_hub01	mapflag	nobranch
 // Poring War ==================
 poring_w01	mapflag	nobranch
 poring_w02	mapflag	nobranch
+
+// Spa ==================
+1@gef_in	mapflag	nobranch

@@ -1,0 +1,144 @@
+// Mysterious Crystal Quest
+
+gef_tower,70,172,4	script	Geffen Taskmaster	1_M_WIZARD,{
+		if (repdailytimer > gettimetick(2)) 
+		{
+			mes "[Taskmaster]";
+			mes "We don't have any task to give at the moment. Come back next time.";
+			close;
+		}
+		else if (repquest_inprogress > 0)
+		{
+			if(geffenrep_quest1 == 1)
+			{
+				mes "[Taskmaster]";
+				mes "I see. There are reports indicating high magic presense in the far west of Geffen";
+				next;
+				mes "[Taskmaster]";
+				mes "Come back when you've found and destroy the source of this unknown magic power.";
+				close;
+			} else if (geffenrep_quest1 == 2)
+			{
+				mes "[Taskmaster]";
+				mes "Did you found it?";
+				next;
+				mes "[Taskmaster]";
+				mes "We, the citizen of Geffen City, would like to thank you for your help. We truly appreaciate it.";
+				GEFFEN_REP = GEFFEN_REP + 20;
+				dispbottom "You have earn 20 Geffen Reputations. Your total Geffen Reputation is " + GEFFEN_REP;
+				geffenrep_quest1 = 0;
+				repquest_inprogress = 0;
+				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
+				close;
+			} else {
+				mes "[Taskmaster]";
+				mes "We don't have any task to give at the moment. Come back next time.";
+				close;
+			}
+		}
+		else {
+			mes "[Taskmaster]";
+			mes "Can I help you today?";
+			while (1) {
+			switch(select("Nothing.:Is there something I can do to help Geffen?:Who are you?")) {
+			case 1:
+				close;
+				end;
+			case 2:
+				next;
+				mes "[Taskmaster]";
+				mes "I see. There are reports indicating high magic presense in the far west of Geffen";
+				next;
+				mes "[Taskmaster]";
+				mes "Most of our guards are assigned to protect the borders. Do you mind checking it out?";
+				while (1) 
+				{
+					switch(select("Let me think about it.:Let me help you out with that~")) 
+					{
+						case 1:
+							close;
+							end;
+						case 2:
+							next;
+							mes "[Taskmaster]";
+							mes "Thank you very much for volunteering.";
+							mes "*Attached a red pin on your collar*";
+							next;
+							mes "[Taskmaster]";
+							mes "This pin will allow you to feel the presense of magic in an area after killing a monster.";
+							next;
+							mes "[Taskmaster]";
+							mes "Come back when the pin indicated that the magic level is safe in that area.";
+							repquest_inprogress = 1;
+							geffenrep_quest1 = 1;
+							close;
+					}
+				}
+			case 3:
+				next;
+				mes "[Taskmaster]";
+				mes "I understand.";
+				mes "Please, take your time.";
+				close;
+			}
+			
+		}
+
+	}
+}
+
+-	script	MysteriousCrystalDQ	-1,{
+OnNPCKillEvent:
+	if (killedrid == 3914 && geffenrep_quest1 > 0) {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@count = $@partymembercount;
+		.@online = 1;
+		.@level = rand(8,12);
+		.@mapin$ = strcharinfo(3);
+
+		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+				if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+					if(.@mapin$ == .@mapname$)
+						.@online++;
+				}
+			}
+		}
+
+		if(.@count > 1 && .@online > 1){
+			for (.@i = 0; .@i < .@count; ++.@i) {
+				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+					attachrid($@partymemberaid[.@i]);
+					if(.@mapin$ != strcharinfo(3))
+						continue;
+					geffenrep_quest1_progress += .@level;
+					if(geffenrep_quest1_progress >= 100)
+					{
+						dispbottom "[Pin] Magic level in this area is now at its optimum value! Return to the taskmaster to complete this quest.";
+						geffenrep_quest1 = 2;
+						detachrid;
+					} else 
+					{
+						dispbottom "[Pin] Magic level has dropped to " + (100 - geffenrep_quest1_progress) + "%!";
+						detachrid;
+					}
+				}
+			}
+		}else{
+			geffenrep_quest1_progress += .@level;
+			if(geffenrep_quest1_progress >= 100)
+			{
+				dispbottom "[Pin] Magic level in this area is now at its optimum value! Return to the taskmaster to complete this quest.";
+				geffenrep_quest1 = 2;
+			} else 
+			{
+				dispbottom "[Pin] Magic level has dropped to " + (100 - geffenrep_quest1_progress) + "%!";
+				detachrid;
+			}
+		}
+	}
+}
+
+gef_fild08,0,0,0,0	monster	Unstable Magic Crsyal	3914,25,0,0,0,0

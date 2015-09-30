@@ -1,0 +1,147 @@
+// Mysterious Crystal Quest
+
+morocc,35,172,4	script	Morocc Taskmaster	4_M_GUILLOTINE,{
+		if (repdailytimer > gettimetick(2)) 
+		{
+			mes "[Taskmaster]";
+			mes "We don't have any task to give at the moment. Come back next time.";
+			close;
+		}
+		else if (repquest_inprogress > 0)
+		{
+			if(moroccrep_quest1 == 1)
+			{
+				mes "[Taskmaster]";
+				mes "Thank you very much for volunteering.";
+				next;
+				mes "[Taskmaster]";
+				mes "The ruins is located in an area called Fortress Saint Darmain (East).";
+				next;
+				mes "[Taskmaster]";
+				mes "You can release their spirit by killing them one more time. Becareful young traveler.";
+				close;
+			} else if (moroccrep_quest1 == 2)
+			{
+				mes "[Taskmaster]";
+				mes "Did released all of the souls?";
+				next;
+				mes "[Taskmaster]";
+				mes "We, the citizen of Morocc City, would like to thank you for your help. We truly appreaciate it.";
+				MOROCC_REP = MOROCC_REP + 20;
+				dispbottom "You have earn 20 Morocc Reputations. Your total Payon Reputation is " + MOROCC_REP;
+				moroccrep_quest1 = 0;
+				repquest_inprogress = 0;
+				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
+				close;
+			} else {
+				mes "[Taskmaster]";
+				mes "We don't have any task to give at the moment. Come back next time.";
+				close;
+			}
+		}
+		else {
+			mes "[Taskmaster]";
+			mes "Can I help you today?";
+			while (1) {
+			switch(select("Nothing.:Is there something I can do to help Morocc?:Who are you?")) {
+			case 1:
+				close;
+				end;
+			case 2:
+				next;
+				mes "[Taskmaster]";
+				mes "Comodo scouts sent reports stating that there were wailing noises in the ruins.";
+				next;
+				mes "[Taskmaster]";
+				mes "Something is stirring the dead in the ruins. We need your kind aid to release them for their torment.";
+				while (1) 
+				{
+					switch(select("Let me think about it.:Let me help you out with that~")) 
+					{
+						case 1:
+							close;
+							end;
+						case 2:
+							next;
+							mes "[Taskmaster]";
+							mes "Thank you very much for volunteering.";
+							next;
+							mes "[Taskmaster]";
+							mes "The ruins is located in an area called Fortress Saint Darmain (East).";
+							next;
+							mes "[Taskmaster]";
+							mes "You can release their spirit by killing them one more time. Becareful young traveler.";
+							repquest_inprogress = 1;
+							moroccrep_quest1 = 1;
+							close;
+					}
+				}
+			case 3:
+				next;
+				mes "[Taskmaster]";
+				mes "I understand.";
+				mes "Please, take your time.";
+				close;
+			}
+			
+		}
+
+	}
+}
+
+-	script	UnrestingSoulDQ	-1,{
+OnNPCKillEvent:
+	if (killedrid == 3799 && moroccrep_quest1 > 0) {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@count = $@partymembercount;
+		.@online = 1;
+		.@level = 10;
+		.@mapin$ = strcharinfo(3);
+
+		for (.@i = 0; .@i < .@count; ++.@i) { // validate party members
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i]) && $@partymembercid[.@i] != getcharid(0)){
+				if (getmapxy(.@mapname$,.@mapx,.@mapy,0,$@partymembername$[.@i]) == 0) {
+					if(.@mapin$ == .@mapname$)
+						.@online++;
+				}
+			}
+		}
+
+		if(.@count > 1 && .@online > 1){
+			.@level = .@level + (.@level/4 * .@online);
+			for (.@i = 0; .@i < .@count; ++.@i) {
+				if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])){
+					attachrid($@partymemberaid[.@i]);
+					if(.@mapin$ != strcharinfo(3))
+						continue;
+					moroccrep_quest1_progress += .@level;
+					if(moroccrep_quest1_progress >= 100)
+					{
+						dispbottom "[Morocc Quest] You've released enough souls. Return to the taskmaster to complete this quest.";
+						moroccrep_quest1 = 2;
+						detachrid;
+					} else 
+					{
+						dispbottom "[Morocc Quest] " + moroccrep_quest1_progress/10 + "/10 souls released!";
+						detachrid;
+					}
+				}
+			}
+		}else{
+			moroccrep_quest1_progress += .@level;
+			if(moroccrep_quest1_progress >= 100)
+			{
+				dispbottom "[Morocc Quest] You've released enough souls. Return to the taskmaster to complete this quest.";
+				moroccrep_quest1 = 2;
+			} else 
+			{
+				dispbottom "[Morocc Quest] " + moroccrep_quest1_progress/10 + "/10 souls released!";
+				detachrid;
+			}
+		}
+	}
+}
+
+cmd_fild08,0,0,0,0	monster	Unrested Soul	3799,25,0,0,0,0
