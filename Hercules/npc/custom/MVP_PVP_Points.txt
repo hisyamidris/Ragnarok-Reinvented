@@ -242,30 +242,6 @@ OnPayFunds:
 	end;
 }
 
-prt_castle,71,175,5	trader	Prontera Captain	8W_SOLDIER,{
-	OnInit:
-	tradertype(NST_CUSTOM);
-	sellitem 5685,200000;
-	end;
-/* allows currency to be item 501 and 502 */
-OnCountFunds:
-	setcurrency(SENTINEL_POINTS);
-	dispbottom "This shop uses Prestige Points as currency.";
-	end;
-
-/* receives @price (total cost) and @points (the secondary input field for cash windows) */
-OnPayFunds:
-	if( PRONTERA_REPUTATION < @price )
-		dispbottom "You need " + @price + " to purchase this item.";
-		end;
-	if( SENTINEL_POINTS < @price )
-		end;
-	SENTINEL_POINTS = SENTINEL_POINTS - @price;
-	purchaseok();
-	dispbottom "You have " + SENTINEL_POINTS + " remaining.";
-	end;
-}
-
 1@gef_in,36,175,3	trader	Sentinel Vendor	4_M_EDEN_GUARDER,{
 	OnInit:
 	tradertype(NST_CUSTOM);

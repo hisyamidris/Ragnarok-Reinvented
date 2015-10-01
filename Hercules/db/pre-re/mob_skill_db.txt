@@ -5586,6 +5586,7 @@
 3012,Roda Frog@NPC_WATERATTACK,attack,184,1,2000,0,5000,yes,target,always,0,,,,,,,
 3013,Wolf@NPC_GROUNDATTACK,attack,185,2,500,500,5000,no,target,always,0,,,,,,6,
 3013,Wolf@NPC_PROVOCATION,chase,194,1,200,0,5000,yes,target,always,0,,,,,,19,
+3013,Bite@NPC_GROUNDATTACK,attack,1005,1,10000,500,30000,no,target,always,0,,,,,,6,
 3014,Spore@NPC_EMOTION,idle,197,1,2000,0,5000,yes,self,always,0,1,,,,,,
 3014,Spore@NPC_PROVOCATION,chase,194,1,200,0,5000,yes,target,always,0,,,,,,19,
 3014,Spore@NPC_SLEEPATTACK,attack,182,1,500,0,5000,yes,target,always,0,,,,,,,
@@ -5921,7 +5922,7 @@
 3089,Toad@NPC_SUMMONSLAVE,attack,196,5,10000,2000,60000,no,self,slavele,3,1012,,,,,,
 3089,Toad@NPC_SUMMONSLAVE,idle,196,6,10000,0,0,no,self,onspawn,0,1012,,,,,,
 3089,Toad@NPC_WATERATTACK,attack,184,3,500,500,5000,no,target,always,0,,,,,,6,
-3090,Paragon Mastering@NPC_SUMMONSLAVE,chase,209,4,10000,0,30000,no,self,always,1,3572,,,,,21,Let me drop this right here ... Get it? ... Drop?
+3090,Paragon Mastering@NPC_SUMMONSLAVE,attack,209,4,10000,0,30000,no,self,always,1,3572,,,,,21,Let me drop this right here ... Get it? ... Drop?
 3090,Paragon Mastering@NPC_SUMMONSLAVE,any,196,3,10000,2000,30000,no,self,myhpltmaxrate,70,3725,,,,,,
 3090,Paragon Mastering@NPC_WATERATTACK,attack,184,5,500,500,5000,no,target,always,0,,,,,,6,
 3090,Paragon Mastering@SM_BASH,attack,5,5,2500,0,5000,yes,target,always,0,,,,,,27,

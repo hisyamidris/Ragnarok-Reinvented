@@ -28,6 +28,7 @@ gef_tower,70,172,4	script	Geffen Taskmaster	1_M_WIZARD,{
 				dispbottom "You have earn 20 Geffen Reputations. Your total Geffen Reputation is " + GEFFEN_REP;
 				geffenrep_quest1 = 0;
 				repquest_inprogress = 0;
+				geffenrep_quest1_progress = 0;
 				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
 				close;
 			} else {
@@ -142,3 +143,76 @@ OnNPCKillEvent:
 }
 
 gef_fild08,0,0,0,0	monster	Unstable Magic Crsyal	3914,25,0,0,0,0
+
+//Perks
+
+gef_tower,73,168,3	trader	Geffen Quartermaster	4_M_GEF_SOLDIER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 7309,50;
+	end;
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(GEFFEN_REP);
+	dispbottom "This shop checks for your Prontera Reputation.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( GEFFEN_REP < @price )
+		dispbottom "You need " + @price + " reputations to purchase this item.";
+		end;
+	purchaseok();
+	dispbottom "You have " + GEFFEN_REP + " remaining.";
+	end;
+}
+
+-	script	GEFFEN_PERKS	-1,{
+	OnInit:
+		setarray .maps$, "geffen", "geffen_in";
+		
+		for( .@i = 0; .@i < getarraysize( .maps$ ); .@i++ )
+			setmapflag .maps$[ .@i ], mf_loadevent;
+	end;
+	
+ 
+	OnPCLoadMapEvent:
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if( !compare( implode( .maps$, ":" ), .@map$ ) ) end;
+		
+		if( GEFFEN_REP > 49 ) {
+			if(getskilllv(37) < 1){
+				skill 37,3,1;
+				REMOVE_PERKS = 1;
+				}
+		}
+	end;
+	
+	OnPCLogoutEvent:
+		callfunc( "GEFFEN_REMOVE_PERKS" );
+	end;
+}
+
+function	script	GEFFEN_REMOVE_PERKS	{
+	setarray .maps$, "geffen", "geffen_in";
+	getmapxy( .@map$, .@x, .@y, 0 );
+	if( !compare( implode( .@maps$, ":" ), .@map$ ) ) end;
+ 
+			if(getskilllv(37) > 0 && REMOVE_PERKS == 1)
+			{
+				skill 37,0,0;
+				REMOVE_PERKS = 0;
+				dispbottom "No more!";
+			}
+}
+
+function	script	F_GEFFEN_CROW_WING	{
+	getmapxy( .@map$, .@x, .@y, 0 );
+		switch(select("Up:Down:Left:Right")) {
+		case 1: warp .@map$,.@x,.@y+5; end;
+		case 2: warp .@map$,.@x,.@y-5; end;
+		case 3: warp .@map$,.@x-5,.@y; end;
+		case 4: warp .@map$,.@x+5,.@y; end;
+	}
+	return;
+}

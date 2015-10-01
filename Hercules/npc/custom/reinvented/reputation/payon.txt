@@ -28,6 +28,7 @@ payon_in03,102,120,4	script	Payon Taskmaster	4_M_ARCHER,{
 				dispbottom "You have earn 20 Payon Reputations. Your total Payon Reputation is " + PAYON_REP;
 				payonrep_quest1 = 0;
 				repquest_inprogress = 0;
+				payonrep_quest1_progress = 0;
 				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
 				close;
 			} else {
@@ -191,3 +192,65 @@ OnNPCKillEvent:
 }
 
 pay_fild03,0,0,0,0	monster	Withering Flower	3935,25,0,0,0,0
+
+//Perks
+
+-	script	PAYON_PERKS	-1,{
+	OnInit:
+		setarray .maps$, "payon", "payon_in01", "payon_in02", "payon_in03";
+		
+		for( .@i = 0; .@i < getarraysize( .maps$ ); .@i++ )
+			setmapflag .maps$[ .@i ], mf_loadevent;
+	end;
+	
+ 
+	OnPCLoadMapEvent:
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if( !compare( implode( .maps$, ":" ), .@map$ ) ) end;
+		
+		if( PAYON_REP > 49 ) {
+			if(getskilllv(37) < 1){
+				skill 37,3,1;
+				REMOVE_PERKS = 1;
+				}
+		}
+	end;
+	
+	OnPCLogoutEvent:
+		callfunc( "PAYON_REMOVE_PERKS" );
+	end;
+}
+
+function	script	PAYON_REMOVE_PERKS	{
+	setarray .maps$, "payon", "payon_in01", "payon_in02", "payon_in03";
+	getmapxy( .@map$, .@x, .@y, 0 );
+	if( !compare( implode( .@maps$, ":" ), .@map$ ) ) end;
+ 
+			if(getskilllv(37) > 0 && REMOVE_PERKS == 1)
+			{
+				skill 37,0,0;
+				REMOVE_PERKS = 0;
+				dispbottom "No more!";
+			}
+}
+
+payon_in03,95,120,5	trader	Payon Quartermaster	4_M_PAY_SOLDIER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 6124,50;
+	end;
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(PAYON_REP);
+	dispbottom "This shop checks for your Prontera Reputation.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( PAYON_REP < @price )
+		dispbottom "You need " + @price + " reputations to purchase this item.";
+		end;
+	purchaseok();
+	dispbottom "You have " + PAYON_REP + " remaining.";
+	end;
+}

@@ -31,6 +31,7 @@ morocc,35,172,4	script	Morocc Taskmaster	4_M_GUILLOTINE,{
 				dispbottom "You have earn 20 Morocc Reputations. Your total Payon Reputation is " + MOROCC_REP;
 				moroccrep_quest1 = 0;
 				repquest_inprogress = 0;
+				moroccrep_quest1_progress = 100;
 				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
 				close;
 			} else {
@@ -145,3 +146,96 @@ OnNPCKillEvent:
 }
 
 cmd_fild08,0,0,0,0	monster	Unrested Soul	3799,25,0,0,0,0
+
+//Perks
+
+//Perks
+
+-	script	MOROCC_PERKS	-1,{
+	OnInit:
+		setarray .maps$, "morocc", "morocc_in";
+		
+		for( .@i = 0; .@i < getarraysize( .maps$ ); .@i++ )
+			setmapflag .maps$[ .@i ], mf_loadevent;
+	end;
+	
+ 
+	OnPCLoadMapEvent:
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if( !compare( implode( .maps$, ":" ), .@map$ ) ) end;
+		
+		if( MOROCC_REP > 49 ) {
+			if(getskilllv(37) < 1){
+				skill 37,3,1;
+				REMOVE_PERKS = 1;
+				}
+		}
+	end;
+	
+	OnPCLogoutEvent:
+		callfunc( "MOROCC_REMOVE_PERKS" );
+	end;
+}
+
+function	script	MOROCC_REMOVE_PERKS	{
+	setarray .maps$, "morocc", "morocc_in";
+	getmapxy( .@map$, .@x, .@y, 0 );
+	if( !compare( implode( .@maps$, ":" ), .@map$ ) ) end;
+ 
+			if(getskilllv(37) > 0 && REMOVE_PERKS == 1)
+			{
+				skill 37,0,0;
+				REMOVE_PERKS = 0;
+				dispbottom "No more!";
+			}
+}
+
+morocc,31,176,5	trader	Morocc Quartermaster	4_M_MOC_SOLDIER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 7538,50;
+	end;
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(MOROCC_REP);
+	dispbottom "This shop checks for your Prontera Reputation.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( MOROCC_REP < @price )
+		dispbottom "You need " + @price + " reputations to purchase this item.";
+		end;
+	purchaseok();
+	dispbottom "You have " + MOROCC_REP + " remaining.";
+	end;
+}
+
+/*
+-	script	GEFFEN_PERKS	-1,{
+	OnInit:
+		setarray .maps$, "geffen", "geffen_in";
+		
+		for( .@i = 0; .@i < getarraysize( .maps$ ); .@i++ )
+			setmapflag .maps$[ .@i ], mf_loadevent;
+	end;
+	
+ 
+	OnPCLoadMapEvent:
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if( !compare( implode( .maps$, ":" ), .@map$ ) ) end;
+		
+		if( GEFFEN_REP > 49 ) {
+			if(getskilllv(37) < 1){
+				skill 37,3,0;
+				REMOVE_PERKS = 1;
+				dispbottom "Merchants in Geffen will give you discounts!";
+				}
+		}
+	end;
+	
+	OnPCLogoutEvent:
+		callfunc( "GEFFEN_REMOVE_PERKS" );
+	end;
+}
+*/

@@ -28,6 +28,7 @@ prt_castle,74,173,4	script	Prontera Taskmaster	1_M_KNIGHTMASTER,{
 				dispbottom "You have earn 20 Prontera Reputations. Your total Prontera Reputation is " + PRONTERA_REP;
 				pronterarep_quest1 = 0;
 				repquest_inprogress = 0;
+				pronterarep_quest1_progress = 0;
 				repdailytimer = gettimetick(2) + 24*60*60; // delay by 1 day
 				close;
 			} else {
@@ -145,3 +146,63 @@ OnNPCKillEvent:
 }
 
 gef_fild09,0,0,0,0	monster	High Orc Captain	3439,10,0,0,0,0
+
+//Perks
+
+prt_castle,69,173,5	trader	Prontera Quartermaster	8W_SOLDIER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 12214,50;
+	end;
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(PRONTERA_REP);
+	dispbottom "This shop checks for your Prontera Reputation.";
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	if( PRONTERA_REP < @price )
+		dispbottom "You need " + @price + " reputations to purchase this item.";
+		end;
+	purchaseok();
+	dispbottom "You have " + PRONTERA_REP + " remaining.";
+	end;
+}
+
+-	script	PRONTERA_PERKS	-1,{
+	OnInit:
+		setarray .maps$, "prontera", "prt_in", "prt_church";
+		
+		for( .@i = 0; .@i < getarraysize( .maps$ ); .@i++ )
+			setmapflag .maps$[ .@i ], mf_loadevent;
+	end;
+	
+ 
+	OnPCLoadMapEvent:
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if( !compare( implode( .maps$, ":" ), .@map$ ) ) end;
+		
+		if( PRONTERA_REP > 49 ) {
+			if(getskilllv(MC_DISCOUNT) > 0)
+				skill 37,3,1;
+				REMOVE_PERKS = 1;
+		}
+	end;
+	
+	OnPCLogoutEvent:
+		callfunc( "PRONTERA_REMOVE_PERKS" );
+	end;
+}
+ 
+function	script	PRONTERA_REMOVE_PERKS	{
+	setarray .@maps$, "izlude", "pvp2", "pvp3";
+	getmapxy( .@map$, .@x, .@y, 0 );
+	if( !compare( implode( .@maps$, ":" ), .@map$ ) ) end;
+ 
+			if(getskilllv(MC_DISCOUNT) > 0 && REMOVE_PERKS == 1)
+			{
+				skill 37,0,0;
+				REMOVE_PERKS = 0;
+			}
+}
